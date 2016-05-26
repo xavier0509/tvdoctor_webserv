@@ -54,6 +54,8 @@ var  controlInterval;
 
 var adminname;
 var user_permissions;
+var tc_version;
+var tc_URL;
 
 window.onload =  function ()
 {
@@ -1553,6 +1555,34 @@ function actionOkfunc(){
                 document.getElementById('singlecontent').innerHTML=dialog1.content;
                 setTimeout(hidediv,2000); 
             }
+        }
+    }
+}
+
+function updateList(){
+    var  urladdr = httpurl + "/php/getUpdateList.php?model=" + actionType + "&chip=" + actionModel ;
+    console.log("urladdr = " + urladdr);
+    //sendHTTPRequest(urladdr, loginfunc);  
+    sendHTTPRequest(urladdr,updateListfunc);
+}
+function updateListfunc() {
+    //console.log(this.readyState); 
+    console.log("this.readyState = " + xmlhttp.readyState);
+    if (xmlhttp.readyState == 4) {
+        console.log("this.status = " + this.status);
+        console.log("this.responseText = " + this.responseText);
+        if (xmlhttp.status == 200) //TODO
+        {
+            var data = this.responseText;
+            console.log(data);
+            var json_str = JSON.parse(data);
+            if (json_str.ret == "OK") // login success
+            {
+                tc_version = json_str.version;
+                tc_URL = json_str.url;
+                document.getElementById("version").innerHTML=tc_version;
+            } 
+
         }
     }
 }

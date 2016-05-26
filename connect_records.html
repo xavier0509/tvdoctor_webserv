@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<title></title>
+<script language="javascript">
+
+var xmlhttp = null;
+var div_obj = null;
+var  httpurl = "http://192.168.1.25";
+
+function new_records () {
+  var timestamp = Math.floor(new Date().getTime()/1000);
+  var data = '{"userId" : 1,"login_time" : ' + timestamp + ',"active_id" : "xxxx","machine_core" : "machine_core","machine_type" : "machine_type","version" : "3.3.3.3","issuer" : "problem"}'
+  var urladdr = httpurl + "/php/record_action.php?action=insert&msg=" + data;
+  sendHTTPRequest(urladdr, getinfofunc);
+}
+
+function list_records () {
+  var data = '';
+  var urladdr = httpurl + "/php/record_action.php?action=list&msg=" + data;
+  sendHTTPRequest(urladdr, getinfofunc);
+}
+
+function list_records_by_user () {
+  var data = '{"userId" : 1}';
+  var urladdr = httpurl + "/php/record_action.php?action=list_user&msg=" + data;
+  sendHTTPRequest(urladdr, getinfofunc);
+}
+
+function list_records_by_date () {
+
+  var begin_time = document.getElementById("begin_time_id").value;
+  var end_time = document.getElementById("end_time_id").value;
+  var begin_date = Math.floor((new Date(begin_time.replace(/-/g,   "/"))).getTime() / 1000);
+  var end_date = Math.floor((new Date(end_time.replace(/-/g,   "/"))).getTime() / 1000);
+
+  if (end_date <= begin_date) {
+    return;
+  }
+  var data = '{"begin_time" : '+ begin_date + ', "end_time" : ' + end_date + '}';
+
+  var urladdr = httpurl + "/php/record_action.php?action=list_date&msg=" + data;
+  sendHTTPRequest(urladdr, getinfofunc);
+}
+
+function getinfofunc () {
+
+    if (4 == this.readyState && 200 == xmlhttp.status) {
+        var str = this.responseText;
+
+        div_obj = document.getElementById("log_id");
+        div_obj.innerHTML = str;
+    }
+}
+
+function sendHTTPRequest(url, func)
+{
+
+  if (xmlhttp == null)
+  {
+    if (window.XMLHttpRequest) 
+    {
+      xmlhttp = new XMLHttpRequest();
+    }
+    else if (window.ActiveXObject)
+    {
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+  }
+  if (xmlhttp != null)
+  {
+    xmlhttp.onreadystatechange = func;
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+  }
+  else 
+  {
+    console.log("php is null");
+  }
+}
+
+</script>
+
+</head>
+<body >
+  <button id="new_records" onclick="new_records()">New Record</button>
+  <button id="list_records" onclick="list_records()">List Record</button>
+  <button id="list_records_by_user" onclick="list_records_by_user()">List Record by User</button>
+  <button id="list_records_by_date" onclick="list_records_by_date()">List Record by Date</button>
+  <input type="date" id = "begin_time_id" value = "2012-01-01">
+  <input type="date" id = "end_time_id" value = "2012-01-01">
+  <div id = "log_id">
+  </div>
+</body>
+</html>

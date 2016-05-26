@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+  padding: 0;
+  border:0;
+}
+
+html,body {
+  height: 100%;
+}
+
+#helpList{
+	width: 20%;
+	height: 100%;
+	/*background-color: red;*/
+	overflow:auto;
+	float: left;
+}
+
+ul{
+	margin-left: 6%;
+	padding-top: 50px;
+}
+li{
+	list-style: none;
+	font-size: 22px;
+	padding-top: 3px;
+	cursor: pointer;
+}
+
+#helpInfo{
+	width: 80%;
+	height: 90%;
+	/*background-color: blue;*/
+	overflow:auto;
+	padding-top: 50px;
+	
+}
+
+img{
+	width: 800px;
+	height: 450px;
+}
+.answer{
+	display: none;
+}

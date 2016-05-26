@@ -1,6 +1,7 @@
 
 document.write("<script language=javascript src='js/httprequest.js' charset=\"utf-8\"></script>");
 document.write("<script language=javascript src='js/webclient.js' charset=\"utf-8\"></script>");
+document.write("<script language=javascript src='js/md5.js' charset=\"utf-8\"></script>");
 
 var option_innerHTML  = "<input type = \"button\" value = \"编辑\" onclick = \"option_modify(this)\"> / <input type = \"button\" value = \"删除\" onclick = \"option_delete(this)\"> ";
 
@@ -277,6 +278,7 @@ function add_user_bt_cancle () {
 var add_user_input_username_node;
 var add_user_input_passwd_node;
 var add_user_select_node;
+var add_user_input_passwd_md5;
 
 function add_user_bt_confirm () {
 	 hiddenUserBg();
@@ -290,6 +292,8 @@ function add_user_bt_confirm () {
 
     if (!add_user_input_passwd_node) {
     	add_user_input_passwd_node = document.getElementById("add_user_input_passwd");
+        add_user_input_passwd_md5 = md5(add_user_input_passwd_node);
+        
     }
 
     if (!add_user_select_node) {
@@ -303,6 +307,11 @@ function add_user_bt_confirm () {
     }
     else if(add_user_input_passwd_node.value == ""){
         var dialog1 = new singledialog("请输入密码");
+        document.getElementById('singlecontent').innerHTML=dialog1.content;
+        setTimeout(hidediv,2000);
+    }
+    else if(add_user_input_passwd_node.length < 6 || add_user_input_passwd_node > 16){
+        var dialog1 = new singledialog("请输入6~16位密码");
         document.getElementById('singlecontent').innerHTML=dialog1.content;
         setTimeout(hidediv,2000);
     }

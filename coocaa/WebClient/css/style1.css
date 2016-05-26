@@ -430,6 +430,23 @@ button{
 #session:hover{
 	color: #ef5122;
 }
+
+#helpdiv{
+	float: right;
+	margin-right: 230px;
+	margin-top: -60px;
+	
+
+}
+
+#helpimg{
+	width: 50px;
+	height: 50px;
+	cursor: pointer;
+	
+	/*padding-top: 70px;*/
+}
+
 #loadout{
 	float: right;
 	margin-right: 100px;
