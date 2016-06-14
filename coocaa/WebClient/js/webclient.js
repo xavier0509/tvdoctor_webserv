@@ -1444,13 +1444,14 @@ function tvbreakself(){
     var dialog1 = new singledialog("远程TV主动断开控制",tvbreakselffun);
     document.getElementById('singlecontent').innerHTML=dialog1.content;
     document.getElementById('singlebtnok').onclick=dialog1.ok;
-    disconnect();
+    
 }
 function tvbreakselffun(){
     // document.getElementById('tvscrn').src="images/screenbg.jpg";
     document.getElementById('import').style.display="block";
     document.getElementById('main').style.display="none";
     hidediv();
+    disconnect();
     // subinfo.innerHTML="<font color='red'>远程TV主动断开控制！</font>";
 }
 
