@@ -9,11 +9,12 @@ html,body {
 }
 
 #helpList{
-	width: 20%;
+	width: 19.8%;
 	height: 100%;
 	/*background-color: red;*/
 	overflow:auto;
 	float: left;
+	border-right: 1px solid;
 }
 
 ul{
@@ -33,6 +34,8 @@ li{
 	/*background-color: blue;*/
 	overflow:auto;
 	padding-top: 50px;
+	margin: 0 auto;
+	text-align: center;
 	
 }
 
@@ -43,3 +46,4 @@ img{
 .answer{
 	display: none;
 }
+

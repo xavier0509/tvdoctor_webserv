@@ -117,10 +117,10 @@ input[type="button"] {
 	position: absolute;
 	z-index: 101;
 	width: 620px;
-	height: 374px;
+	height: 450px;
 
 	margin: auto;
-	top: 200px;
+	top: 130px;
 	background-color: white;
 
 	box-shadow: -5px -5px 20px 2px #888888;
@@ -157,8 +157,8 @@ input[type="button"] {
 
 #add_user_title_id p {
 	height: 40px;
-	margin-top: 13px;
-	margin-bottom: 13px;
+	margin-top: 14px;
+	margin-bottom: 14px;
 	vertical-align: center;
 }
 

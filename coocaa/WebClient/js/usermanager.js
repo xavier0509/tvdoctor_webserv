@@ -278,6 +278,8 @@ function add_user_bt_cancle () {
 var add_user_input_username_node;
 var add_user_input_passwd_node;
 var add_user_select_node;
+var add_user_input_department_node;
+var add_user_input_truename_node;
 var add_user_input_passwd_md5;
 
 function add_user_bt_confirm () {
@@ -286,13 +288,17 @@ function add_user_bt_confirm () {
     if (add_user_tab_node) {
         add_user_tab_node.style.display = "none";
     }
+
+    if (!add_user_input_truename_node) {
+        add_user_input_truename_node = document.getElementById("add_user_input_truename");
+    }
+
     if (!add_user_input_username_node) {
     	add_user_input_username_node = document.getElementById("add_user_input_username");
     }
 
     if (!add_user_input_passwd_node) {
     	add_user_input_passwd_node = document.getElementById("add_user_input_passwd");
-        add_user_input_passwd_md5 = md5(add_user_input_passwd_node);
         
     }
 
@@ -300,24 +306,40 @@ function add_user_bt_confirm () {
     	add_user_select_node = document.getElementById("add_user_input_select_id");
     }
 
-    if (add_user_input_username_node.value=="") {
-        var dialog1 = new singledialog("请输入用户名");
+    if (!add_user_input_department_node) {
+        add_user_input_department_node = document.getElementById("add_user_input_department");
+    }
+
+    if (add_user_input_truename_node.value=="") {
+        var dialog1 = new singledialog("请输入真实姓名",hidediv);
         document.getElementById('singlecontent').innerHTML=dialog1.content;
+        document.getElementById('singlebtnok').onclick=dialog1.ok;
+        setTimeout(hidediv,2000);
+    }
+
+    else if (add_user_input_username_node.value=="") {
+        var dialog1 = new singledialog("请输入用户名",hidediv);
+        document.getElementById('singlecontent').innerHTML=dialog1.content;
+        document.getElementById('singlebtnok').onclick=dialog1.ok;
         setTimeout(hidediv,2000);
     }
     else if(add_user_input_passwd_node.value == ""){
-        var dialog1 = new singledialog("请输入密码");
+        var dialog1 = new singledialog("请输入密码",hidediv);
+        console.log(add_user_input_passwd_node.value);
         document.getElementById('singlecontent').innerHTML=dialog1.content;
+        document.getElementById('singlebtnok').onclick=dialog1.ok;
         setTimeout(hidediv,2000);
     }
-    else if(add_user_input_passwd_node.length < 6 || add_user_input_passwd_node > 16){
-        var dialog1 = new singledialog("请输入6~16位密码");
+    else if(add_user_input_passwd_node.value.length < 6 || add_user_input_passwd_node.value.length > 16){
+        var dialog1 = new singledialog("请输入6-16位密码",hidediv);
         document.getElementById('singlecontent').innerHTML=dialog1.content;
+        document.getElementById('singlebtnok').onclick=dialog1.ok;
         setTimeout(hidediv,2000);
     }
     else{
+        add_user_input_passwd_md5 = md5(add_user_input_passwd_node.value);
         var urladdr = httpurl + "/php/user_action.php?action=add&username=" + add_user_input_username_node.value + 
-        "&passwd=" + add_user_input_passwd_node.value + "&option=" + add_user_select_node.value + "&random=000";
+        "&passwd=" + add_user_input_passwd_md5 + "&option=" + add_user_select_node.value + "&truename=" + add_user_input_truename_node.value + "&department=" + add_user_input_department_node.value + "&random=000";
         
         sendHTTPRequest(urladdr, addfunc);
 
@@ -375,8 +397,8 @@ function modify_user_bt_confirm () {
     var passwd = document.getElementById("modify_user_input_passwd").value;
     var option = document.getElementById("modify_user_input_select_id").value;
     var id = user_list[index].id;
-
-    var urladdr = httpurl + "/php/user_action.php?action=modify&id="+  id +"&username=" + username + "&passwd=" + passwd +"&option=" + option + "&random=000";
+    var passwdmd5 = md5(passwd);
+    var urladdr = httpurl + "/php/user_action.php?action=modify&id="+  id +"&username=" + username + "&passwd=" + passwdmd5 +"&option=" + option + "&random=000";
 
     sendHTTPRequest(urladdr, modifyfunc);
 
@@ -523,9 +545,12 @@ function confirm_change_passwd () {
     var oldpw = document.getElementById("oldpw").value;
     var newpw = document.getElementById("newpw").value;
     var ackpw = document.getElementById("ackpw").value;
+    var oldpwmd5 = md5(oldpw);
+    var newpwmd5 = md5(newpw);
+    var ackpwmd5 = md5(ackpw);
     if (oldpw!=""&&newpw!=""&&ackpw!="") {
         if(newpw==ackpw){
-            var  urladdr =httpurl + "/php/changepasswd.php?oldpw="+oldpw+"&newpw="+newpw+"&adminname="+adminname;
+            var  urladdr =httpurl + "/php/changepasswd.php?oldpw="+oldpwmd5+"&newpw="+newpwmd5+"&adminname="+adminname;
             console.log("urladdr = " + urladdr); 
             sendHTTPRequest(urladdr,changepasswdfunc);
         }

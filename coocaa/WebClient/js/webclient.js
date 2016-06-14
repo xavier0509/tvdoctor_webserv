@@ -3,6 +3,7 @@ document.write("<script language=javascript src='js/crc32.js' charset=\"utf-8\">
 document.write("<script language=javascript src='js/VncDataPackage.js' charset=\"utf-8\"></script>");
 document.write("<script language=javascript src='js/jquery-1.7.1.min.js' charset=\"utf-8\"></script>");
 document.write("<script language=javascript src='js/ajaxfileupload.js' charset=\"utf-8\"></script>");
+document.write("<script language=javascript src='js/md5.js' charset=\"utf-8\"></script>");
 
 var  httpurl = "http://223.202.11.125";
 var  host = "ws://223.202.11.125:9000";
@@ -56,6 +57,8 @@ var adminname;
 var user_permissions;
 var tc_version;
 var tc_URL;
+var loginId;
+var connectId;
 
 window.onload =  function ()
 {
@@ -69,12 +72,6 @@ window.onload =  function ()
     buttonUpload =document.getElementById('buttonUpload');
     tvinfo = document.getElementById('tvinfo');
     // altRows('inforTable');
-}
-
-
-function   requestConnectTv()
-{
-    var   result = sendrequset();
 }
 
 function connect()
@@ -279,6 +276,11 @@ function connect()
                         var size = node.size;
                         actionId = document.getElementById('pushid').value;
                         tvinfo.innerHTML="<font face='微软雅黑'>本机信息：<br/>ID:"+actionId+";　机芯："+actionModel+";　机型:"+actionType+";　版本:"+actionVersion+";　屏幕尺寸:"+size+"</font>"; 
+                        var timestamp = Math.floor(new Date().getTime()/1000);
+                        var data = '{"connectId" : "'+connectId+'" ,"connectedTime" : ' + timestamp + ',"machineCore" : "'+actionModel+'", "machineType" : "'+actionType+'", "version":"'+actionVersion+'"}'
+                        var urladdr = httpurl + "/php/record_action.php?action=update_connect_records_begin&msg=" + data;
+                        sendHTTPRequest(urladdr, connnect_ok);
+                        console.log(urladdr);
                     }
                     else 
                     {
@@ -332,7 +334,9 @@ function connect()
     }			
 }
 
+function connnect_ok(){
 
+}
 function  showlogcatResultInfo()
 {
     OutputLog("===============");
@@ -342,30 +346,52 @@ function disconnect()
 {
     //  $("#break").toggle();
     // $("#link").toggle();
+    document.getElementById('issue').style.display="block";
+    document.getElementById('bg').style.display="block";
+    document.getElementById('show').style.display="none";
+    
+}
+function issue(){
+    var issuetext = document.getElementById('issuetext').value;
+    var timestamp = Math.floor(new Date().getTime()/1000);
+    var data = '{"connectId" : "'+connectId+'" ,"disconnectedTime" : ' + timestamp + ',"issue" : "'+issuetext+'"}'
+    var urladdr = httpurl + "/php/record_action.php?action=update_connect_records_end&msg=" + data;
+    sendHTTPRequest(urladdr, issuefunc);
+    console.log(urladdr);
+}
 
-    logcatContent.innerHTML="";
-    clearInterval(controlInterval);
-    clearInterval(interval);
-    document.getElementById('tvscrn').src="images/screenbg.jpg";
-    document.getElementById('upload').style.display="none";
-    document.getElementById('download').style.display="none";
-    hidediv();
-    document.getElementById('main').style.display="none";
-    document.getElementById('import').style.display="block";
-    subinfo.innerHTML="";
-    document.getElementById('linkTV').innerHTML="连接电视";
-    g_isConnectd = false;
-    isStartLogcatSocket =false;
-    isStartTelnetd = false;
-    if (logcatsocket !=undefined) 
-    {
-        logcatsocket.close();
+function issuefunc(){
+    console.log("this.readyState = " + xmlhttp.readyState);
+    if (xmlhttp.readyState == 4) {
+        console.log("this.status = " + this.status);
+        console.log("this.responseText = " + this.responseText);
+        if (xmlhttp.status == 200) //TODO
+        {
+            logcatContent.innerHTML="";
+            clearInterval(controlInterval);
+            clearInterval(interval);
+            document.getElementById('tvscrn').src="images/screenbg.jpg";
+            document.getElementById('upload').style.display="none";
+            document.getElementById('download').style.display="none";
+            document.getElementById('issue').style.display="none";
+            hidediv();
+            document.getElementById('main').style.display="none";
+            document.getElementById('import').style.display="block";
+            subinfo.innerHTML="";
+            document.getElementById('linkTV').innerHTML="连接电视";
+            g_isConnectd = false;
+            isStartLogcatSocket =false;
+            isStartTelnetd = false;
+            if (logcatsocket !=undefined) 
+            {
+                logcatsocket.close();
+            }
+            socket.onerror=null;
+            socket.onclose=null; 
+            socket.close();
+            finishAction();
+        }
     }
-    socket.onerror=null;
-    socket.onclose=null; 
-    socket.close();
-    finishAction();
-
 }
 
 //解决需要右键才能获取cmd输入框的bug
@@ -645,6 +671,7 @@ function sendUpdate()
     // setCommandId(CMD_SNATCH_LOG,0);
     // setIntegerParam(50);//抓取的时间s
     socket.send(assemblingProtocol());
+    updateList();
 }
 
 function hiddenloadingLogcat()
@@ -902,8 +929,17 @@ function disp_prompt()
     {   
         // subinfo.innerHTML="正在连接中";
         clearInterval(interval);
-        interval=setInterval("linking()",800);      
-        sendrequset();
+        interval=setInterval("linking()",800); 
+
+        var timestamp = Math.floor(new Date().getTime()/1000);
+        var activeId = document.getElementById('pushid').value;
+        var data = '{"loginId" : "'+loginId+'" ,"connectRequestTime" : ' + timestamp + ',"connectFlag" : 1, "activeId":"'+activeId+'"}'
+        var urladdr = httpurl + "/php/record_action.php?action=insert_connect_records&msg=" + data;
+        console.log("urladdr = " + urladdr);
+        //sendHTTPRequest(urladdr, loginfunc);  
+        sendHTTPRequest(urladdr,disp_promptOK);
+
+        
         //document.getElementById("span1").style.display="block";
     }
     else
@@ -913,6 +949,22 @@ function disp_prompt()
 
         // alert("服务ID为空，请重新输入");
     }
+}
+
+function disp_promptOK(){
+    console.log("this.readyState = " + xmlhttp.readyState);
+    if (xmlhttp.readyState == 4) {
+        console.log("this.status = " + this.status);
+        console.log("this.responseText = " + this.responseText);
+        if (xmlhttp.status == 200) //TODO
+        {
+            var data = JSON.parse(this.responseText);
+            connectId = data.data;
+            console.log(connectId);
+            sendrequset();
+        }
+    }
+
 }
 
 var push_flag=0;
@@ -996,33 +1048,6 @@ function grablog()
     $("#grablog").toggle();
 }
 
-function page1()
-{
-    document.getElementById('span0').style.display="block";
-    document.getElementById('span2').style.display="none";
-    document.getElementById('container').style.display="block";
-    document.getElementById('container2').style.display="none";
-    document.getElementById('banner_button2').style.display="none";
-    document.getElementById('banner_button').style.display="block";
-    document.getElementById('cmdwindow').style.color="#fff";
-    document.getElementById('cmdwindow').style.backgroundColor="#000";
-    document.getElementById('logwindow').style.color="#000";
-    document.getElementById('logwindow').style.backgroundColor="#fff";
-}
-
-function page2()
-{
-    document.getElementById('span2').style.display="block";
-    document.getElementById('span0').style.display="none";
-    document.getElementById('container2').style.display="block";
-    document.getElementById('container').style.display="none";
-    document.getElementById('banner_button').style.display="none";
-    document.getElementById('banner_button2').style.display="block";
-    document.getElementById('logwindow').style.color="#fff";
-    document.getElementById('logwindow').style.backgroundColor="#000";
-    document.getElementById('cmdwindow').style.color="#000";
-    document.getElementById('cmdwindow').style.backgroundColor="#fff";
-}
 
 function pagesecond()
 {
@@ -1040,18 +1065,19 @@ function pagefirst()
 
 function chkinput(){
     var username1 = document.getElementById("username1").value;
-    var password1 = document.getElementById("password1").value;
+    var password = document.getElementById("password1").value;
     if (username1=="") {
         var dialog1 = new singledialog("请输入用户名");
         document.getElementById('singlecontent').innerHTML=dialog1.content;
         setTimeout(hidediv,2000);
     }
-    else if(password1 == ""){
+    else if(password == ""){
         var dialog1 = new singledialog("请输入密码");
         document.getElementById('singlecontent').innerHTML=dialog1.content;
         setTimeout(hidediv,2000);
     }
     else{
+        var password1 = md5(password);  
         var  urladdr =httpurl + "/php/login.php?username1="+username1+"&password1="+password1 + "&random=100";
         console.log("urladdr = " + urladdr);
         //sendHTTPRequest(urladdr, loginfunc);  
@@ -1070,7 +1096,9 @@ function chkinputfunc(){
             console.log(data);
             if (data == "OK") // login success
             {
-                document.location.href="inputService.html" 
+                //
+                document.location.href="inputService.html";
+                
             } 
 
             else if (data == "ERR_NOUSER") // login success
@@ -1091,7 +1119,32 @@ function chkinputfunc(){
             }
 
 
-            getPermissonsByUseName(adminname);
+            //getPermissonsByUseName(adminname);
+        }
+    }
+}
+
+function insert_login_data () {
+    var timestamp = Math.floor(new Date().getTime()/1000);
+    // var inserName = document.getElementById('username1').value;
+    var data = '{"userName" : "'+ adminname +'" ,"loginTime" : "' + timestamp + '"}';
+    var  urladdr =httpurl + "/php/record_action.php?action=insert_login_records&msg="+data;
+    console.log("urladdr = " + urladdr);
+    //sendHTTPRequest(urladdr, loginfunc);  
+    sendHTTPRequest(urladdr,insertOK);
+}
+
+function insertOK(){
+    console.log("this.readyState = " + this.readyState);
+    if (this.readyState == 4) {
+        console.log("this.status = " + this.status);
+        console.log("this.responseText = " + this.responseText);
+        if (this.status == 200) //TODO
+        {
+            var data = JSON.parse(this.responseText);
+            loginId = data.data;
+            console.log(loginId);
+            
         }
     }
 }
@@ -1389,6 +1442,7 @@ function tvbreakself(){
     var dialog1 = new singledialog("远程TV主动断开控制",tvbreakselffun);
     document.getElementById('singlecontent').innerHTML=dialog1.content;
     document.getElementById('singlebtnok').onclick=dialog1.ok;
+    disconnect();
 }
 function tvbreakselffun(){
     // document.getElementById('tvscrn').src="images/screenbg.jpg";
@@ -1447,6 +1501,7 @@ function getPermissonsFunc () {
         var json_str = JSON.parse(str);
         if ("OK" == json_str.ret) {
           user_permissions = json_str.data.permissions;
+          insert_login_data(); 
         }
     }
 }
@@ -1456,6 +1511,8 @@ function logout(){
     logcatContent.innerHTML="";
     var  urladdr =httpurl + "/php/logout.php";
     console.log("urladdr = " + urladdr);
+    console.log(loginId);
+    
     //sendHTTPRequest(urladdr, loginfunc);  
     sendHTTPRequest(urladdr,logoutfunc);
 }
@@ -1472,12 +1529,30 @@ function logoutfunc() {
             console.log(data);
             if (data == "OK") // login success
             {
-                window.location.href='index.html'; 
+                // window.location.href='index.html';
+                var timestamp = Math.floor(new Date().getTime()/1000);
+                var data = '{"loginId" : "'+ loginId +'" ,"logoutTime" : "' + timestamp + '"}';
+                var  urladdr =httpurl + "/php/record_action.php?action=update_login_records&msg="+data;
+                console.log("urladdr = " + urladdr);
+                //sendHTTPRequest(urladdr, loginfunc);  
+                sendHTTPRequest(urladdr,update_loginOK); 
             } 
         }
     }
 }
 
+
+function update_loginOK(){
+    console.log("this.readyState = " + this.readyState);
+    if (this.readyState == 4) {
+        console.log("this.status = " + this.status);
+        console.log("this.responseText = " + this.responseText);
+        if (this.status == 200) //TODO
+        {
+            document.location.href="index.html";
+        }
+    }
+}
 function showOrHide(){
     var  urladdr =httpurl + "/php/showOrHide.php?adminname="+adminname;
     console.log("urladdr = " + urladdr);
@@ -1498,6 +1573,10 @@ function showOrHidefunc() {
             {
                 document.getElementById('usermanage').style.display="none"; 
             } 
+            else if(data == "1"){
+                document.getElementById('records').style.display="block";
+                
+            }
 
             else if (data == "4") // login success
             {
@@ -1578,9 +1657,22 @@ function updateListfunc() {
             var json_str = JSON.parse(data);
             if (json_str.ret == "OK") // login success
             {
+                var nowVersion = actionVersion.replace(/\./g,"");
                 tc_version = json_str.version;
                 tc_URL = json_str.url;
-                document.getElementById("version").innerHTML=tc_version;
+                console.log(nowVersion + "+" +tc_version);
+                if (nowVersion < tc_version) {
+                    var dialog1 = new singledialog("该电视可升级到最新版本：\n" + tc_version,hidediv);
+                    document.getElementById('singlecontent').innerHTML=dialog1.content;
+                    document.getElementById('singlebtnok').onclick=dialog1.ok;
+                    // setTimeout(hidediv,2000);
+                }
+                else{
+                    var dialog1 = new singledialog("当前电视已是最新版本",hidediv);
+                    document.getElementById('singlecontent').innerHTML=dialog1.content;
+                    document.getElementById('singlebtnok').onclick=dialog1.ok;
+                }
+                // document.getElementById("version").innerHTML=tc_version;
             } 
 
         }

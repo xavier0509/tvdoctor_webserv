@@ -13,6 +13,7 @@ html,body {
 
   
 }
+
 button{
 	cursor: pointer;
 	outline: none;
@@ -28,6 +29,11 @@ button{
 	color:#fff;
 }#topbox{
 	background-color: #404a55;
+}
+#indexInfo{
+	margin: 0 auto;
+	text-align: center;
+	color: #7b7b7b;
 }
 #top {
   /*width: 100%;*/
@@ -382,18 +388,18 @@ button{
 #index_bg button{
 	width: 331px;
 }
-#form_login p{
+#form_login p,#form_admin p{
 	font-family: 微软雅黑;
 	font-size: 25px;
 	color: #fff;
 }
-#form_login{
+#form_login,#form_admin{
 	margin: 0 auto;
 	text-align: center;
 	padding-top: 50px;
 	border: 0;
 }
-#form_login input{
+#form_login input,#form_admin input{
 	color: #000;
 	padding-left: 13px;
 }
@@ -529,6 +535,22 @@ button{
 #usermanage{
 	background-color: #404a55;
 }
+#records{
+	background-color: #404a55;
+	color: white;
+	display: none;
+}
+a:link {
+text-decoration: none;
+}
+a:visited {
+text-decoration: none;
+color: white;
+}
+a:hover {
+text-decoration: none;
+color: white;
+}
 #tvinfo{
 	clear: both;
 	margin-left: 370px;
@@ -538,7 +560,7 @@ button{
 #singlebutton {
   display: none;
   position: absolute;
-  top: 25%;
+  top: 23%;
   left: 33%;
   width: 430px;
   height: 200px;
@@ -558,7 +580,7 @@ button{
 #singlebutton button {
 	margin-left:140px;
   	text-align: center; 	
-  margin-top: 19%;
+  margin-top: 10%;
   width: 140px;
   height: 40px;
   border-radius: 5px;
@@ -577,4 +599,21 @@ button{
 	margin-top: 30px;
 	margin-left: -10px;
 	text-align: left;
+}
+
+#issue{
+	position: absolute;
+	top: 20%;
+	left: 41.5%;
+	display: none;
+	z-index:1002;
+	font-size: 23px;
+}
+#issueok{
+	width: 80px;
+	height: 30px;
+	font-size: 18px;
+	border-radius: 5px;
+	margin-left: 30%;
+	margin-top: 2%;
 }

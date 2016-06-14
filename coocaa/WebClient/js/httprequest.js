@@ -98,7 +98,7 @@ function  urlDeal(url,index)
                 console.log("return  result="+data);
                 if (data == "ok")
                 { 
-		              clearInterval(interval); 
+                  clearInterval(interval); 
                    // subinfo.innerHTML="远程TV授权控制请求";
                    connect();
            //        document.getElementById('break').style.display="block";

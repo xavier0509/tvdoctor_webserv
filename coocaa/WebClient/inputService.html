@@ -20,6 +20,7 @@
 			<div  id="logo"><img src="images/logo2.png"></div>
 			<div class="menu" id="service" onclick="information_hide()">远程服务</div>
 	    	<div class="menu" id="usermanage" onclick="usermanage()">用户管理</div>
+	    	<div class="menu" id="records"><a href="select.html" target="new">统计查询</a></div>
 	    	<div id="session" onclick="change_infomation()"></div>
 	    	<div id="loadout" onclick="logout()">| 退出</div>
 	    	<div id="helpdiv"><a href="help.html" title="使用帮助" target="new"><img src="images/help.png" id="helpimg"></a></div>
@@ -101,8 +102,8 @@
 		          			<button type="button" class="button squarebig" id="buttonUpload"  onclick="FileUpload()">上传</button> 
 		      			</div>
 						<button class="control_button2" onclick="sendUpdate()">升级推送<img src="images/list-left.png" id="listimg3"><img src="images/list-down.png" id="listimg32"></button>
-						<button class="control_button2" onclick="updateList()">升级列表<img src="images/list-left.png" id="listimg4"><img src="images/list-down.png" id="listimg42"></button>
-						<p id="version"></p>
+						<!-- <button class="control_button2" onclick="updateList()">升级列表<img src="images/list-left.png" id="listimg4"><img src="images/list-down.png" id="listimg42"></button> -->
+						<!-- <p id="version"></p> -->
 						</div>
 					</div>
 					<div><img src="images/screenbg.jpg" id="tvscrn"></div>
@@ -190,11 +191,19 @@
 		<hr id = "add_tab_line"/>
 		<div id = "add_user_tab_content">
 			<div id = "add_user_title_id">
+				<p class="add_user_font">真实姓名</p>
+				<p class="add_user_font">所属部门</p>
 		 		<p class="add_user_font">用户名</p>
 		 		<p class="add_user_font">密   码</p>
 		 		<p class="add_user_font">权   限</p>
 			</div>
 			<div id = "add_user_input_id">
+				<input type="text" id = "add_user_input_truename" autocomplete="off"> <br/>
+				<select id = "add_user_input_department" autocomplete="off">
+					<option value="software">软件院</option>
+					<option value="coocaa">酷开公司</option>
+					<option value="service">用户服务部</option>
+				</select> <p></p><br/>
 				<input type="text" id = "add_user_input_username" autocomplete="off"> <br/>
 				<input type="password" id = "add_user_input_passwd" autocomplete="off"> <br/>
 				<select id = "add_user_input_select_id" autocomplete="off">
@@ -293,6 +302,10 @@
 	<div id="singlebutton">
 		<div id="singlecontent"></div>
 		<button id="singlebtnok" type="button" />知道了</button>
+	</div>
+	<div id="issue">
+		<textarea id="issuetext" rows='10'; cols='30'; placeholder="请简要描述当前电视的故障"></textarea><br />
+		<button id="issueok" onclick="issue()">确定</button>
 	</div>
 </body>
 </html>

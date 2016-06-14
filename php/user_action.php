@@ -13,9 +13,11 @@
         $username = $_GET['username'];
         $passwd = $_GET['passwd'];
         $option = $_GET['option'];
+        $truename = $_GET['truename'];
+        $department = $_GET['department'];
 
         if ('add' == $action) {
-            add_user_info($username, $passwd, $option);
+            add_user_info($username, $passwd, $option, $truename, $department);
         } else if ('modify' == $action) {
             $id = $_GET['id'];
             modify_user_info($id, $username, $passwd, $option);
@@ -36,14 +38,14 @@
         }
     }
 
-    function add_user_info($username, $passwd, $option)
+    function add_user_info($username, $passwd, $option, $truename, $department)
     {
         $ret = mysql_query("select userId from user where userName = '" . $username . "';");
         if ($ret && mysql_fetch_array($ret)) {
             echo  '{"ret": "ERROR1", "data": "username is exist"}';
         } 
         else {
-            $insert = mysql_query("insert into user(userName,password) values('". $username . "','" .  $passwd . "');");
+            $insert = mysql_query("insert into user(userName,password,realName,department) values('". $username . "','" .  $passwd . "','" .  $truename . "','" .  $department . "');");
             if (!$insert) {
                 echo '{"ret": "Error", "data": "3"}';
             } else {
