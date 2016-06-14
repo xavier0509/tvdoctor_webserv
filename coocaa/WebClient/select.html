@@ -3,21 +3,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <title>统计查询</title>
-<link rel="stylesheet" type="text/css" href="">
+<link rel="stylesheet" type="text/css" href="css/select.css">
 
 </head>
 
 <body>
 
 	<div id="top">
-		<h2>查询条件</h2>
-		<span>按用户名查询 </span><input id = "selectName" type="text"><br /><br>
-		<span>按激活ID查询 </span><input id = "selectActiveId"><br /><br>
-		<span>按时间段查询 </span><input id = "selectStart" type="date" > --
-		<input type="date" id = "selectEnd" > <br />
-		<button id = "selectOK" onclick = "selectAction()">开始查询</button>
-		<hr>
-	</div>
+
+		<span>按用户名查询 </span><input id = "selectName" type="text">
+		&nbsp;&nbsp;&nbsp;
+		<span>按激活ID查询 </span><input id = "selectActiveId">
+		&nbsp;&nbsp;&nbsp;
+		<span>按时间段查询 </span><input id = "selectStart" type="date" > ----
+		<input type="date" id = "selectEnd" > &nbsp;&nbsp;&nbsp;
+		<button id = "selectOK" onclick = "selectAction()">开始查询</button>		
+	</div><hr>
 	<div id="maintable">
 		<table id = "user_info_table">
 			<tr>
@@ -39,10 +40,12 @@
 		</table>
 		<div>
 			共 <span id="list_total_id_node"></span> 条记录 当前第 <span id="tab_index_id_node"></span>页 
-			<button onclick="home_page ()">首页</button>
-			<button onclick="prev_page ()">上一页</button>
-			<button onclick = "next_page ()">下一页</button>
-			<button onclick = "end_page ()">尾页</button>
+			<span id="pageButton">
+				<button onclick="home_page ()">首页</button>
+				<button onclick="prev_page ()">上一页</button>
+				<button onclick = "next_page ()">下一页</button>
+				<button onclick = "end_page ()">尾页</button>
+			</span>
 		</div>
 	</div>
 	<script language="javascript" src="js/select.js"> </script>
