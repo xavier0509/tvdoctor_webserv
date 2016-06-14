@@ -346,9 +346,11 @@ function disconnect()
 {
     //  $("#break").toggle();
     // $("#link").toggle();
-    document.getElementById('issue').style.display="block";
-    document.getElementById('bg').style.display="block";
-    document.getElementById('show').style.display="none";
+    //-------------------------------------问题描述框，暂时不显示，界面优化后再说
+    // document.getElementById('issue').style.display="block";
+    // document.getElementById('bg').style.display="block";
+    // document.getElementById('show').style.display="none";
+    issue();
     
 }
 function issue(){
