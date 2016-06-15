@@ -1686,6 +1686,18 @@ function updateListfunc() {
     }
 }
 
+function reset()
+{
+    var dialog1 = new dialog("确定要恢复出厂设置吗",hidediv,resetok)
+    document.getElementById('content').innerHTML=dialog1.content;
+    document.getElementById('btnclose').onclick=dialog1.cancle;
+    document.getElementById('btnok').onclick=dialog1.ok;
+}
+function resetok(){
+    setTargetAndSource(sourceid,tv_id);
+    setCommandId(T2P_CMD_SYSTEM_RECOVERY,0);
+    socket.send(assemblingProtocol());
+}
 
 function printlog(data){
     console.log(data);

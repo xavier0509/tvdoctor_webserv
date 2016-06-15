@@ -32,19 +32,19 @@ function sendrequset ()
   // var  urladdr ="/php/dealhttprequest.php?TVId="+pushid;
   // //pushid的请求
   // //var  urladdr =httpurl+"/dealhttprequest.php?pushId="+pushid;
-  // console.log("urladdr="+urladdr);
+  // printlog("urladdr="+urladdr);
   // urlDeal(urladdr,0); 
 }
 
 function getTVidfunc(){
-    console.log("this.readyState = " + xmlhttp.readyState);
+    printlog("this.readyState = " + xmlhttp.readyState);
     if (xmlhttp.readyState == 4) {
-        console.log("this.status = " + this.status);
-        console.log("this.responseText = " + this.responseText);
+        printlog("this.status = " + this.status);
+        printlog("this.responseText = " + this.responseText);
         if (xmlhttp.status == 200) //TODO
         {
             var data = this.responseText;
-            console.log(data);
+            printlog(data);
             if (data == "TVId is null") // login success
             {
                  clearInterval(interval);
@@ -58,7 +58,7 @@ function getTVidfunc(){
               var  urladdr ="/php/dealhttprequest.php?TVId="+data;
               //pushid的请求
               //var  urladdr =httpurl+"/dealhttprequest.php?pushId="+pushid;
-              console.log("urladdr="+urladdr);
+              printlog("urladdr="+urladdr);
               urlDeal(urladdr,0); 
             }
         }
@@ -86,16 +86,16 @@ function  urlDeal(url,index)
       {
          xmlhttp.onreadystatechange=function()
          {
-          console.log("readyState="+xmlhttp.readyState);
+          printlog("readyState="+xmlhttp.readyState);
             if (xmlhttp.readyState == 4)
             {// 4 = "loaded"
-              console.log("appurl_download readyState="+xmlhttp.status);
+              printlog("appurl_download readyState="+xmlhttp.status);
                      clearInterval(interval); 
 	     if (xmlhttp.status == 200)
               {// 200 = "OK"
 		            clearInterval(interval);
                 var   data =xmlhttp.responseText;
-                console.log("return  result="+data);
+                printlog("return  result="+data);
                 if (data == "ok")
                 { 
                   clearInterval(interval); 
@@ -156,20 +156,20 @@ function  urlDeal(url,index)
    }
    else 
    {
-      console.log("php is null");
+      printlog("php is null");
    }
 }
 
 function  uploadfile_state()
 {
-  console.log("uploadfileDeal readyState="+xmlhttp.readyState)
+  printlog("uploadfileDeal readyState="+xmlhttp.readyState)
   if (xmlhttp.readyState == 4)
   {// 4 = "loaded"
-    console.log("uploadfileDeal status="+xmlhttp.status);
+    printlog("uploadfileDeal status="+xmlhttp.status);
     if (xmlhttp.status == 200)
     {
       var   data =xmlhttp.responseText;
-      console.log("uploadfileDeal data="+data);
+      printlog("uploadfileDeal data="+data);
     }
   }
 }
@@ -178,7 +178,7 @@ function   uploadfileDeal()
 {
   var  urladdr =httpurl+"/fileupload.php";
   //var  urladdr ="http://localhost/fileupload.php";
-  console.log("urladdr="+urladdr);
+  printlog("urladdr="+urladdr);
   urlDeal(urladdr,1);  
 
 }
@@ -206,6 +206,6 @@ function sendHTTPRequest(url, func)
   }
   else 
   {
-    console.log("php is null");
+    printlog("php is null");
   }
 }

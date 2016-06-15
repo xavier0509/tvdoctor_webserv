@@ -41,6 +41,7 @@ var CMD_GET_TV_INFO = 0X0002001E;//请求获取tv信息
 var RET_GET_TV_INFO = 0X0002001F;//返回tv信息  
 
 var T2P_CMD_LOCAL_UPGRADE_CHECK = 0x00020022;//不经过后台
+var T2P_CMD_SYSTEM_RECOVERY = 0x00020024;//恢复出厂设置
 
 
 var  vncPackageContent ={};
