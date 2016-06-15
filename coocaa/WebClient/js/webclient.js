@@ -1688,5 +1688,5 @@ function updateListfunc() {
 
 
 function printlog(data){
-    printlog(data);
+    console.log(data);
 }
