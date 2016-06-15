@@ -1081,7 +1081,7 @@ function chkinput(){
     else{
         var password1 = md5(password);  
         var  urladdr =httpurl + "/php/login.php?username1="+username1+"&password1="+password1 + "&random=100";
-        console.log("urladdr = " + urladdr);
+        printlog("urladdr = " + urladdr);
         //sendHTTPRequest(urladdr, loginfunc);  
         sendHTTPRequest(urladdr,chkinputfunc);
     }
@@ -1680,4 +1680,9 @@ function updateListfunc() {
 
         }
     }
+}
+
+
+function printlog(data){
+    console.log(data);
 }
