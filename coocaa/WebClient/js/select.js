@@ -45,22 +45,22 @@ function selectAction(){
     var selectEndValue = document.getElementById('selectEnd').value;
     var selectEndTime = Math.floor((new Date(selectEndValue.replace(/-/g,   "/"))).getTime() / 1000)+86400;
     var data = '{"userName":"' + userName + '","activeId": "' + activeId +'","loginTime":"'+selectStartTime+'","logoutTime":"'+selectEndTime+'"}';
-    console.log(data);
+    printlog(data);
     var  urladdr = httpurl + "/php/record_action.php?action=query_records&msg=" + data;
-    console.log("urladdr = " + urladdr);
+    printlog("urladdr = " + urladdr);
     //sendHTTPRequest(urladdr, loginfunc);  
     sendHTTPRequest(urladdr,selectActionfunc);
 }
 
 function selectActionfunc(){
-	console.log("this.readyState = " + xmlhttp.readyState);
+	printlog("this.readyState = " + xmlhttp.readyState);
     if (xmlhttp.readyState == 4) {
-        console.log("this.status = " + this.status);
-        console.log("this.responseText = " + this.responseText);
+        printlog("this.status = " + this.status);
+        printlog("this.responseText = " + this.responseText);
         if (xmlhttp.status == 200) //TODO
         {
             var data = this.responseText;
-            console.log(data);
+            printlog(data);
             var array = data.split("<br />");
         for(var i = 0; i < array.length; i++) {
             var line = array[i];

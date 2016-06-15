@@ -325,7 +325,7 @@ function add_user_bt_confirm () {
     }
     else if(add_user_input_passwd_node.value == ""){
         var dialog1 = new singledialog("请输入密码",hidediv);
-        console.log(add_user_input_passwd_node.value);
+        printlog(add_user_input_passwd_node.value);
         document.getElementById('singlecontent').innerHTML=dialog1.content;
         document.getElementById('singlebtnok').onclick=dialog1.ok;
         setTimeout(hidediv,2000);
@@ -354,7 +354,7 @@ function addfunc () {
         var json_str = JSON.parse(str)
         if ("OK" == json_str.ret) {
             var node = {};
-            console.log(json_str);
+            printlog(json_str);
             node.id = json_str.data.id;
             node.username = json_str.data.username;
             node.passwd = json_str.data.passwd;
@@ -551,7 +551,7 @@ function confirm_change_passwd () {
     if (oldpw!=""&&newpw!=""&&ackpw!="") {
         if(newpw==ackpw){
             var  urladdr =httpurl + "/php/changepasswd.php?oldpw="+oldpwmd5+"&newpw="+newpwmd5+"&adminname="+adminname;
-            console.log("urladdr = " + urladdr); 
+            printlog("urladdr = " + urladdr); 
             sendHTTPRequest(urladdr,changepasswdfunc);
         }
         else{
@@ -602,21 +602,21 @@ function hiddenUserBg () {
 //     var ackpw = document.getElementById("ackpw").value;
 //     if (oldpw!=""&&newpw==ackpw&&newpw!="") {
 //         var  urladdr =httpurl + "/coocaa/WebClient/changepasswd.php?oldpw="+oldpw+"&newpw="+newpw+"&adminname="+adminname;
-//         console.log("urladdr = " + urladdr);
+//         printlog("urladdr = " + urladdr);
 //         //sendHTTPRequest(urladdr, loginfunc);  
 //         sendHTTPRequest(urladdr,changepasswdfunc);
 //     };
 // }
 
 function changepasswdfunc(){
-    console.log("this.readyState = " + xmlhttp.readyState);
+    printlog("this.readyState = " + xmlhttp.readyState);
     if (xmlhttp.readyState == 4) {
-        console.log("this.status = " + this.status);
-        console.log("this.responseText = " + this.responseText);
+        printlog("this.status = " + this.status);
+        printlog("this.responseText = " + this.responseText);
         if (xmlhttp.status == 200) //TODO
         {
             var data = this.responseText;
-            console.log(data);
+            printlog(data);
             if (data == "OK") // login success
             {
                 document.getElementById('change_passwd_success').style.display="block";

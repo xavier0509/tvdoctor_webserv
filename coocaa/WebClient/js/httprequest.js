@@ -7,19 +7,19 @@ function sendrequset ()
   var pushid2 =document.getElementById('pushid').value;
   var pushid3 = pushid2.replace(/\s+/g,"");;
   var pushid = pushid3.toLocaleUpperCase();
-  console.log(pushid);
+  printlog(pushid);
   var lastchar = pushid.charAt(pushid.length - 1);
   if (pushid == "SKYWORTHCOOCAA" || lastchar == "@") {
     getTVId = pushid;
     var  urladdr ="/php/dealhttprequest.php?TVId="+getTVId;
     //pushid的请求
     //var  urladdr =httpurl+"/dealhttprequest.php?pushId="+pushid;
-    console.log("urladdr="+urladdr);
+    printlog("urladdr="+urladdr);
     urlDeal(urladdr,0); 
   }
   else{
     var  getTVidurl = "/php/getTVId.php?ActiveId="+pushid;
-    console.log("getTVidurl = " + getTVidurl);
+    printlog("getTVidurl = " + getTVidurl);
     //sendHTTPRequest(urladdr, loginfunc);  
     sendHTTPRequest(getTVidurl,getTVidfunc);
   }

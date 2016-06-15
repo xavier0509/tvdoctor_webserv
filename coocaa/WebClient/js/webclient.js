@@ -280,7 +280,7 @@ function connect()
                         var data = '{"connectId" : "'+connectId+'" ,"connectedTime" : ' + timestamp + ',"machineCore" : "'+actionModel+'", "machineType" : "'+actionType+'", "version":"'+actionVersion+'"}'
                         var urladdr = httpurl + "/php/record_action.php?action=update_connect_records_begin&msg=" + data;
                         sendHTTPRequest(urladdr, connnect_ok);
-                        console.log(urladdr);
+                        printlog(urladdr);
                     }
                     else 
                     {
@@ -359,14 +359,14 @@ function issue(){
     var data = '{"connectId" : "'+connectId+'" ,"disconnectedTime" : ' + timestamp + ',"issue" : "'+issuetext+'"}'
     var urladdr = httpurl + "/php/record_action.php?action=update_connect_records_end&msg=" + data;
     sendHTTPRequest(urladdr, issuefunc);
-    console.log(urladdr);
+    printlog(urladdr);
 }
 
 function issuefunc(){
-    console.log("this.readyState = " + xmlhttp.readyState);
+    printlog("this.readyState = " + xmlhttp.readyState);
     if (xmlhttp.readyState == 4) {
-        console.log("this.status = " + this.status);
-        console.log("this.responseText = " + this.responseText);
+        printlog("this.status = " + this.status);
+        printlog("this.responseText = " + this.responseText);
         if (xmlhttp.status == 200) //TODO
         {
             logcatContent.innerHTML="";
@@ -404,9 +404,9 @@ function consolefocus()
     {
         isStartTelnetd = true;
         setTargetAndSource(sourceid,tv_id);
-        console.log("telnetStartBefore");
+        printlog("telnetStartBefore");
         setCommandId(CMD_START_TELNETD,0);
-        console.log("telnetStartAfter");
+        printlog("telnetStartAfter");
         socket.send(assemblingProtocol());
 
     }
@@ -569,7 +569,7 @@ function setInnerText(element, text)
 
 function OutputLog(msg)
 {
-    console.log(msg);
+    printlog(msg);
 }
 function trim(str)
 {
@@ -937,7 +937,7 @@ function disp_prompt()
         var activeId = document.getElementById('pushid').value;
         var data = '{"loginId" : "'+loginId+'" ,"connectRequestTime" : ' + timestamp + ',"connectFlag" : 1, "activeId":"'+activeId+'"}'
         var urladdr = httpurl + "/php/record_action.php?action=insert_connect_records&msg=" + data;
-        console.log("urladdr = " + urladdr);
+        printlog("urladdr = " + urladdr);
         //sendHTTPRequest(urladdr, loginfunc);  
         sendHTTPRequest(urladdr,disp_promptOK);
 
@@ -954,15 +954,15 @@ function disp_prompt()
 }
 
 function disp_promptOK(){
-    console.log("this.readyState = " + xmlhttp.readyState);
+    printlog("this.readyState = " + xmlhttp.readyState);
     if (xmlhttp.readyState == 4) {
-        console.log("this.status = " + this.status);
-        console.log("this.responseText = " + this.responseText);
+        printlog("this.status = " + this.status);
+        printlog("this.responseText = " + this.responseText);
         if (xmlhttp.status == 200) //TODO
         {
             var data = JSON.parse(this.responseText);
             connectId = data.data;
-            console.log(connectId);
+            printlog(connectId);
             sendrequset();
         }
     }
@@ -1088,14 +1088,14 @@ function chkinput(){
 }
 
 function chkinputfunc(){
-    console.log("this.readyState = " + xmlhttp.readyState);
+    printlog("this.readyState = " + xmlhttp.readyState);
     if (xmlhttp.readyState == 4) {
-        console.log("this.status = " + this.status);
-        console.log("this.responseText = " + this.responseText);
+        printlog("this.status = " + this.status);
+        printlog("this.responseText = " + this.responseText);
         if (xmlhttp.status == 200) //TODO
         {
             var data = this.responseText;
-            console.log(data);
+            printlog(data);
             if (data == "OK") // login success
             {
                 //
@@ -1131,21 +1131,21 @@ function insert_login_data () {
     // var inserName = document.getElementById('username1').value;
     var data = '{"userName" : "'+ adminname +'" ,"loginTime" : "' + timestamp + '"}';
     var  urladdr =httpurl + "/php/record_action.php?action=insert_login_records&msg="+data;
-    console.log("urladdr = " + urladdr);
+    printlog("urladdr = " + urladdr);
     //sendHTTPRequest(urladdr, loginfunc);  
     sendHTTPRequest(urladdr,insertOK);
 }
 
 function insertOK(){
-    console.log("this.readyState = " + this.readyState);
+    printlog("this.readyState = " + this.readyState);
     if (this.readyState == 4) {
-        console.log("this.status = " + this.status);
-        console.log("this.responseText = " + this.responseText);
+        printlog("this.status = " + this.status);
+        printlog("this.responseText = " + this.responseText);
         if (this.status == 200) //TODO
         {
             var data = JSON.parse(this.responseText);
             loginId = data.data;
-            console.log(loginId);
+            printlog(loginId);
             
         }
     }
@@ -1158,15 +1158,15 @@ function showlogininfo(str){
 }
 
 function loginfunc() {
-    //console.log(this.readyState); 
-    console.log("this.readyState = " + xmlhttp.readyState);
+    //printlog(this.readyState); 
+    printlog("this.readyState = " + xmlhttp.readyState);
     if (xmlhttp.readyState == 4) {
-        console.log("this.status = " + this.status);
-        console.log("this.responseText = " + this.responseText);
+        printlog("this.status = " + this.status);
+        printlog("this.responseText = " + this.responseText);
         if (xmlhttp.status == 200) //TODO
         {
             var data = this.responseText;
-            console.log(data);
+            printlog(data);
             if (data == "OK") // login success
             {
                 window.location.href='inputService.html'; 
@@ -1464,21 +1464,21 @@ function cancle1(){
 
 function forsession(){
   var  urladdr =httpurl + "/php/session.php";
-  console.log("urladdr = " + urladdr);
+  printlog("urladdr = " + urladdr);
   //sendHTTPRequest(urladdr, loginfunc);  
   sendHTTPRequest(urladdr,sessionfunc);
 }
 
 function sessionfunc() {
-    //console.log(this.readyState); 
-    console.log("this.readyState = " + xmlhttp.readyState);
+    //printlog(this.readyState); 
+    printlog("this.readyState = " + xmlhttp.readyState);
     if (xmlhttp.readyState == 4) {
-        console.log("this.status = " + this.status);
-        console.log("this.responseText = " + this.responseText);
+        printlog("this.status = " + this.status);
+        printlog("this.responseText = " + this.responseText);
         if (xmlhttp.status == 200) //TODO
         {
             var data = this.responseText;
-            console.log(data);
+            printlog(data);
             if (data == "ERROR") // login success
             {
                 window.location.href='index.html'; 
@@ -1487,6 +1487,7 @@ function sessionfunc() {
                document.getElementById('session').innerHTML=data;
 	           adminname = data;
                showOrHide();
+               
                
             }
         }
@@ -1513,30 +1514,30 @@ function logout(){
     // divContent.innerHTML="";
     logcatContent.innerHTML="";
     var  urladdr =httpurl + "/php/logout.php";
-    console.log("urladdr = " + urladdr);
-    console.log(loginId);
+    printlog("urladdr = " + urladdr);
+    printlog(loginId);
     
     //sendHTTPRequest(urladdr, loginfunc);  
     sendHTTPRequest(urladdr,logoutfunc);
 }
 
 function logoutfunc() {
-    //console.log(this.readyState); 
-    console.log("this.readyState = " + xmlhttp.readyState);
+    //printlog(this.readyState); 
+    printlog("this.readyState = " + xmlhttp.readyState);
     if (xmlhttp.readyState == 4) {
-        console.log("this.status = " + this.status);
-        console.log("this.responseText = " + this.responseText);
+        printlog("this.status = " + this.status);
+        printlog("this.responseText = " + this.responseText);
         if (xmlhttp.status == 200) //TODO
         {
             var data = this.responseText;
-            console.log(data);
+            printlog(data);
             if (data == "OK") // login success
             {
                 // window.location.href='index.html';
                 var timestamp = Math.floor(new Date().getTime()/1000);
                 var data = '{"loginId" : "'+ loginId +'" ,"logoutTime" : "' + timestamp + '"}';
                 var  urladdr =httpurl + "/php/record_action.php?action=update_login_records&msg="+data;
-                console.log("urladdr = " + urladdr);
+                printlog("urladdr = " + urladdr);
                 //sendHTTPRequest(urladdr, loginfunc);  
                 sendHTTPRequest(urladdr,update_loginOK); 
             } 
@@ -1546,10 +1547,10 @@ function logoutfunc() {
 
 
 function update_loginOK(){
-    console.log("this.readyState = " + this.readyState);
+    printlog("this.readyState = " + this.readyState);
     if (this.readyState == 4) {
-        console.log("this.status = " + this.status);
-        console.log("this.responseText = " + this.responseText);
+        printlog("this.status = " + this.status);
+        printlog("this.responseText = " + this.responseText);
         if (this.status == 200) //TODO
         {
             document.location.href="index.html";
@@ -1558,23 +1559,24 @@ function update_loginOK(){
 }
 function showOrHide(){
     var  urladdr =httpurl + "/php/showOrHide.php?adminname="+adminname;
-    console.log("urladdr = " + urladdr);
+    printlog("urladdr = " + urladdr);
     //sendHTTPRequest(urladdr, loginfunc);  
     sendHTTPRequest(urladdr,showOrHidefunc);
 }
 function showOrHidefunc() {
-    //console.log(this.readyState); 
-    console.log("this.readyState = " + xmlhttp.readyState);
+    //printlog(this.readyState); 
+    printlog("this.readyState = " + xmlhttp.readyState);
     if (xmlhttp.readyState == 4) {
-        console.log("this.status = " + this.status);
-        console.log("this.responseText = " + this.responseText);
+        printlog("this.status = " + this.status);
+        printlog("this.responseText = " + this.responseText);
         if (xmlhttp.status == 200) //TODO
         {
             var data = this.responseText;
-            console.log(data);
+            printlog(data);
             if (data == "3") // login success
             {
-                document.getElementById('usermanage').style.display="none"; 
+                document.getElementById('usermanage').style.display="none";
+                
             } 
             else if(data == "1"){
                 document.getElementById('records').style.display="block";
@@ -1586,7 +1588,9 @@ function showOrHidefunc() {
                 document.getElementById('usermanage').style.display="none"; 
                 document.getElementById('window1').style.display="none";
                 document.getElementById('window2').style.display="none";
+                
             }
+
             getPermissonsByUseName(adminname);
         }
     }
@@ -1610,20 +1614,20 @@ function actionOk(){
     var problem = document.getElementById('actionProblem').value;
     var data = '{"userId" : 1,"login_time" : ' + timestamp + ',"active_id" : "' + actionId + '","machine_core" :"' + actionModel + '","machine_type" : "' + actionType + '","version" :"' + actionVersion + '","issuer" :"' + problem +'"}'
     var  urladdr =httpurl + "/php/record_action.php?action=insert&msg=" + data;
-    console.log("urladdr = " + urladdr);
+    printlog("urladdr = " + urladdr);
     //sendHTTPRequest(urladdr, loginfunc);  
     sendHTTPRequest(urladdr,actionOkfunc);
 }
 function actionOkfunc(){
-    //console.log(this.readyState); 
-    console.log("this.readyState = " + xmlhttp.readyState);
+    //printlog(this.readyState); 
+    printlog("this.readyState = " + xmlhttp.readyState);
     if (xmlhttp.readyState == 4) {
-        console.log("this.status = " + this.status);
-        console.log("this.responseText = " + this.responseText);
+        printlog("this.status = " + this.status);
+        printlog("this.responseText = " + this.responseText);
         if (xmlhttp.status == 200) //TODO
         {
             var data = this.responseText;
-            console.log(data);
+            printlog(data);
             if (data == "ERR_OK") // login success
             {
                 var dialog1 = new singledialog("记录填写成功");
@@ -1643,27 +1647,27 @@ function actionOkfunc(){
 
 function updateList(){
     var  urladdr = httpurl + "/php/getUpdateList.php?model=" + actionType + "&chip=" + actionModel ;
-    console.log("urladdr = " + urladdr);
+    printlog("urladdr = " + urladdr);
     //sendHTTPRequest(urladdr, loginfunc);  
     sendHTTPRequest(urladdr,updateListfunc);
 }
 function updateListfunc() {
-    //console.log(this.readyState); 
-    console.log("this.readyState = " + xmlhttp.readyState);
+    //printlog(this.readyState); 
+    printlog("this.readyState = " + xmlhttp.readyState);
     if (xmlhttp.readyState == 4) {
-        console.log("this.status = " + this.status);
-        console.log("this.responseText = " + this.responseText);
+        printlog("this.status = " + this.status);
+        printlog("this.responseText = " + this.responseText);
         if (xmlhttp.status == 200) //TODO
         {
             var data = this.responseText;
-            console.log(data);
+            printlog(data);
             var json_str = JSON.parse(data);
             if (json_str.ret == "OK") // login success
             {
                 var nowVersion = actionVersion.replace(/\./g,"");
                 tc_version = json_str.version;
                 tc_URL = json_str.url;
-                console.log(nowVersion + "+" +tc_version);
+                printlog(nowVersion + "+" +tc_version);
                 if (nowVersion < tc_version) {
                     var dialog1 = new singledialog("该电视可升级到最新版本：\n" + tc_version,hidediv);
                     document.getElementById('singlecontent').innerHTML=dialog1.content;
@@ -1684,5 +1688,5 @@ function updateListfunc() {
 
 
 function printlog(data){
-    console.log(data);
+    printlog(data);
 }

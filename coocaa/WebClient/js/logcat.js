@@ -49,7 +49,7 @@ function logcatConnect()
       var str = "";
       str = msg.data;
       var   len = str.size;
-      console.log("logcat message len="+len);
+      printlog("logcat message len="+len);
       var reader = new FileReader();
       reader.readAsBinaryString(str);
       reader.onload = function()
@@ -65,19 +65,19 @@ function logcatConnect()
      logcatsocket.onclose = function()
     {
          // subinfo.innerHTML = "PC与和服务器断开链接！";
-     console.log('logcatSocket Status: '+logcatsocket.readyState+' (Closed)');
+     printlog('logcatSocket Status: '+logcatsocket.readyState+' (Closed)');
     } 
     
      logcatsocket.onerror =function(event)
      {
         //subinfo.innerHTML = "PC与服务器链接出错了！";
-        console.log('logcat socket Status:: Error was reported');
+        printlog('logcat socket Status:: Error was reported');
      }    
       
   } 
   catch(exception)
   {
-    console.log('Error'+exception);
+    printlog('Error'+exception);
   }
       
 }
@@ -92,7 +92,7 @@ document.onkeydown = function(e)
 {
 
   var activeNode = document.activeElement;
-  console.log("activeNode type= "+activeNode.type+", activeNode.id ="+activeNode.id);
+  printlog("activeNode type= "+activeNode.type+", activeNode.id ="+activeNode.id);
 
    var keycode=e.keyCode;
     if (activeNode.id ==  "divInput2")

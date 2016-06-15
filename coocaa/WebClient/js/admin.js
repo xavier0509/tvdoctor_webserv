@@ -16,21 +16,21 @@ function adminlogin(){
     else{
         var password1 = md5(password);
         var  urladdr =httpurl + "/php/adminlogin.php?username1="+username+"&password1="+password1 + "&random=100";
-        console.log("urladdr = " + urladdr);
+        printlog("urladdr = " + urladdr);
         //sendHTTPRequest(urladdr, loginfunc);  
         sendHTTPRequest(urladdr,adminloginfunc);
     }
 }
 
 function adminloginfunc(){
-    console.log("this.readyState = " + xmlhttp.readyState);
+    printlog("this.readyState = " + xmlhttp.readyState);
     if (xmlhttp.readyState == 4) {
-        console.log("this.status = " + this.status);
-        console.log("this.responseText = " + this.responseText);
+        printlog("this.status = " + this.status);
+        printlog("this.responseText = " + this.responseText);
         if (xmlhttp.status == 200) //TODO
         {
             var data = this.responseText;
-            console.log(data);
+            printlog(data);
             if (data == "OK") // login success
             {
                 document.location.href="select.html" ;

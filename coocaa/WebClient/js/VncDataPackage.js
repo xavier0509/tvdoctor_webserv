@@ -250,5 +250,5 @@ function getSource()
 
  function OutputLog(msg)
 {
-  console.log(msg);
+  printlog(msg);
 }
