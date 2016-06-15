@@ -1688,15 +1688,25 @@ function updateListfunc() {
 
 function reset()
 {
-    var dialog1 = new dialog("确定要恢复出厂设置吗",hidediv,resetok)
+    var dialog1 = new dialog("确定要恢复出厂设置吗<br><span id='keepapp'><input type='checkbox' id='checkboxApp' checked>保留本机应用</span>",hidediv,resetok)
+    // checkbox = document.getElementById('checkboxApp');
     document.getElementById('content').innerHTML=dialog1.content;
     document.getElementById('btnclose').onclick=dialog1.cancle;
     document.getElementById('btnok').onclick=dialog1.ok;
 }
 function resetok(){
+    checkbox = document.getElementById('checkboxApp');
     setTargetAndSource(sourceid,tv_id);
-    setCommandId(T2P_CMD_SYSTEM_RECOVERY,0);
+    if (checkbox.checked) {
+        setCommandId(T2P_CMD_SYSTEM_RECOVERY,0);
+        setIntegerParam("0");
+    }
+    else{
+        setCommandId(T2P_CMD_SYSTEM_RECOVERY,0);
+        setIntegerParam("1");
+    }   
     socket.send(assemblingProtocol());
+    hidediv();
 }
 
 function printlog(data){

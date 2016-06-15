@@ -542,6 +542,7 @@ button{
 }
 a:link {
 text-decoration: none;
+color: white;
 }
 a:visited {
 text-decoration: none;
@@ -616,4 +617,8 @@ color: white;
 	border-radius: 5px;
 	margin-left: 30%;
 	margin-top: 2%;
+}
+#keepapp{
+	font-size: 18px;
+    margin-left: -40%;
 }
