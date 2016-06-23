@@ -125,8 +125,8 @@
 			{
 				$ret = mysql_query("update connect_records set 
 					connectedTime = '". $node->connectedTime . 
-					"', connectFlag ='" .$node->connectFlag. 
-					"', machineCore ='" .$node->machineCore.
+					"', connectFlag ='0
+					', machineCore ='" .$node->machineCore.
 					"', machineType ='" .$node->machineType.
 					"', version ='" .$node->version.
 					"' where connectId='" . $connectId . "';");

@@ -1,6 +1,6 @@
 document.write("<script language=javascript src='js/webclient.js' charset=\"utf-8\"></script>");
 
-function answer(no){
+function answer(questionId){
 	var list=document.getElementsByName('answer');
 	
 	for (var i = 0; i < list.length; i++) {
@@ -9,5 +9,7 @@ function answer(no){
 		printlog(id);
 		document.getElementById(id).style.display="none";	
 	}
-	list[no-1].style.display="block";
+	printlog(questionId);
+	showId = "no" + questionId;
+	document.getElementById(showId).style.display="block";
 }

@@ -24,3 +24,14 @@ input{
 #pageButton{
 	margin-left: 40%;
 }
+table 
+{ 
+text-align: center;
+border-collapse: collapse; 
+border: none; 
+ 
+} 
+td 
+{ 
+border: solid #000 1px; 
+} 

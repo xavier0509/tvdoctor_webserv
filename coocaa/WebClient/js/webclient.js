@@ -1462,6 +1462,8 @@ function cancle1(){
     document.getElementById('btnok').onclick=dialog1.ok;
 }
 
+//--------------session----------------
+
 function forsession(){
   var  urladdr =httpurl + "/php/session.php";
   printlog("urladdr = " + urladdr);
@@ -1509,6 +1511,7 @@ function getPermissonsFunc () {
         }
     }
 }
+//--------------退出登录，并在此时更改数据库内容----------------
 
 function logout(){
     // divContent.innerHTML="";
@@ -1545,7 +1548,6 @@ function logoutfunc() {
     }
 }
 
-
 function update_loginOK(){
     printlog("this.readyState = " + this.readyState);
     if (this.readyState == 4) {
@@ -1557,6 +1559,7 @@ function update_loginOK(){
         }
     }
 }
+//--------------判断登录的角色，对UI显示做区分----------------
 function showOrHide(){
     var  urladdr =httpurl + "/php/showOrHide.php?adminname="+adminname;
     printlog("urladdr = " + urladdr);
@@ -1595,13 +1598,13 @@ function showOrHidefunc() {
         }
     }
 }
-
+//--------------获取回车键值----------------
 function onEnterDown(){
     if(window.event.keyCode == 13){ 
         chkinput(); 
     }    
 }
-
+//--------------本机信息----------------
 function finishAction(){
     document.getElementById('actionUserName').value = adminname;
     document.getElementById('actionId').value = actionId;
@@ -1609,6 +1612,7 @@ function finishAction(){
     document.getElementById('actionModel').value = actionType;
     document.getElementById('actionVersion').value = actionVersion;
 }
+//--------------插入数据（管理界面数据）----------------
 function actionOk(){
     // var timestamp = Math.floor(new Date().getTime()/1000);
     var problem = document.getElementById('actionProblem').value;
@@ -1644,7 +1648,7 @@ function actionOkfunc(){
         }
     }
 }
-
+//------------------------------推送升级/tv端打开升级页面-----------------
 function updateList(){
     var  urladdr = httpurl + "/php/getUpdateList.php?model=" + actionType + "&chip=" + actionModel ;
     printlog("urladdr = " + urladdr);
@@ -1685,7 +1689,7 @@ function updateListfunc() {
         }
     }
 }
-
+//------------------恢复出厂设置，去掉选定框--------------------
 function reset()
 {
     var dialog1 = new dialog("确定要恢复出厂设置吗<br><span id='keepapp'><input type='checkbox' id='checkboxApp' checked>保留本机应用</span>",hidediv,resetok)
@@ -1708,7 +1712,7 @@ function resetok(){
     socket.send(assemblingProtocol());
     hidediv();
 }
-
+//----------日志打印的封装函数-----------
 function printlog(data){
     console.log(data);
 }
