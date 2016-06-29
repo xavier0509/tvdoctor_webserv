@@ -3,7 +3,7 @@ var xmlhttp = null;
 //http request  pushid
 function sendrequset () 
 {
-  subinfo.style.display ="block";
+  if(subinfo){subinfo.style.display ="block";}
   var pushid2 =document.getElementById('pushid').value;
   var pushid3 = pushid2.replace(/\s+/g,"");;
   var pushid = pushid3.toLocaleUpperCase();

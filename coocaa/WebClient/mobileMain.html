@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1" /> 
+<title>TVDoctor</title>
+
+<script language="javascript" src="js/usermanager.js"> </script>
+<script type="text/javascript" src="js/newjs.js"></script>
+<script type="text/javascript" src="js/jquery-1.7.1.min.js" ></script>
+<script language=javascript src='js/logcat.js' charset=\"utf-8\"></script>
+<script language="javascript" src="js/webclient.js"> </script>
+
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<!-- <link rel="stylesheet" type="text/css" href="css/usermanager.css"> -->
+
+</head>
+<body onload="forsession()" onunload="logout()">
+	<div id="topbox">
+		<div id="top">
+			<div  id="logo"><img src="images/logo2.png"></div>
+			<!-- <div class="menu" id="service" style="display:none">远程服务</div>
+	    	<div class="menu" id="usermanage" style="display:none">用户管理</div>
+	    	<div class="menu" id="records" style="display:none">统计查询</div> -->
+	    	<div id="session" ></div>
+	    	<div id="loadout" onclick="logout()">| 退出</div>
+	    	<!-- <div id="helpdiv"><a href="help.html" title="使用帮助" target="new"><img src="images/help.png" id="helpimg"></a></div> -->
+	    	<div id="span1"></div>
+		</div>
+	</div>
+	<!-- <div id = "finishaction" style="display:none">
+	 	<p>用户名</p><input disabled="true" id="actionUserName">
+	 	<p>激活ID</p><input disabled="true" id="actionId">
+	 	<p>电视机芯</p><input disabled="true" id="actionChip">
+	 	<p>电视机型</p><input disabled="true" id="actionModel">
+	 	<p>系统版本</p><input disabled="true" id="actionVersion">
+	 	<p>处理问题</p><input id="actionProblem">
+	 	<button onclick="actionOk()">确定</button>
+ 	</div> -->
+	<div id="server_table" style="display:block">
+		<div id="first" >
+			
+			<div class="box" id="normal">
+			<!-- 输入tvid -->
+				<div id="import" >
+					<div id="import-info">
+						<h3>请输入需要远程服务的激活ID</h3><br/>
+						<input id="pushid"  autocomplete="off"  placeholder="请输入激活ID" /><br/><br/>
+						<button class="button" onClick="disp_prompt()" id="linkTV">连接电视</button>
+					</div>
+				</div>
+				<div id="main" style="display:none">
+					<div id="menu">
+						<span id="window1" onclick="window1()">遥控器</span>
+						<span id="window2" onclick="window2()">命令窗口</span>
+					</div>
+
+						
+					
+					<div id="control">
+						<button class="button" id="info_button" onclick="keysignal()">信号源</button>
+						<button id="break_button" onclick="cancle1()">断开</button>
+						<div id="circle_button">
+							<img id="left" src="images/left.png" onmousedown="click_img(this)" onmouseup="release_img(this)" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)" onclick ="keyLeft()"/>
+							<img id="right" src="images/right.png" onmousedown="click_img(this)" onmouseup="release_img(this)" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)" onclick ="keyRight()"/>
+							<img id="up" src="images/up.png" onmousedown="click_img(this)" onmouseup="release_img(this)" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)" onclick ="keyUp()"/>
+							<img id="down" src ="images/down.png" onmousedown="click_img(this)" onmouseup="release_img(this)" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)" onclick ="keyDown()"/>
+							<img id="ok" src ="images/ok.png" onmousedown="click_img(this)" onmouseup="release_img(this)" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)" onclick ="keyOk()"/>
+						</div>
+						<button id="return_button" onclick ="keyBack()">返回</button>
+						<button id="menu_button" onclick ="keyMeun()">菜单</button>
+						<div id="index_button" onclick ="keyHome()"><p>主页</p></div>
+						<button id="minus_button" onclick ="keyVolumeDown()">－</button>
+						<button id="add_button" onclick ="keyVolumeUp()">＋</button>
+						<img src="images/logo3.png" id="control_logo">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="third" style="display:none">
+			<div class="box">
+				<div id="menu">
+					<span onclick="window1()">可视窗口</span>
+					<span id="window1" onclick="window2()">命令窗口</span>
+				</div>
+				<div id="leftdiv">
+					<div id="total">
+						<!-- <div class="cmd" onclick="window2()">调试窗口</div> -->
+						<!-- <div class="cmd" id="selected">使用指南</div> -->
+						<div class="cmdinfo">*在底部输入框中输入所需命令 <button onclick="stopCMD()">停止抓取</button><br>
+							 <!-- *Ctrl+c能够暂停日志的抓取<br> -->
+
+						</div>
+					</div>
+				</div>
+				<div id="container2">
+					<div id="divContent2"></div>
+					<div id="divInput2" onfocus="logcatconsolefocus()" contenteditable="true">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id = "user_manager_bg" style = "display:none"> </div>
+	<!-- 遮罩层 -->
+	<div id="bg"></div>
+	<div id="show">
+		<div id="content"></div>
+		<button id="btnclose" type="button" />取消</button>
+		<button id="btnok" type="button" />确定</button>
+	</div>
+	<div id="singlebutton">
+		<div id="singlecontent"></div>
+		<button id="singlebtnok" type="button" />知道了</button>
+	</div>
+	<div id="issue">
+		<textarea id="issuetext" rows='10'; cols='30'; placeholder="请简要描述当前电视的故障"></textarea><br />
+		<button id="issueok" onclick="issue()">确定</button>
+	</div>
+</body>
+</html>

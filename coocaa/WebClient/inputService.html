@@ -9,12 +9,18 @@
 <script type="text/javascript" src="js/jquery-1.7.1.min.js" ></script>
 <script language=javascript src='js/logcat.js' charset=\"utf-8\"></script>
 <script language="javascript" src="js/webclient.js"> </script>
-
+<script type="text/javascript">
+var mobileUrl="mobileMain.html",  
+    mobile = (/mmp|symbian|smartphone|midp|wap|phone|xoom|iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()));  
+if (mobile) {  
+    window.location = mobileUrl;  
+}  
+</script>
 <link rel="stylesheet" type="text/css" href="css/style1.css">
 <link rel="stylesheet" type="text/css" href="css/usermanager.css">
 
 </head>
-<body onload="forsession()" onunload="logout()">
+<body onload="forsession()" onbeforeunload = "logout()">
 	<div id="topbox">
 		<div id="top">
 			<div  id="logo"><img src="images/logo2.png"></div>

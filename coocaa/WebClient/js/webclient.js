@@ -350,6 +350,7 @@ function disconnect()
     // document.getElementById('issue').style.display="block";
     // document.getElementById('bg').style.display="block";
     // document.getElementById('show').style.display="none";
+    finishAndEnd();
     issue();
     
 }
@@ -369,33 +370,37 @@ function issuefunc(){
         printlog("this.responseText = " + this.responseText);
         if (xmlhttp.status == 200) //TODO
         {
-            logcatContent.innerHTML="";
-            clearInterval(controlInterval);
-            clearInterval(interval);
-            document.getElementById('tvscrn').src="images/screenbg.jpg";
-            document.getElementById('upload').style.display="none";
-            document.getElementById('download').style.display="none";
-            document.getElementById('issue').style.display="none";
-            hidediv();
-            document.getElementById('main').style.display="none";
-            document.getElementById('import').style.display="block";
-            subinfo.innerHTML="";
-            document.getElementById('linkTV').innerHTML="连接电视";
-            g_isConnectd = false;
-            isStartLogcatSocket =false;
-            isStartTelnetd = false;
-            if (logcatsocket !=undefined) 
-            {
-                logcatsocket.close();
-            }
-            socket.onerror=null;
-            socket.onclose=null; 
-            socket.close();
-            finishAction();
+            
         }
     }
 }
 
+function finishAndEnd()
+{
+    logcatContent.innerHTML="";
+    clearInterval(controlInterval);
+    clearInterval(interval);
+    document.getElementById('tvscrn').src="images/screenbg.jpg";
+    document.getElementById('upload').style.display="none";
+    document.getElementById('download').style.display="none";
+    document.getElementById('issue').style.display="none";
+    hidediv();
+    document.getElementById('main').style.display="none";
+    document.getElementById('import').style.display="block";
+    subinfo.innerHTML="";
+    document.getElementById('linkTV').innerHTML="连接电视";
+    g_isConnectd = false;
+    isStartLogcatSocket =false;
+    isStartTelnetd = false;
+    if (logcatsocket !=undefined) 
+    {
+        logcatsocket.close();
+    }
+    socket.onerror=null;
+    socket.onclose=null; 
+    socket.close();
+    finishAction();
+}
 //解决需要右键才能获取cmd输入框的bug
 function consolefocus()
 {
@@ -442,6 +447,7 @@ function cmdfunc()
     var keycode=theEvent.which;
     if(keycode == "13") //回车
     {
+        console.log("start cmd");
         g_isRunningOutput = true;
         var  data= getInnerText(logcatInput);
         data = trim(data);
@@ -1098,8 +1104,10 @@ function chkinputfunc(){
             printlog(data);
             if (data == "OK") // login success
             {
-                //
-                document.location.href="inputService.html";
+                if (mobile) {  
+                    document.location.href = mobileMainUrl;  
+                }
+                else{document.location.href="inputService.html";}     
                 
             } 
 
@@ -1582,7 +1590,10 @@ function showOrHidefunc() {
                 
             } 
             else if(data == "1"){
-                document.getElementById('records').style.display="block";
+                var records = document.getElementById('records');
+                if(records){
+                    records.style.display="block";
+                }
                 
             }
 

@@ -90,7 +90,7 @@ function getInnerText(element)
 
 document.onkeydown = function(e)
 {
-
+  var theEvent = window.event || e;
   var activeNode = document.activeElement;
   printlog("activeNode type= "+activeNode.type+", activeNode.id ="+activeNode.id);
 
@@ -137,7 +137,7 @@ document.onkeydown = function(e)
           g_logcatcmdsIndex = 0;
       }
     }
-    else if (event.ctrlKey && keycode=="67") //ctrl+C   "67"
+    else if (theEvent.ctrlKey && keycode=="67") //ctrl+C   "67"
     {
       if(logcatStatus == 1)
       {
@@ -160,7 +160,7 @@ document.onkeydown = function(e)
         socket.send(assemblingProtocol());
       }
      }
-    else if (event.ctrlKey && keycode=="90") //ctrl+Z  断开连接
+    else if (theEvent.ctrlKey && keycode=="90") //ctrl+Z  断开连接
     {
       isStartLogcatSocket = false;
       var  strCmd = "连接已断开";
@@ -177,7 +177,28 @@ document.onkeydown = function(e)
  }
 }
 
-
+function stopCMD(){
+  if(logcatStatus == 1)
+      {
+        var  strCmd = "logcat停止抓取";
+        // logcatarrCmd.push(strCmd);
+        logcatprintln(strCmd) 
+        setInnerText(logcatInput, "");
+        setTargetAndSource(sourceid,tv_id);
+        setCommandId(CMD_LOGCAT_PARAM_SCREEN,0);
+        setStringParam("pause");
+        socket.send(assemblingProtocol());
+        logcatStatus = 0;
+      }
+      else
+      {
+        setInnerText(logcatInput, "");
+        setTargetAndSource(sourceid,tv_id);
+        setCommandId(CMD_TELNET_DATA,0);
+        setStringParam('\x03');
+        socket.send(assemblingProtocol());
+      }
+}
 function logcatprintln(str) 
 {
     var objDIV = document.createElement("div");
