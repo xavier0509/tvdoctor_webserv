@@ -8,6 +8,11 @@ document.write("<script language=javascript src='js/md5.js' charset=\"utf-8\"></
 var  httpurl = "http://223.202.11.125";
 var  host = "ws://223.202.11.125:9000";
 var  logcatHost ="ws://223.202.11.125:9005";
+var mobileMainUrl="mobileMain.html",  
+    mobile = (/mmp|symbian|smartphone|midp|wap|phone|xoom|iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()));  
+    // if (mobile) {  
+    //     window.location = mobileUrl;  
+    // }  
 
 var   server_id = 0;
 var   tv_id = 0;
