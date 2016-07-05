@@ -4,7 +4,7 @@ function answer(questionId){
 	var list=document.getElementsByName('answer');
 	
 	for (var i = 0; i < list.length; i++) {
-		var num = i + 1;
+		var num = i;
 		var id = "no" + num;
 		printlog(id);
 		document.getElementById(id).style.display="none";	

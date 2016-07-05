@@ -94,7 +94,9 @@ button{
 	width: 1366px;
   	height: 590px;
 }
-
+#buttonDown{
+	width: auto;
+}
 #command_button {
 	clear: both;
 	width: 350px;

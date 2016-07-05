@@ -264,6 +264,7 @@ function connect()
                         else
                         {
                             document.getElementById('buttonDown').innerHTML ="您要下载的文件出错了,错误码是："+result;
+                            setTimeout("document.getElementById('buttonDown').innerHTML ='下载'",3000);
                         }
                     }
                     else if (RET_LOGCAT_START_SNATCH == getCommand()) 
@@ -1111,7 +1112,6 @@ function chkinputfunc(){
             if (data == "OK") // login success
             {
                 if (mobile) {  
-                    console.log("----------startMobile--------------");
                     document.location.href = mobileMainUrl;  
                 }
                 else{document.location.href="inputService.html";}     
