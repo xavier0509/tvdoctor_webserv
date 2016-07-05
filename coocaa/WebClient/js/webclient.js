@@ -59,6 +59,7 @@ var tc_version;
 var tc_URL;
 var loginId;
 var connectId;
+var checkbox;
 
 window.onload =  function ()
 {
