@@ -96,6 +96,8 @@ button{
 }
 #buttonDown{
 	width: auto;
+	margin:  0 auto;
+	text-align: center;
 }
 #command_button {
 	clear: both;
