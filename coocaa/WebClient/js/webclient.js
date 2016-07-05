@@ -1111,6 +1111,7 @@ function chkinputfunc(){
             if (data == "OK") // login success
             {
                 if (mobile) {  
+                    console.log("----------startMobile--------------");
                     document.location.href = mobileMainUrl;  
                 }
                 else{document.location.href="inputService.html";}     
