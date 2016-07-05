@@ -1611,7 +1611,7 @@ function showOrHidefunc() {
 }
 //--------------获取回车键值----------------
 function onEnterDown(){
-    if(window.event.keyCode == 13){ 
+    if(window.event.keyCode == 13 || window.event.which == 13){ 
         chkinput(); 
     }    
 }

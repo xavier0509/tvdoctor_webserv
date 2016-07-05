@@ -1,16 +1,11 @@
 <?php
 header("Content-type: text/html; charset=utf-8");
 
-
-// $Res = getPara();
-// print_r($Res);
-
-
 $TVId = $_GET['TVId'];
 $length = strlen($TVId);
 $lastChar = substr($TVId, $length-1);
 if($TVId == "SKYWORTHCOOCAA" || $lastChar == "@"){
-  echo gameSocket($TVId);
+  echo notifierSocket($TVId);
 }
 else{
   getPara();
@@ -30,42 +25,14 @@ function getPara()
     $Res = json_encode($Result);
     return urldecode($Res);		
   }
-  //$tvid	= $_GET['TVId'];
-
-  //get TVID by active ID
-  // $getTVIDUrl = "http://121.40.232.56:88";
-  // //$tvid  = '716II905';
-  // $tvid = $_GET['TVId'];
-  // $appid ='IYM9D51J';
-  // $apikey ='2QDTUQSY';
-  // $timestamp = mktime();
-  // $md5_src = $apikey . "&" . $appid . "&" . $timestamp . "&" . $tvid;
-  // $tvid_token = md5($md5_src);
-
-  // $tvidurl = $getTVIDUrl . "/v1/serviceId/?appid=" . $appid. "&timestamp=" . $timestamp . "&token=" . $tvid_token . "&sid=" . $tvid;
-  // //echo $md5_src . "\n";
-  // //echo $tvidurl . "\n";
-  // //echo $tvid_token . "\n";
-  // //echo $timestamp . "\n";
-  // $tvid_json = httpRequest($tvidurl);
-  // //echo  "tvid_json= " . $tvid_json . "\n";
-  // $client_ret =json_decode($tvid_json);  
-
-  // if ('' == $client_ret->unique_id) {
-  //   //echo "TVId is null";
-  //   return;
-  // } else {
-  //   //echo  "tvid= " . $client_ret->unique_id . "\n";
-  //   $tvid = $client_ret->unique_id;
-  // }
 
   $tvid = $_GET['TVId'];
-  //通过TVid获取clientid
 
+  //通过TVid获取clientid
   $clientidurl= "http://msg.push.skysrt.com:8080/api/getClientId?code=" . $tvid;
   $clientidjson =  httpRequest($clientidurl);
   $clientid =json_decode($clientidjson);  
-  // echo $clientid->clientId;
+
   $c = microtime();
   $str = $str." ".$c;
   if($clientid->clientId == "" )
@@ -76,7 +43,7 @@ function getPara()
   // http://msg.push.skysrt.com:8080/api/getPushId?clientId=zvsPO8xs&appId=YFdIHyYf   
   //通过clientId获取pushid  TV控制的id是 2L1gbXK0
   $pushIdurl ="http://msg.push.skysrt.com:8080/api/getPushId?clientId=".$clientid->clientId."&appId=2L1gbXK0"; 
-  // echo $pushIdurl;
+  
   $pushidjson = httpRequest($pushIdurl);
   $pushiddata =json_decode($pushidjson);  
   //  echo  $pushiddata->pushId;
@@ -89,15 +56,6 @@ function getPara()
   }
   $pushid =$pushiddata->pushId;
 
-  /*if(empty($_GET)|| !isset($_GET['pushId']))
-  {
-    $Result["errorparam"] =  urlencode(":not pushId param");
-    $Res = json_encode($Result);
-    return urldecode($Res);		
-  }
-  $pushid	= $_GET['pushId'];
-  */
-  //121.41.58.247
   $url="http://msg.push.skysrt.com:8080/message/sendmsg?pushId=".$pushid ."&msg=connect&ttl=120";
   //http://msg.push.skysrt.com:8080/message/sendmsg?pushId=c539a58d1c092d0cb90317fd8cc64a97&msg=123&ttl=120
   $result =  httpRequest($url);
@@ -106,10 +64,7 @@ function getPara()
   $datajson =json_decode($result);  
   if( $datajson->code ==200)//$datajson->msg =="ok" &&
   {
-    //	$b = microtime();
-    //	$str = $str." ". $b;
-    //	return $str;
-    echo gameSocket($tvid)  ;//pushid
+    echo notifierSocket($tvid)  ;//pushid 把tvid告诉服务器
   }
   else 
     echo $result ;
@@ -119,7 +74,7 @@ function httpRequest($url,$post='',$method='GET',$limit=0,$returnHeader=FALSE,$c
 {  
        $return = '';  
        $matches = parse_url($url);  
-  // 作用？？？？？？？
+
        !isset($matches['host']) && $matches['host'] = '';  
        !isset($matches['path']) && $matches['path'] = '';  
        !isset($matches['query']) && $matches['query'] = '';  
@@ -160,8 +115,7 @@ function httpRequest($url,$post='',$method='GET',$limit=0,$returnHeader=FALSE,$c
        if(!$fp) return ''; 
        else 
        {  
-           $header = $content = '';  
-  
+           $header = $content = '';    
            stream_set_blocking($fp, $block);  
            stream_set_timeout($fp, $timeout);  
            fwrite($fp, $out);  
@@ -190,7 +144,7 @@ function httpRequest($url,$post='',$method='GET',$limit=0,$returnHeader=FALSE,$c
     }  
 
 
-
+/*
 class Byte{  
     //长度  
     private $length=0;  
@@ -229,18 +183,18 @@ class Byte{
         $this->length+=2;  
         $this->byte.=pack('v',$interge);  
     }  
-}  
-class GameSocket{  
+}  */
+class NotifierSocket{  
     private $socket;  
     private $port=9002;  
     private $host='127.0.0.1';  //
-    private $byte;  
-    private $code;  
-    const CODE_LENGTH=2;  
-    const FLAG_LENGTH=4;  
-    public function __set($name,$value){  
-        $this->$name=$value;  
-    }  
+   // private $byte;  
+   // private $code;  
+    //const CODE_LENGTH=2;  
+    //const FLAG_LENGTH=4;  
+    //public function __set($name,$value){  
+     //   $this->$name=$value;  
+    //}  
     public function __construct($host='192.168.2.38',$port=9002){  
         $this->host=$host;  
         $this->port=$port;  
@@ -255,19 +209,13 @@ class GameSocket{
            return "connect error=".$errormsg;
        
         }  
-        $this->byte=new Byte();  
+       // $this->byte=new Byte();  
     }  
     public function write($data){  
         if(is_string($data)||is_int($data)||is_float($data)){  
             $data=$data;  
         }  
-        // if(is_array($data)){  
-        //     foreach($data as $vo){  
-        //         $this->byte->writeShortInt(strlen($vo));  
-        //         $this->byte->writeChar($vo);  
-        //     }  
-        // }  
-        $this->setPrev();  
+       // $this->setPrev();  
         $this->send($data);
        return  $this->receive();  
     }  
@@ -276,7 +224,7 @@ class GameSocket{
      *表头=length+code+flag 
      *length是总长度(4字节)  code操作标志(2字节)  flag暂时无用(4字节) 
      */  
-    private function getHeader(){
+   /* private function getHeader(){
         $length=$this->byte->getLength();  
         $length=intval($length)+self::CODE_LENGTH+self::FLAG_LENGTH;  
         return pack('L',$length);  
@@ -290,7 +238,7 @@ class GameSocket{
       
     private function setPrev(){  
         $this->byte->setBytePrev($this->getHeader().$this->getCode().$this->getFlag());  
-    }  
+    } */ 
   
     private function send($data){  
         $result=socket_write($this->socket,/*$this->byte->getByte()*/"$data",strlen("$data")); 
@@ -315,11 +263,11 @@ class GameSocket{
     }  
 }  
 
-function gameSocket($data)
+function notifierSocket($data)
 {
-    $gameSocket=new GameSocket();  
-    $gameSocket->code=11;  
-    return  $gameSocket->write($data);
+    $notifierSocket=new NotifierSocket();  
+   // $notifierSocket->code=11;  
+    return  $notifierSocket->write($data);
 }
 
 
