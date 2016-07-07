@@ -327,6 +327,7 @@ function connect()
             g_isConnectd =false;
             isStartLogcatSocket =false;
             subinfo.innerHTML = "<font color='red'>WebSocket连接出错！</font>";
+            setTimeout("subinfo.innerHTML=''",5000);
             OutputLog('WebSocket Status:: Error was reported');
             document.getElementById('import').style.display="block";
             document.getElementById('main').style.display="none";
