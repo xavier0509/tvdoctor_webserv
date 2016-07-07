@@ -6,7 +6,7 @@ function answer(questionId){
 	for (var i = 0; i < list.length; i++) {
 		var num = i + 1;
 		var id = "no" + num;
-		printlog(id);
+		printlog(id);	
 		document.getElementById(id).style.display="none";	
 	}
 	printlog(questionId);

@@ -78,12 +78,10 @@ function connect()
 {
     try
     {
-        //	OutputLog('why:'+socket.readyState);
         socket = new WebSocket(host);
         OutputLog('Socket Status: '+socket.readyState);
         socket.onopen = function()
         {
-
             sourceid = Math.random()*1000+"1"; 
             sourceid =crc32_hash(sourceid);       
             OutputLog("sourceid ="+sourceid);
@@ -597,7 +595,6 @@ function trim(str)
 //--------------------------------------------------------
 function scrn(x)
 {
-
     if (!g_isConnectd)
     {
         subinfo.innerHTML="<font color='red'>请连接TV后操作</font>";
@@ -1127,8 +1124,6 @@ function chkinputfunc(){
             {
                 showlogininfo("用户已登录");
             }
-
-
             //getPermissonsByUseName(adminname);
         }
     }
