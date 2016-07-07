@@ -1,4 +1,4 @@
-﻿document.write("<script language=javascript src='js/httprequest.js' charset=\"utf-8\"></script>");
+document.write("<script language=javascript src='js/httprequest.js' charset=\"utf-8\"></script>");
 document.write("<script language=javascript src='js/crc32.js' charset=\"utf-8\"></script>");
 document.write("<script language=javascript src='js/VncDataPackage.js' charset=\"utf-8\"></script>");
 document.write("<script language=javascript src='js/jquery-1.7.1.min.js' charset=\"utf-8\"></script>");
