@@ -13,9 +13,6 @@ else{
 
 function getPara()
 {
-  $str="";
-  $a = microtime();
-  $str = $str." ". $a;
 
   $Result = array();//存放结果数组
 
@@ -28,13 +25,29 @@ function getPara()
 
   $tvid = $_GET['TVId'];
 
+  $appidurl ="http://msg.push.skysrt.com:8080/api/getAllByCode?code=".$tvid;
+  $appidinfojson=httpRequest($appidurl);
+  $appidinfo =json_decode($appidinfojson); 
+  $appinfoArray =$appidinfo->appInfos;
+  $arrCount =count($appinfoArray);
+  if (0 == $arrCount ) 
+  {
+    echo "pushid is null";
+    return;
+  }
+  for($x=0 ;$x< $arrCount;$x++ ) 
+  {
+    if ("2L1gbXK0"  == $appinfoArray[$x]->appId )
+    {
+       $pushid =  $appinfoArray[$x]->pushId;
+       break;
+    }     
+  }
+/*
   //通过TVid获取clientid
   $clientidurl= "http://msg.push.skysrt.com:8080/api/getClientId?code=" . $tvid;
   $clientidjson =  httpRequest($clientidurl);
   $clientid =json_decode($clientidjson);  
-
-  $c = microtime();
-  $str = $str." ".$c;
   if($clientid->clientId == "" )
   {
     echo "clientid is null, tvid = " . $tvid;
@@ -47,15 +60,14 @@ function getPara()
   $pushidjson = httpRequest($pushIdurl);
   $pushiddata =json_decode($pushidjson);  
   //  echo  $pushiddata->pushId;
-  $d = microtime();
-  $str = $str." ".$d;
+
   if($pushiddata->pushId == "" )
   {
     echo "pushid is null";
     return;
   }
   $pushid =$pushiddata->pushId;
-
+*/
   $url="http://msg.push.skysrt.com:8080/message/sendmsg?pushId=".$pushid ."&msg=connect&ttl=120";
   //http://msg.push.skysrt.com:8080/message/sendmsg?pushId=c539a58d1c092d0cb90317fd8cc64a97&msg=123&ttl=120
   $result =  httpRequest($url);
@@ -70,7 +82,7 @@ function getPara()
     echo $result ;
 }
 
-function httpRequest($url,$post='',$method='GET',$limit=0,$returnHeader=FALSE,$cookie='',$bysocket=FALSE,$ip='',$timeout=15,$block=TRUE)
+function httpRequest($url,$post='',$method='GET',$limit=0,$returnHeader=FALSE,$cookie='',$bysocket=FALSE,$ip='',$timeout=60,$block=TRUE)
 {  
        $return = '';  
        $matches = parse_url($url);  
@@ -144,57 +156,11 @@ function httpRequest($url,$post='',$method='GET',$limit=0,$returnHeader=FALSE,$c
     }  
 
 
-/*
-class Byte{  
-    //长度  
-    private $length=0;  
-      
-    private $byte='';  
-    //操作码  
-    private $code;  
-    public function setBytePrev($content)
-    {  
-        $this->byte=$content.$this->byte;  
-    }  
-    public function getByte()
-    {  
-        return $this->byte;  
-    }  
-    public function getLength()
-    {  
-        return $this->length;  
-    }  
-    public function writeChar($string)
-    {  
-        $this->length+=strlen($string);  
-        $str=array_map('ord',str_split($string));  
-        foreach($str as $vo){  
-            $this->byte.=pack('c',$vo);  
-        }  
-        $this->byte.=pack('c','0');  
-        $this->length++;  
-    }  
-    public function writeInt($str)
-    {  
-        $this->length+=4;  
-        $this->byte.=pack('L',$str);  
-    }  
-    public function writeShortInt($interge){  
-        $this->length+=2;  
-        $this->byte.=pack('v',$interge);  
-    }  
-}  */
-class NotifierSocket{  
+class NotifierSocket
+{  
     private $socket;  
     private $port=9002;  
-    private $host='127.0.0.1';  //
-   // private $byte;  
-   // private $code;  
-    //const CODE_LENGTH=2;  
-    //const FLAG_LENGTH=4;  
-    //public function __set($name,$value){  
-     //   $this->$name=$value;  
-    //}  
+    private $host='127.0.0.1';  
     public function __construct($host='192.168.2.38',$port=9002){  
         $this->host=$host;  
         $this->port=$port;  
@@ -206,59 +172,43 @@ class NotifierSocket{
         if(!$result){  
                  $errorcode = socket_last_error();
             $errormsg = socket_strerror($errorcode);
-           return "connect error=".$errormsg;
-       
+           return "connect error=".$errormsg;       
         }  
-       // $this->byte=new Byte();  
     }  
-    public function write($data){  
-        if(is_string($data)||is_int($data)||is_float($data)){  
+    
+    public function write($data)
+    {  
+        if(is_string($data)||is_int($data)||is_float($data))
+        {  
             $data=$data;  
         }  
-       // $this->setPrev();  
         $this->send($data);
        return  $this->receive();  
     }  
-    /* 
-     *设置表头部分 
-     *表头=length+code+flag 
-     *length是总长度(4字节)  code操作标志(2字节)  flag暂时无用(4字节) 
-     */  
-   /* private function getHeader(){
-        $length=$this->byte->getLength();  
-        $length=intval($length)+self::CODE_LENGTH+self::FLAG_LENGTH;  
-        return pack('L',$length);  
-    }  
-    private function getCode(){  
-        return pack('v',$this->code);  
-    }  
-    private function getFlag(){  
-        return pack('L',24);  
-    }  
-      
-    private function setPrev(){  
-        $this->byte->setBytePrev($this->getHeader().$this->getCode().$this->getFlag());  
-    } */ 
-  
-    private function send($data){  
-        $result=socket_write($this->socket,/*$this->byte->getByte()*/"$data",strlen("$data")); 
-
-        if(!$result){  
+    
+    private function send($data)
+    {  
+        $result=socket_write($this->socket,"$data",strlen("$data")); 
+        if(!$result)
+        {  
             return 'send info  error';  
         }  
        
     }  
-    public function receive(){
+    public function receive()
+    {
         $rec=socket_read($this->socket,8192);
-        if (!$rec) {
-            return "receive data fail";
-          
-            
-        }else {
+        if (!$rec) 
+        {
+            return "receive data fail";                    
+        }
+        else
+        {
             return $rec;
-            }
+        }
     }
-    public function __desctruct(){  
+    public function __desctruct()
+    {  
         socket_close($this->socket);  
     }  
 }  
@@ -266,7 +216,6 @@ class NotifierSocket{
 function notifierSocket($data)
 {
     $notifierSocket=new NotifierSocket();  
-   // $notifierSocket->code=11;  
     return  $notifierSocket->write($data);
 }
 

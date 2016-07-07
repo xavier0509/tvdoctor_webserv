@@ -35,7 +35,7 @@
              }
              else
              {
-                  $arr = array ('file_result'=>'ok','file_path'=>'upload/'.$newpath,'file_size'=>$size,'file_error'=>$error); 
+              $arr = array ('file_result'=>'ok','file_path'=>'upload/'.$newpath,'file_size'=>$size,'file_error'=>$error); 
               echo json_encode($arr);   
             }
         }
