@@ -8,6 +8,11 @@ document.write("<script language=javascript src='js/md5.js' charset=\"utf-8\"></
 var  httpurl = "http://223.202.11.125";
 var  host = "ws://223.202.11.125:9000";
 var  logcatHost ="ws://223.202.11.125:9005";
+var mobileMainUrl="mobileMain.html",  
+    mobile = (/mmp|symbian|smartphone|midp|wap|phone|xoom|iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()));  
+    // if (mobile) {  
+    //     window.location = mobileUrl;  
+    // }  
 
 var   server_id = 0;
 var   tv_id = 0;
@@ -59,6 +64,7 @@ var tc_version;
 var tc_URL;
 var loginId;
 var connectId;
+var checkbox;
 
 window.onload =  function ()
 {
@@ -256,6 +262,7 @@ function connect()
                         else
                         {
                             document.getElementById('buttonDown').innerHTML ="您要下载的文件出错了,错误码是："+result;
+                            setTimeout("document.getElementById('buttonDown').innerHTML ='下载'",3000);
                         }
                     }
                     else if (RET_LOGCAT_START_SNATCH == getCommand()) 
@@ -318,6 +325,7 @@ function connect()
             g_isConnectd =false;
             isStartLogcatSocket =false;
             subinfo.innerHTML = "<font color='red'>WebSocket连接出错！</font>";
+            setTimeout("subinfo.innerHTML=''",5000);
             OutputLog('WebSocket Status:: Error was reported');
             document.getElementById('import').style.display="block";
             document.getElementById('main').style.display="none";
@@ -595,6 +603,7 @@ function trim(str)
 //--------------------------------------------------------
 function scrn(x)
 {
+
     if (!g_isConnectd)
     {
         subinfo.innerHTML="<font color='red'>请连接TV后操作</font>";
@@ -1124,6 +1133,8 @@ function chkinputfunc(){
             {
                 showlogininfo("用户已登录");
             }
+
+
             //getPermissonsByUseName(adminname);
         }
     }
@@ -1303,119 +1314,8 @@ function startscrn()
     }
 }
 
-function openwin(){
-    //window.open("settingpage.php","newwindow","height=180, width=175, toolbar=no,menubar=no, scrollbars=no, resizable=no, location=no, status=no")
-    document.getElementById('dlgTest').style.display="block";
-}
-function openwin2(){
-    //window.open("settingpage.php","newwindow","height=180, width=175, toolbar=no,menubar=no, scrollbars=no, resizable=no, location=no, status=no")
-    document.getElementById('dlgTest2').style.display="block";
-}
 
-function changeStyle(){
-    var fontSize = document.getElementById('fontsizecd').value;
-    //alert(fontSize);
-    var fontColor = document.getElementById('fontcolorcd').value;
-    var backColor = document.getElementById('backcolorcd').value;
-    //alert(backColor);
-    document.getElementById('divContent').style.color=fontColor;
-    document.getElementById('divContent').style.background=backColor;
-    document.getElementById('divContent').style.fontSize=fontSize;
-    // alert(fontsize);
-    document.getElementById('dlgTest').style.display="none";
-}
-function changeStyle2(){
-    var fontSize = document.getElementById('fontsizecd2').value;
-    //alert(fontSize);
-    var fontColor = document.getElementById('fontcolorcd2').value;
-    var backColor = document.getElementById('backcolorcd2').value;
-    //alert(backColor);
-    document.getElementById('divContent2').style.color=fontColor;
-    document.getElementById('divContent2').style.background=backColor;
-    document.getElementById('divContent2').style.fontSize=fontSize;
-    // alert(fontsize);
-    document.getElementById('dlgTest2').style.display="none";
-}
-
-function cancle(){
-    document.getElementById('dlgTest2').style.display="none";
-    document.getElementById('dlgTest').style.display="none";
-}
-
-var Dragging=function(validateHandler){ //参数为验证点击区域是否为可移动区域，如果是返回欲移动元素，负责返回null
-    var draggingObj=null; //dragging Dialog
-    var diffX=0;
-    var diffY=0;
-
-    function mouseHandler(e){
-        switch(e.type){
-            case 'mousedown':
-                draggingObj=validateHandler(e);//验证是否为可点击移动区域
-                if(draggingObj!=null){
-                    diffX=e.clientX-draggingObj.offsetLeft;
-                    diffY=e.clientY-draggingObj.offsetTop;
-                }
-                break;
-
-            case 'mousemove':
-                if(draggingObj){
-                    draggingObj.style.left=(e.clientX-diffX)+'px';
-                    draggingObj.style.top=(e.clientY-diffY)+'px';
-                }
-                break;
-
-            case 'mouseup':
-                draggingObj =null;
-                diffX=0;
-                diffY=0;
-                break;
-        }
-    };
-
-    return {
-enable:function(){
-           document.addEventListener('mousedown',mouseHandler);
-           document.addEventListener('mousemove',mouseHandler);
-           document.addEventListener('mouseup',mouseHandler);
-       },
-disable:function(){
-            document.removeEventListener('mousedown',mouseHandler);
-            document.removeEventListener('mousemove',mouseHandler);
-            document.removeEventListener('mouseup',mouseHandler);
-        }
-    }
-}
-//窗口拖动。。。。。
-function getDraggingDialog(e){
-    var target=e.target;
-    while(target && target.className.indexOf('dialog-title')==-1){
-        target=target.offsetParent;
-    }
-    if(target!=null){
-        return target.offsetParent;
-    }else{
-        return null;
-    }
-}
-
-Dragging(getDraggingDialog).enable();
-function altRows(id){
-    if(document.getElementsByTagName){  
-
-        var table = document.getElementById(id);  
-        var rows = table.getElementsByTagName("tr"); 
-
-        for(i = 0; i < rows.length; i++){          
-            if(i % 2 == 0){
-                rows[i].className = "evenrowcolor";
-            }else{
-                rows[i].className = "oddrowcolor";
-            }      
-        }
-    }
-    option();
-}
-
+//--------------------定义弹出框-------------------------
 function dialog(content,func_cancle,func_ok){
     this.content = content;
     this.cancle = func_cancle;
@@ -1423,6 +1323,8 @@ function dialog(content,func_cancle,func_ok){
     document.getElementById('bg').style.display = "block";
     document.getElementById('show').style.display = "block";
 }
+
+//--------------------定义单按钮弹出框-------------------------
 function singledialog(content,func_ok){
     this.content = content;
     this.ok = func_ok;
@@ -1430,12 +1332,15 @@ function singledialog(content,func_ok){
     document.getElementById('bg').style.display = "block";
 }
 
+//-------------------弹出框点取消------------------------
 function hidediv() {
     document.getElementById("bg").style.display ='none';
     document.getElementById("show").style.display ='none';
     document.getElementById("singlebutton").style.display ='none';
 }
 
+
+//-------------------电视主动断开------------------------
 function tvbreakself(){
     // divContent.innerHTML="";
     logcatContent.innerHTML="";
@@ -1458,6 +1363,8 @@ function tvbreakselffun(){
     // subinfo.innerHTML="<font color='red'>远程TV主动断开控制！</font>";
 }
 
+
+//-------------------点击页面断开------------------------
 function cancle1(){
     var dialog1 = new dialog("确定要断开当前连接吗",hidediv,disconnect)
     document.getElementById('content').innerHTML=dialog1.content;
