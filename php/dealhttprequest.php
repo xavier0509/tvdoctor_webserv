@@ -30,44 +30,39 @@ function getPara()
   $appidinfo =json_decode($appidinfojson); 
   $appinfoArray =$appidinfo->appInfos;
   $arrCount =count($appinfoArray);
-  if (0 == $arrCount ) 
+  /*if (0 == $arrCount ) 
   {
     echo "pushid is null";
     return;
-  }
+  }*/
+  $isFindAppid = 0;
   for($x=0 ;$x< $arrCount;$x++ ) 
   {
     if ("2L1gbXK0"  == $appinfoArray[$x]->appId )
     {
        $pushid =  $appinfoArray[$x]->pushId;
+       $isFindAppid = 1;
        break;
     }     
   }
-/*
-  //通过TVid获取clientid
-  $clientidurl= "http://msg.push.skysrt.com:8080/api/getClientId?code=" . $tvid;
-  $clientidjson =  httpRequest($clientidurl);
-  $clientid =json_decode($clientidjson);  
-  if($clientid->clientId == "" )
-  {
-    echo "clientid is null, tvid = " . $tvid;
-    return;
+ 
+  if ($isFindAppid != 1) {
+    for($x=0 ;$x< $arrCount;$x++ ) 
+    {
+      if ("547e1e25-26a0-4576-8cd1-1c19b0729c25"  == $appinfoArray[$x]->appId )
+      {
+        $pushid =  $appinfoArray[$x]->pushId;
+        $isFindAppid = 1;
+        break;
+      }     
+    }
   }
-  // http://msg.push.skysrt.com:8080/api/getPushId?clientId=zvsPO8xs&appId=YFdIHyYf   
-  //通过clientId获取pushid  TV控制的id是 2L1gbXK0
-  $pushIdurl ="http://msg.push.skysrt.com:8080/api/getPushId?clientId=".$clientid->clientId."&appId=2L1gbXK0"; 
-  
-  $pushidjson = httpRequest($pushIdurl);
-  $pushiddata =json_decode($pushidjson);  
-  //  echo  $pushiddata->pushId;
 
-  if($pushiddata->pushId == "" )
-  {
+  if ($isFindAppid != 1) {
     echo "pushid is null";
     return;
   }
-  $pushid =$pushiddata->pushId;
-*/
+
   $url="http://msg.push.skysrt.com:8080/message/sendmsg?pushId=".$pushid ."&msg=connect&ttl=120";
   //http://msg.push.skysrt.com:8080/message/sendmsg?pushId=c539a58d1c092d0cb90317fd8cc64a97&msg=123&ttl=120
   $result =  httpRequest($url);
