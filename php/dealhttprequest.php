@@ -40,9 +40,11 @@ function getPara()
   {
     if ("2L1gbXK0"  == $appinfoArray[$x]->appId )
     {
-       $pushid =  $appinfoArray[$x]->pushId;
-       $isFindAppid = 1;
-       break;
+      if ('' != $appinfoArray[$x]->pushId) {
+        $pushid =  $appinfoArray[$x]->pushId;
+        $isFindAppid = 1;
+        break;
+      }
     }     
   }
  
@@ -51,9 +53,11 @@ function getPara()
     {
       if ("547e1e25-26a0-4576-8cd1-1c19b0729c25"  == $appinfoArray[$x]->appId )
       {
-        $pushid =  $appinfoArray[$x]->pushId;
-        $isFindAppid = 1;
-        break;
+        if ('' != $appinfoArray[$x]->pushId) {
+          $pushid = $appinfoArray[$x]->pushId;
+          $isFindAppid = 1;
+          break;
+        }
       }     
     }
   }
