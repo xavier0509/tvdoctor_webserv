@@ -36,22 +36,12 @@ function getPara()
     return;
   }*/
   $isFindAppid = 0;
-  for($x=0 ;$x< $arrCount;$x++ ) 
-  {
-    if ("2L1gbXK0"  == $appinfoArray[$x]->appId )
-    {
-      if ('' != $appinfoArray[$x]->pushId) {
-        $pushid =  $appinfoArray[$x]->pushId;
-        $isFindAppid = 1;
-        break;
-      }
-    }     
-  }
  
-  if ($isFindAppid != 1) {
+  //if ($isFindAppid != 1) 
+  {
     for($x=0 ;$x< $arrCount;$x++ ) 
     {
-      if ("547e1e25-26a0-4576-8cd1-1c19b0729c25"  == $appinfoArray[$x]->appId )
+      if ("547e1e25-26a0-4576-8cd1-1c19b0729c25" == $appinfoArray[$x]->appId )
       {
         if ('' != $appinfoArray[$x]->pushId) {
           $pushid = $appinfoArray[$x]->pushId;
@@ -60,6 +50,18 @@ function getPara()
         }
       }     
     }
+  }
+
+  for($x=0 ;$x< $arrCount;$x++ ) 
+  {
+    if ("2L1gbXK0" == $appinfoArray[$x]->appId )
+    {
+      if ('' != $appinfoArray[$x]->pushId) {
+        $pushid = $appinfoArray[$x]->pushId;
+        $isFindAppid = 1;
+        break;
+      }
+    }     
   }
 
   if ($isFindAppid != 1) {
