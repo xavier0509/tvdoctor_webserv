@@ -32,6 +32,8 @@ function getPara()
   $arrCount =count($appinfoArray);
 
   $isFindAppid = 0;
+  $isFindAgentPushid = 0;
+  $isPushIdExsit = 0;
 
   for($x = 0; $x < $arrCount; $x++ ) 
   {
@@ -44,7 +46,7 @@ function getPara()
       }
     }  
   }
-  $isPushIdExsit = 0;
+  
 
   if ($isFindAppid == 1) {
     //send push msg to system   
@@ -63,12 +65,13 @@ function getPara()
       if ('' != $appinfoArray[$x]->pushId) {
         $pushid = $appinfoArray[$x]->pushId;
         $isFindAppid = 1;
+        $isFindAgentPushid = 1;
         break;
       }
     }     
   }
 
-  if ($isFindAppid == 1) {
+  if ($$isFindAppid = 1 == 1) {
     //send push msg to tvagent
     $url="http://msg.push.skysrt.com:8080/message/sendmsg?pushId=".$pushid ."&msg=connect&ttl=120";
     $result =  httpRequest($url);
