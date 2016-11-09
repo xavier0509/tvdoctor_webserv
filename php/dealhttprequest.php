@@ -51,6 +51,17 @@ function getPara()
       }     
     }
   }
+  $isPushIdExsit = 0;
+  
+    if ($isFindAppid == 1) {
+        //send push msg to system   
+        $url="http://msg.push.skysrt.com:8080/message/sendmsg?pushId=".$pushid ."&msg=connect&ttl=120";
+        $result =  httpRequest($url);
+        $datajson =json_decode($result);  
+        if( $datajson->code ==200) {
+            $isPushIdExsit = 1;
+        }
+    }
 
   for($x=0 ;$x< $arrCount;$x++ ) 
   {
@@ -64,23 +75,26 @@ function getPara()
     }     
   }
 
-  if ($isFindAppid != 1) {
-    echo "pushid is null";
-    return;
-  }
-
-  $url="http://msg.push.skysrt.com:8080/message/sendmsg?pushId=".$pushid ."&msg=connect&ttl=120";
-  //http://msg.push.skysrt.com:8080/message/sendmsg?pushId=c539a58d1c092d0cb90317fd8cc64a97&msg=123&ttl=120
-  $result =  httpRequest($url);
-  //echo 'url return='.$result ;
-  //后台服务器正常返回了 打开下面二句 
-  $datajson =json_decode($result);  
-  if( $datajson->code ==200)//$datajson->msg =="ok" &&
-  {
-    echo notifierSocket($tvid)  ;//pushid 把tvid告诉服务器
-  }
-  else 
-    echo $result ;
+  if ($isFindAppid == 1) {
+    //send push msg to tvagent
+    $url="http://msg.push.skysrt.com:8080/message/sendmsg?pushId=".$pushid ."&msg=connect&ttl=120";
+    $result =  httpRequest($url);
+    //echo 'url return='.$result ;
+    //后台服务器正常返回了 打开下面二句 
+    $datajson =json_decode($result);  
+    if( $datajson->code ==200) {
+        $isPushIdExsit = 1;
+    }
+    if ($isPushIdExsit == 1) {
+        echo notifierSocket($tvid)  ;//pushid 把tvid告诉服务器
+    } else { 
+        echo $result ;
+    }
+    
+    } else {
+        echo "pushid is null";
+    }
+  return;
 }
 
 function httpRequest($url,$post='',$method='GET',$limit=0,$returnHeader=FALSE,$cookie='',$bysocket=FALSE,$ip='',$timeout=60,$block=TRUE)
