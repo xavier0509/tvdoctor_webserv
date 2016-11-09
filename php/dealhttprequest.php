@@ -18,9 +18,9 @@ function getPara()
 
   if(empty($_GET)|| !isset($_GET['TVId']))
   {
-    $Result["errorparam"] =  urlencode(":not TVId param");
+    $Result["errorparam"] = urlencode(":not TVId param");
     $Res = json_encode($Result);
-    return urldecode($Res);		
+    return urldecode($Res);
   }
 
   $tvid = $_GET['TVId'];
@@ -30,42 +30,35 @@ function getPara()
   $appidinfo =json_decode($appidinfojson); 
   $appinfoArray =$appidinfo->appInfos;
   $arrCount =count($appinfoArray);
-  /*if (0 == $arrCount ) 
-  {
-    echo "pushid is null";
-    return;
-  }*/
+
   $isFindAppid = 0;
- 
-  //if ($isFindAppid != 1) 
+
+  for($x = 0; $x < $arrCount; $x++ ) 
   {
-    for($x=0 ;$x< $arrCount;$x++ ) 
+    if ("547e1e25-26a0-4576-8cd1-1c19b0729c25" == $appinfoArray[$x]->appId )
     {
-      if ("547e1e25-26a0-4576-8cd1-1c19b0729c25" == $appinfoArray[$x]->appId )
-      {
-        if ('' != $appinfoArray[$x]->pushId) {
-          $pushid = $appinfoArray[$x]->pushId;
-          $isFindAppid = 1;
-          break;
-        }
-      }     
-    }
+      if ('' != $appinfoArray[$x]->pushId) {
+        $pushid = $appinfoArray[$x]->pushId;
+        $isFindAppid = 1;
+        break;
+      }
+    }  
   }
   $isPushIdExsit = 0;
-  
-    if ($isFindAppid == 1) {
-        //send push msg to system   
-        $url="http://msg.push.skysrt.com:8080/message/sendmsg?pushId=".$pushid ."&msg=connect&ttl=120";
-        $result =  httpRequest($url);
-        $datajson =json_decode($result);  
-        if( $datajson->code ==200) {
-            $isPushIdExsit = 1;
-        }
-    }
 
-  for($x=0 ;$x< $arrCount;$x++ ) 
+  if ($isFindAppid == 1) {
+    //send push msg to system   
+    $url = "http://msg.push.skysrt.com:8080/message/sendmsg?pushId=".$pushid ."&msg=connect&ttl=120";
+    $result =  httpRequest($url);
+    $datajson = json_decode($result);  
+    if( $datajson->code == 200) {
+      $isPushIdExsit = 1;
+    }
+  }
+
+  for($x = 0 ;$x < $arrCount; $x++) 
   {
-    if ("2L1gbXK0" == $appinfoArray[$x]->appId )
+    if ("2L1gbXK0" == $appinfoArray[$x]->appId)
     {
       if ('' != $appinfoArray[$x]->pushId) {
         $pushid = $appinfoArray[$x]->pushId;
@@ -83,17 +76,16 @@ function getPara()
     //后台服务器正常返回了 打开下面二句 
     $datajson =json_decode($result);  
     if( $datajson->code ==200) {
-        $isPushIdExsit = 1;
+      $isPushIdExsit = 1;
     }
     if ($isPushIdExsit == 1) {
-        echo notifierSocket($tvid)  ;//pushid 把tvid告诉服务器
+      echo notifierSocket($tvid)  ;//pushid 把tvid告诉服务器
     } else { 
-        echo $result ;
+      echo $result ;
     }
-    
-    } else {
-        echo "pushid is null";
-    }
+  } else {
+    echo "pushid is null";
+  }
   return;
 }
 
