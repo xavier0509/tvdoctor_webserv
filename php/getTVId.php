@@ -2,7 +2,7 @@
 header("Content-type: text/html; charset=utf-8");
 
   //get TVID by active ID
-  $getTVIDUrl = "http://id.device.skysrt.com/v1/serviceId";
+  $getTVIDUrl = "http://api.device.skysrt.com/sid/v2";
   $tvid = $_GET['ActiveId'];
   $appid ='IYM9D51J';
   $apikey ='2QDTUQSY';
@@ -10,7 +10,7 @@ header("Content-type: text/html; charset=utf-8");
   $md5_src = $apikey . "&" . $appid . "&" . $timestamp . "&" . $tvid;
   $tvid_token = md5($md5_src);
 
-  $tvidurl = $getTVIDUrl . "/?appid=" . $appid. "&timestamp=" . $timestamp . "&token=" . $tvid_token . "&sid=" . $tvid;
+  $tvidurl = $getTVIDUrl . "?appid=" . $appid. "&timestamp=" . $timestamp . "&token=" . $tvid_token . "&sid=" . $tvid;
   //echo $md5_src . "\n";
   //echo $tvidurl . "\n";
   //echo $tvid_token . "\n";
