@@ -141,3 +141,20 @@ CREATE TABLE `login_records` (
   `logoutTime` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`loginId`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+-- ----------------------------
+-- Table structure for `ipTable`
+-- ----------------------------
+DROP TABLE IF EXISTS `ipTable`;
+CREATE TABLE `ipTable` (
+  `ipId` int(5) NOT NULL,
+  `ipAddr` char(20) NOT NULL,
+  PRIMARY KEY (`ipId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ipTable
+-- ----------------------------
+INSERT INTO `ipTable` VALUES ('1', '120.27.147.96');
+
