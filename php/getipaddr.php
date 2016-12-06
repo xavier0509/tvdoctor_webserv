@@ -11,7 +11,7 @@ $getip = $list['ipAddr'];
 $getport = $list['port'];
 if ($list != "") {
     # code...
-    echo $getip;
+    // echo $getip;
     echo '{"ret": "OK", "data": {"ipAddr":"'.$getip.'","port":"'.$getport.'"}}';
 }
 else{
