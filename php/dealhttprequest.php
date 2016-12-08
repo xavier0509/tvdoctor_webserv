@@ -72,7 +72,7 @@ function getPara()
     }     
   }
 
-  if ($$isFindAppid = 1 == 1) {
+  if ($isFindAppid == 1) {
     $ret = pushv2($pushid);
     //send push msg to tvagent
     // $url="http://msg.push.skysrt.com:8080/message/sendmsg?pushId=".$pushid ."&msg=connect&ttl=120";
