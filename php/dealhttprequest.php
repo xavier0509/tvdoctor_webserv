@@ -162,7 +162,7 @@ function httpRequest($url,$post='',$method='GET',$limit=0,$returnHeader=FALSE,$c
            }  
         fclose($fp);  
         return $returnHeader ? array($header,$content) : $content;  
-       }  
+       } 
     }  
 
 
@@ -171,7 +171,7 @@ class NotifierSocket
     private $socket;  
     private $port=9002;  
     private $host='127.0.0.1';  
-    public function __construct($host='192.168.2.38',$port=9002){  
+    public function __construct($host='120.27.147.96',$port=9002){  
         $this->host=$host;  
         $this->port=$port;  
         $this->socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);  
