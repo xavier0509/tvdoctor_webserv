@@ -241,7 +241,7 @@ function pushv2($id){
   $tvid_token = md5($md5_src);
   $url = "http://msg.push.skysrt.com:8080/v2/message/sendMsg?pushId=".$id ."&msg=connect&ttl=120&token=".$tvid_token."&timeStamp=".$timestamp."&appId=".$appid;
   $result =  httpRequest($url);
-  $datajson =json_decode($result)
+  $datajson =json_decode($result);
   return $datajson->code;
 
 }
