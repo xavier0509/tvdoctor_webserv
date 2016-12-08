@@ -53,8 +53,8 @@ function getPara()
     // $url = "http://msg.push.skysrt.com:8080/message/sendmsg?pushId=".$pushid ."&msg=connect&ttl=120";
     // $result =  httpRequest($url);
     // $datajson = json_decode($result);  
-    pushv2($pushid);
-    if( $datajson->code == 200) {
+    $ret = pushv2($pushid);
+    if($ret == 200) {
       $isPushIdExsit = 1;
     }
   }
@@ -73,14 +73,14 @@ function getPara()
   }
 
   if ($$isFindAppid = 1 == 1) {
-    pushv2($pushid);
+    $ret = pushv2($pushid);
     //send push msg to tvagent
     // $url="http://msg.push.skysrt.com:8080/message/sendmsg?pushId=".$pushid ."&msg=connect&ttl=120";
     // $result =  httpRequest($url);
     // //echo 'url return='.$result ;
     // //后台服务器正常返回了 打开下面二句 
     // $datajson =json_decode($result);  
-    if( $datajson->code ==200) {
+    if( $ret == 200) {
       $isPushIdExsit = 1;
     }
     if ($isPushIdExsit == 1) {
