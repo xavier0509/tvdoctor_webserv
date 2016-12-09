@@ -356,6 +356,10 @@ function disconnect()
     // document.getElementById('issue').style.display="block";
     // document.getElementById('bg').style.display="block";
     // document.getElementById('show').style.display="none";
+    setTargetAndSource(sourceid,0x00000000);
+    printlog("pc break by self");
+    setCommandId(CMD_PC_NEED_EXIT,0);
+    socket.send(assemblingProtocol());
     finishAndEnd();
     issue();
     
