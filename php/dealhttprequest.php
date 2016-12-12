@@ -236,7 +236,7 @@ function pushv2($id){
   $appid ='nAPkh8JA';
   $apikey ='sjDG4kZA';
   $timestamp = microtime_float();
-  echo $timestamp."\n";
+  //echo $timestamp."\n";
   $md5_src = $appid . $apikey . $timestamp . "connect";
   $tvid_token = md5($md5_src);
   $url = "http://msg.push.skysrt.com:8080/v2/message/sendMsg?pushId=".$id ."&msg=connect&ttl=120&token=".$tvid_token."&timeStamp=".$timestamp."&appId=".$appid;
