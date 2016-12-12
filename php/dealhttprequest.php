@@ -86,7 +86,7 @@ function getPara()
     if ($isPushIdExsit == 1) {
       echo notifierSocket($tvid)  ;//pushid 把tvid告诉服务器
     } else { 
-      echo $result ;
+      echo $ret ;
     }
   } else {
     echo "pushid is null";
