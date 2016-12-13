@@ -73,15 +73,17 @@ function getPara()
   }
 
   if ($isFindAppid == 1) {
-    $ret = pushv2($pushid);
-    //send push msg to tvagent
-    // $url="http://msg.push.skysrt.com:8080/message/sendmsg?pushId=".$pushid ."&msg=connect&ttl=120";
-    // $result =  httpRequest($url);
-    // //echo 'url return='.$result ;
-    // //后台服务器正常返回了 打开下面二句 
-    // $datajson =json_decode($result);  
-    if( $ret == 200) {
-      $isPushIdExsit = 1;
+    if ($isFindAgentPushid == 1) {
+      $ret = pushv2($pushid);
+      //send push msg to tvagent
+      // $url="http://msg.push.skysrt.com:8080/message/sendmsg?pushId=".$pushid ."&msg=connect&ttl=120";
+      // $result =  httpRequest($url);
+      // //echo 'url return='.$result ;
+      // //后台服务器正常返回了 打开下面二句 
+      // $datajson =json_decode($result);  
+      if( $ret == 200) {
+        $isPushIdExsit = 1;
+      }
     }
     if ($isPushIdExsit == 1) {
       echo notifierSocket($tvid)  ;//pushid 把tvid告诉服务器
@@ -236,7 +238,7 @@ function pushv2($id){
   $appid ='nAPkh8JA';
   $apikey ='sjDG4kZA';
   $timestamp = microtime_float();
-  echo $timestamp."\n";
+  //echo $timestamp."\n";
   $md5_src = $appid . $apikey . $timestamp . "connect";
   $tvid_token = md5($md5_src);
   $url = "http://msg.push.skysrt.com:8080/v2/message/sendMsg?pushId=".$id ."&msg=connect&ttl=120&token=".$tvid_token."&timeStamp=".$timestamp."&appId=".$appid;
