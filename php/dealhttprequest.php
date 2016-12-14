@@ -37,7 +37,7 @@ function getPara()
 
   $apikey = "sjDG4kZA";
   $appidSys = "547e1e25-26a0-4576-8cd1-1c19b0729c25";
-  $appidTv = "nAPkh8JA"
+  $appidTv = "nAPkh8JA";
   $SySpushid = getPushIdByCode($tvid, $appidSys, $apikey);
   if ("" != $SySpushid) {
     $isFindPushid  = 1;
@@ -65,66 +65,6 @@ function getPara()
   else {
     echo "pushid is null";
   }
-
-
-  // for($x = 0; $x < $arrCount; $x++ ) 
-  // {
-  //   if ("547e1e25-26a0-4576-8cd1-1c19b0729c25" == $appinfoArray[$x]->appId )
-  //   {
-  //     if ('' != $appinfoArray[$x]->pushId) {
-  //       $pushid = $appinfoArray[$x]->pushId;
-  //       $isFindAppid = 1;
-  //       break;
-  //     }
-  //   }  
-  // }
-  
-
-  // if ($isFindAppid == 1) {
-  //   //send push msg to system   
-  //   // $url = "http://msg.push.skysrt.com:8080/message/sendmsg?pushId=".$pushid ."&msg=connect&ttl=120";
-  //   // $result =  httpRequest($url);
-  //   // $datajson = json_decode($result);  
-  //   $ret = pushv2($pushid);
-  //   if($ret == 200) {
-  //     $isPushIdExsit = 1;
-  //   }
-  // }
-
-  // for($x = 0 ;$x < $arrCount; $x++) 
-  // {
-  //   if ("2L1gbXK0" == $appinfoArray[$x]->appId)
-  //   {
-  //     if ('' != $appinfoArray[$x]->pushId) {
-  //       $pushid = $appinfoArray[$x]->pushId;
-  //       $isFindAppid = 1;
-  //       $isFindAgentPushid = 1;
-  //       break;
-  //     }
-  //   }     
-  // }
-
-  // if ($isFindAppid == 1) {
-  //   if ($isFindAgentPushid == 1) {
-  //     $ret = pushv2($pushid);
-  //     //send push msg to tvagent
-  //     // $url="http://msg.push.skysrt.com:8080/message/sendmsg?pushId=".$pushid ."&msg=connect&ttl=120";
-  //     // $result =  httpRequest($url);
-  //     // //echo 'url return='.$result ;
-  //     // //后台服务器正常返回了 打开下面二句 
-  //     // $datajson =json_decode($result);  
-  //     if( $ret == 200) {
-  //       $isPushIdExsit = 1;
-  //     }
-  //   }
-  //   if ($isPushIdExsit == 1) {
-  //     echo notifierSocket($tvid)  ;//pushid 把tvid告诉服务器
-  //   } else { 
-  //     echo $ret ;
-  //   }
-  // } else {
-  //   echo "pushid is null";
-  // }
   return;
 }
 
