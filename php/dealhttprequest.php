@@ -37,7 +37,7 @@ function getPara()
 
   $apikey = "sjDG4kZA";
   $appidSys = "547e1e25-26a0-4576-8cd1-1c19b0729c25";
-  $appidTv = "nAPkh8JA";
+  $appidTv = "2L1gbKX0";
   $SySpushid = getPushIdByCode($tvid, $appidSys, $apikey);
   if ("" != $SySpushid) {
     $isFindPushid  = 1;
@@ -147,7 +147,7 @@ class NotifierSocket
     private $socket;  
     private $port=9002;  
     private $host='127.0.0.1';  
-    public function __construct($host='223.202.11.125',$port=9002){  
+    public function __construct($host='120.27.147.96',$port=9002){  
         $this->host=$host;  
         $this->port=$port;  
         $this->socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);  

@@ -6,8 +6,8 @@ document.write("<script language=javascript src='js/ajaxfileupload.js' charset=\
 document.write("<script language=javascript src='js/md5.js' charset=\"utf-8\"></script>");
 
 var  httpurl = "";//"http://120.27.147.96";
-var  host = "ws://223.202.11.125:9008";
-var  logcatHost ="ws://223.202.11.125:9005";
+var  host = "ws://120.27.147.96:9008";
+var  logcatHost ="ws://120.27.147.96:9005";
 var mobileMainUrl="mobileMain.html",  
     mobile = (/mmp|symbian|smartphone|midp|wap|phone|xoom|iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()));  
     // if (mobile) {  
