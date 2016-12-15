@@ -37,7 +37,7 @@ function getPara()
 
   $apikey = "sjDG4kZA";
   $appidSys = "547e1e25-26a0-4576-8cd1-1c19b0729c25";
-  $appidTv = "2L1gbKX0";
+  $appidTv = "2L1gbXK0";
   $SySpushid = getPushIdByCode($tvid, $appidSys, $apikey);
   if ("" != $SySpushid) {
     $isFindPushid  = 1;
