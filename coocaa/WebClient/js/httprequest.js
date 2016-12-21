@@ -10,7 +10,8 @@ function sendrequset ()
   }
   var pushid2 =document.getElementById('pushid').value;
   var pushid3 = pushid2.replace(/\s+/g,"");;
-  var pushid = pushid3.toLocaleUpperCase();
+  // var pushid = pushid3.toLocaleUpperCase();
+  var pushid = pushid3;
   printlog(pushid);
   var lastchar = pushid.charAt(pushid.length - 1);
 

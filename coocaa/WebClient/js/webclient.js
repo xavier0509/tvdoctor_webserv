@@ -94,7 +94,8 @@ function connect()
             setTargetAndSource(sourceid,0x00000000);
             setCommandId(CMD_REG_PC,0);//向服务器注册 
             var msg1 = getTVId;
-            var msg = msg1.toLocaleUpperCase();
+            // var msg = msg1.toLocaleUpperCase();
+            var msg = msg1;
             setStringParam(msg);/*"c539a58d1c092d0cb90317fd8cc64a97"*/
             socket.send(assemblingProtocol());
         }
@@ -942,7 +943,8 @@ function disp_prompt()
 {
     var pushid2 = document.getElementById("pushid").value;
     var pushid3 = pushid2.replace(/\s+/g,"");
-    var pushid = pushid3.toLocaleUpperCase();
+    // var pushid = pushid3.toLocaleUpperCase();
+    var pushid = pushid3;
     if(pushid!=""&&pushid!=null)
     {   
         // subinfo.innerHTML="正在连接中";
