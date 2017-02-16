@@ -41,7 +41,7 @@ function getPara()
   $SySpushid = getPushIdByCode($tvid, $appidSys, $apikey);
   if ("" != $SySpushid) {
     $isFindPushid  = 1;
-    $ret = pushv2($SySpushid);
+    $ret = pushv2($SySpushid,$appidSys);
     if($ret == 200) {
       $isPushIdExsit = 1;
     }
@@ -50,7 +50,7 @@ function getPara()
   $TVCpushid = getPushIdByCode($tvid, $appidTv, $apikey);
   if ("" != $TVCpushid) {
     $isFindPushid  = 1;
-    $ret = pushv2($TVCpushid);
+    $ret = pushv2($TVCpushid,$appidTv);
     if($ret == 200) {
       $isPushIdExsit = 1;
       $isFindAgentPushid = 1;
@@ -227,8 +227,8 @@ function getPushIdByCode($tvid, $appid, $apikey)
 }
 
 
-function pushv2($id){
-  $appid ='nAPkh8JA';
+function pushv2($id,$appid){
+  $appid = $appid;
   $apikey ='sjDG4kZA';
   $timestamp = microtime_float();
   //echo $timestamp."\n";
