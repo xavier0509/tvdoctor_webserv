@@ -415,6 +415,7 @@ function finishAndEnd()
 //解决需要右键才能获取cmd输入框的bug
 function consolefocus()
 {
+    console.log("右击开始telnet");
     // inputcmd.style.display="none";
     if (!isStartTelnetd)
     {
