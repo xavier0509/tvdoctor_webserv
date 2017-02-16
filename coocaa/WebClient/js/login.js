@@ -4,6 +4,69 @@ document.write("<script language=javascript src='js/VncDataPackage.js' charset=\
 document.write("<script language=javascript src='js/jquery-1.7.1.min.js' charset=\"utf-8\"></script>");
 document.write("<script language=javascript src='js/ajaxfileupload.js' charset=\"utf-8\"></script>");
 document.write("<script language=javascript src='js/md5.js' charset=\"utf-8\"></script>");
+
+var  httpurl = "";//"http://120.27.147.96";
+var  host = "ws://223.202.11.125:9008";
+var  logcatHost ="ws://223.202.11.125:9005";
+var mobileMainUrl="mobileMain.html",  
+    mobile = (/mmp|symbian|smartphone|midp|wap|phone|xoom|iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()));  
+    // if (mobile) {  
+    //     window.location = mobileUrl;  
+    // }  
+
+var   server_id = 0;
+var   tv_id = 0;
+var   sourceid =0;
+var   telnetStart = false;
+var   reciveBuffer ="";
+var   isStartTelnetd =false;
+var   socket;
+
+var objContent = "";
+var objInput = "";
+var logcatContent;
+var logcatInput = "";
+var strCmd = "";
+var g_isRunningOutput = true;
+var g_cmdsIndex = 0;
+var arrCmd = [];
+var g_timer = null;
+var inputcmd = "";
+var inputcmd2 = "";
+var timestamp;
+
+var KEYCODE_HOME =27;//102;
+var KEYCODE_MENU =26;//139; 
+var KEYCODE_DPAD_UP =21;//103;
+var KEYCODE_DPAD_DOWN =22;//108;
+var KEYCODE_DPAD_LEFT =23;//105;
+var KEYCODE_DPAD_RIGHT =24;//106;
+var KEYCODE_DPAD_BACK =25;
+var KEYCODE_DPAD_CENTER =19;//28;
+var KEYCODE_DPAD_VOLUME_UP =15;
+var KEYCODE_DPAD_VOLUME_DOWN =16;
+var KEYCODE_DPAD_SIGNAL =18;//466
+
+var  subinfo = "";
+var  buttonUpload = "";
+var  g_isConnectd = false;
+var  isStartLogcatSocket = false;
+var  isStopScrn = false;//是否已停止截屏
+
+var  interval;
+var  loadingTime;
+var  downloadfilename = "";
+var  controlInterval;
+
+var adminname;
+var user_permissions;
+var tc_version;
+var tc_URL;
+var loginId;
+var connectId;
+var checkbox;
+
+
 function onEnterDown(){
     if(window.event.keyCode == 13 || window.event.which == 13){ 
         chkinput(); 
@@ -27,17 +90,17 @@ function chkinput(){
     else{
         var password1 = md5(password);  
         var  urladdr =httpurl + "/php/login.php?username1="+username1+"&password1="+password1 + "&random=100";
-        printlog("urladdr = " + urladdr);
+        console.log("urladdr = " + urladdr);
         //sendHTTPRequest(urladdr, loginfunc);  
         sendHTTPRequest(urladdr,chkinputfunc);
     }
 }
 
 function chkinputfunc(){
-    printlog("this.readyState = " + xmlhttp.readyState);
+    console.log("this.readyState = " + xmlhttp.readyState);
     if (xmlhttp.readyState == 4) {
-        printlog("this.status = " + this.status);
-        printlog("this.responseText = " + this.responseText);
+        console.log("this.status = " + this.status);
+        console.log("this.responseText = " + this.responseText);
         if (xmlhttp.status == 200) //TODO
         {
             var data = this.responseText;
@@ -72,4 +135,11 @@ function chkinputfunc(){
             //getPermissonsByUseName(adminname);
         }
     }
+}
+
+function singledialog(content,func_ok){
+    this.content = content;
+    this.ok = func_ok;
+    document.getElementById('singlebutton').style.display = "block";
+    document.getElementById('bg').style.display = "block";
 }
