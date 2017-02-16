@@ -66,7 +66,7 @@ var loginId;
 var connectId;
 var checkbox;
 
-window.onload =  function ()
+function inputServiceOnload ()
 {
     inputcmd = document.getElementById('inputcmd');
     inputcmd2 = document.getElementById('inputcmd2');
@@ -1406,6 +1406,7 @@ function sessionfunc() {
                document.getElementById('session').innerHTML=data;
 	           adminname = data;
                showOrHide();
+               inputServiceOnload();
                
                
             }
