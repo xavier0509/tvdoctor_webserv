@@ -24,7 +24,7 @@ var   socket;
 
 var objContent = "";
 var objInput = "";
-var logcatContent = "";
+var logcatContent;
 var logcatInput = "";
 var strCmd = "";
 var g_isRunningOutput = true;
