@@ -104,7 +104,7 @@ function chkinputfunc(){
         if (xmlhttp.status == 200) //TODO
         {
             var data = this.responseText;
-            printlog(data);
+            console.log(data);
             if (data == "OK") // login success
             {
                 if (mobile) {  
@@ -142,4 +142,16 @@ function singledialog(content,func_ok){
     this.ok = func_ok;
     document.getElementById('singlebutton').style.display = "block";
     document.getElementById('bg').style.display = "block";
+}
+
+function showlogininfo(str){
+    var dialog1 = new singledialog(str);
+    document.getElementById('singlecontent').innerHTML=dialog1.content;
+    setTimeout(hidediv,2000);
+}
+
+function hidediv() {
+    document.getElementById("bg").style.display ='none';
+    document.getElementById("show").style.display ='none';
+    document.getElementById("singlebutton").style.display ='none';
 }
