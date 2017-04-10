@@ -101,7 +101,13 @@ document.onkeydown = function(e)
     {
         var  data= getInnerText(logcatInput);
         data = trim(data);
-       if ((data.substr(0,6) != "logcat")) 
+        if ((data.substr(0,4) != "exit")) {
+          var  strCmd = "暂不支持exit命令";
+          // logcatarrCmd.push(strCmd);
+          logcatprintln(strCmd) 
+          setInnerText(logcatInput, "");
+        }
+       else if ((data.substr(0,6) != "logcat")) 
         {
          cmdfunc();
         }
