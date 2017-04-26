@@ -1225,6 +1225,12 @@ function FileUpload()
      
 }
 
+function ConvUtf(obj) {
+    r = obj.replace(/[^\u0000-\u00FF]/g, function ($0) { return escape($0).replace(/(%u)(\w{4})/gi, "&#x$2;") });
+    return r;
+}
+
+
 function fileupload_ok(){
     var name =document.getElementById('file').value;
     var tvpath =document.getElementById('pushfiletvpath').value;
@@ -1257,7 +1263,8 @@ function fileupload_ok(){
             OutputLog("encode json ="+jsstring); 
             setTargetAndSource(sourceid,tv_id);
             setCommandId(CMD_REMOTE_PUSH_FILE,0);
-            setKeyValueParam(jsstring);
+            var filestring = ConvUtf(jsstring);
+            setKeyValueParam(filestring);
             buttonUpload.innerHTML = "上传到服务器成功";
             socket.send(assemblingProtocol());
          }
