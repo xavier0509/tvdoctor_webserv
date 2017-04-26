@@ -1354,14 +1354,15 @@ function fileupload_ok(){
             }
            // var  vvname =data.file_path.substring((data.file_path.indexOf('_')+1),data.file_path.length);
              tvpath +=name;
-            var  array ={"server-url":data.file_path,"tv-path":tvpath,"file-size":data.file_size};
+             var filestring = EncodeUtf8(data.file_path);
+            OutputLog("编码后： ="+filestring); 
+            var  array ={"server-url":filestring,"tv-path":tvpath,"file-size":data.file_size};
             var  jsstring =JSON.stringify(array);
             OutputLog("encode json ="+jsstring); 
             setTargetAndSource(sourceid,tv_id);
             setCommandId(CMD_REMOTE_PUSH_FILE,0);
-            var filestring = EncodeUtf8(jsstring);
-            OutputLog("编码后： ="+filestring); 
-            setKeyValueParam(filestring);
+            
+            setKeyValueParam(jsstring);
             buttonUpload.innerHTML = "上传到服务器成功";
             socket.send(assemblingProtocol());
          }
