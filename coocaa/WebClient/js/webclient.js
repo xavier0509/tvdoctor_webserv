@@ -1359,7 +1359,7 @@ function fileupload_ok(){
              tvpath +=name;
              var filestring = EncodeUtf8(data.file_path);
             OutputLog("编码后： ="+filestring); 
-            var  array ={"server-url":filestring,"tv-path":tvpath,"file-size":data.file_size};
+            var  array ={"server-url":filestring,"tv-path":"/data/中国.txt","file-size":data.file_size};
             var  jsstring =JSON.stringify(array);
             OutputLog("encode json ="+jsstring); 
             setTargetAndSource(sourceid,tv_id);
