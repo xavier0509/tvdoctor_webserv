@@ -1264,6 +1264,7 @@ function fileupload_ok(){
             setTargetAndSource(sourceid,tv_id);
             setCommandId(CMD_REMOTE_PUSH_FILE,0);
             var filestring = ConvUtf(jsstring);
+            OutputLog("编码后： ="+filestring); 
             setKeyValueParam(filestring);
             buttonUpload.innerHTML = "上传到服务器成功";
             socket.send(assemblingProtocol());
