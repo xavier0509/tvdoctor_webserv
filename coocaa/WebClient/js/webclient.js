@@ -1245,6 +1245,9 @@ function EncodeUtf8(s1)
            if(sa[i].substring(0,1) == "u")
            {
                retV += Hex2Utf8(Str2Hex(sa[i].substring(1,5)));
+               if (sa[i].length > 5) { 
+                retV += sa[i].substring(5, sa[i].length);
+               }
               
            }
            else retV += "%" + sa[i];
