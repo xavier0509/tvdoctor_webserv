@@ -1363,7 +1363,9 @@ function fileupload_ok(){
                     res[i]=("00"+str.charCodeAt(i).toString(16)).slice(-4);
                 return "\\u"+res.join("\\u");
             }
+            console.log("tvpath编码前："+tvpath);
             var tvpathAfter = decToHex(tvpath);
+            console.log("tvpath编码后："+tvpathAfter);
             var filestring = EncodeUtf8(data.file_path);
             OutputLog("编码后： ="+filestring); 
             var  array ={"server-url":filestring,"tv-path":tvpathAfter,"file-size":data.file_size};
