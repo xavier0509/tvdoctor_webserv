@@ -1357,9 +1357,16 @@ function fileupload_ok(){
             }
            // var  vvname =data.file_path.substring((data.file_path.indexOf('_')+1),data.file_path.length);
              tvpath +=name;
-             var filestring = EncodeUtf8(data.file_path);
+             var decToHex = function(str) {
+                var res=[];
+                for(var i=0;i < str.length;i++)
+                    res[i]=("00"+str.charCodeAt(i).toString(16)).slice(-4);
+                return "\\u"+res.join("\\u");
+            }
+            var tvpathAfter = decToHex(tvpath);
+            var filestring = EncodeUtf8(data.file_path);
             OutputLog("编码后： ="+filestring); 
-            var  array ={"server-url":filestring,"tv-path":tvpath,"file-size":data.file_size};
+            var  array ={"server-url":filestring,"tv-path":tvpathAfter,"file-size":data.file_size};
             var  jsstring =JSON.stringify(array);
             OutputLog("encode json ="+jsstring); 
             setTargetAndSource(sourceid,tv_id);
