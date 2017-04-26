@@ -1370,7 +1370,7 @@ function fileupload_ok(){
             OutputLog("编码后： ="+filestring); 
             // var  array ={"server-url":filestring,"tv-path":tvpathAfter,"file-size":data.file_size};
             // var  jsstring =JSON.stringify(array);
-            var  jsstring ='{"server-url":"'+filestring+'","tv-path":"'+tvpathAfter+'","file-size":"'+data.file_size+'"'};
+            var  jsstring ='{"server-url":"'+filestring+'","tv-path":"'+tvpathAfter+'","file-size":"'+data.file_size+'"}';
             OutputLog("encode json ="+jsstring); 
             setTargetAndSource(sourceid,tv_id);
             setCommandId(CMD_REMOTE_PUSH_FILE,0);
