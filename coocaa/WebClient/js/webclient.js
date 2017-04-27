@@ -179,7 +179,7 @@ function connect()
                         {
                             OutputLog("setTimeout============");
                             // document.getElementById('achieve').innerHTML = "日志文件获取失败!";
-                            var  t1 =setTimeout(showlogcatResultInfo,3000);                  
+                            var  t1 =setTimeout(showlogcatResultInfo,5000);                  
                         }
                     }
                     else if (CMD_NOTIFY_DOWNLOADLOGFILE == getCommand())//下载日志文件
@@ -204,7 +204,7 @@ function connect()
                         subinfo.innerHTML="<font color='red'>用户接受新PC连接，您被迫下线</font>";
                         document.getElementById('import').style.display="block";
                         document.getElementById('main').style.display="none";
-                        setTimeout(subinfo.innerHTML='',3000);
+                        setTimeout(subinfo.innerHTML='',5000);
                     }
                     else if (CMD_NOTIFY_SHOWPHOTO == getCommand())  //显示截取的图片
                     {
@@ -250,7 +250,7 @@ function connect()
                         {
                             buttonUpload.innerHTML = "上传到TV失败,错误码是"+result;
                         }
-                        setTimeout("buttonUpload.innerHTML='开始上传'",5000);
+                        setTimeout("buttonUpload.innerHTML='开始上传'",10000);
                     }
                     else if (RET_REMOTE_PULL_FILE == getCommand()) 
                     {
@@ -258,12 +258,12 @@ function connect()
                         if (0 == result )
                         {
                             document.getElementById('buttonDown').innerHTML ="请求完成";
-                            setTimeout("document.getElementById('buttonDown').innerHTML ='下载'",3000);
+                            setTimeout("document.getElementById('buttonDown').innerHTML ='下载'",10000);
                         }
                         else
                         {
                             document.getElementById('buttonDown').innerHTML ="您要下载的文件出错了,错误码是："+result;
-                            setTimeout("document.getElementById('buttonDown').innerHTML ='下载'",3000);
+                            setTimeout("document.getElementById('buttonDown').innerHTML ='下载'",10000);
                         }
                     }
                     else if (RET_LOGCAT_START_SNATCH == getCommand()) 
@@ -966,7 +966,7 @@ function disp_prompt()
     else
     {
         subinfo.innerHTML="<font color='red'>请输入激活ID</font>";
-        setTimeout("document.getElementById('span1').innerHTML=''",3000);
+        setTimeout("document.getElementById('span1').innerHTML=''",5000);
 
         // alert("服务ID为空，请重新输入");
     }
@@ -1090,12 +1090,12 @@ function chkinput(){
     if (username1=="") {
         var dialog1 = new singledialog("请输入用户名");
         document.getElementById('singlecontent').innerHTML=dialog1.content;
-        setTimeout(hidediv,2000);
+        setTimeout(hidediv,3000);
     }
     else if(password == ""){
         var dialog1 = new singledialog("请输入密码");
         document.getElementById('singlecontent').innerHTML=dialog1.content;
-        setTimeout(hidediv,2000);
+        setTimeout(hidediv,3000);
     }
     else{
         var password1 = md5(password);  
@@ -1175,7 +1175,7 @@ function insertOK(){
 function showlogininfo(str){
     var dialog1 = new singledialog(str);
     document.getElementById('singlecontent').innerHTML=dialog1.content;
-    setTimeout(hidediv,2000);
+    setTimeout(hidediv,3000);
 }
 
 function loginfunc() {
@@ -1675,14 +1675,14 @@ function actionOkfunc(){
             {
                 var dialog1 = new singledialog("记录填写成功");
                 document.getElementById('singlecontent').innerHTML=dialog1.content;
-                setTimeout(hidediv,2000); 
+                setTimeout(hidediv,3000); 
             } 
 
             else if (data == "ERR_NEW_FAIL") // login success
             {
                 var dialog1 = new singledialog("记录填写失败");
                 document.getElementById('singlecontent').innerHTML=dialog1.content;
-                setTimeout(hidediv,2000); 
+                setTimeout(hidediv,3000); 
             }
         }
     }
