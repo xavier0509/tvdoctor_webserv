@@ -951,7 +951,7 @@ function disp_prompt()
         // subinfo.innerHTML="正在连接中";
         clearInterval(interval);
         interval=setInterval("linking()",800); 
-        document.getElementById('linkTV').setAttribute("disabled","");
+
         var timestamp = Math.floor(new Date().getTime()/1000);
         var activeId = document.getElementById('pushid').value;
         var data = '{"loginId" : "'+loginId+'" ,"connectRequestTime" : ' + timestamp + ',"connectFlag" : 1, "activeId":"'+activeId+'"}'
