@@ -43,8 +43,8 @@ function getTVidfunc()
             printlog(data);
             if (data == "TVId is null") // login success
             { 
-               document.getElementById('linkTV').remove("disabled");
-               document.getElementById('linkTV').remove("class");
+               document.getElementById('linkTV').removeAttribute("disabled");
+               document.getElementById('linkTV').removeAttribute("class");
                clearInterval(interval);
                document.getElementById('span1').innerHTML="<font color='red'>TVId为空</font>";
                setTimeout("document.getElementById('span1').innerHTML=''",3000);
@@ -90,8 +90,8 @@ function  urlDeal(url,index)
               clearInterval(interval); 
               if (xmlhttp.status == 200)
               {
-                document.getElementById('linkTV').remove("disabled");
-                document.getElementById('linkTV').remove("class");
+                document.getElementById('linkTV').removeAttribute("disabled");
+                document.getElementById('linkTV').removeAttribute("class");
                 clearInterval(interval);
                 var   data =xmlhttp.responseText;
                 printlog("return  result="+data);
