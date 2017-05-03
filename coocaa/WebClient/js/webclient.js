@@ -948,6 +948,9 @@ function disp_prompt()
     var pushid = pushid3;
     if(pushid!=""&&pushid!=null)
     {   
+        document.getElementById('linkTV').setAttribute("disabled","");
+        document.getElementById('linkTV').setAttribute("class","linkTV");
+
         // subinfo.innerHTML="正在连接中";
         clearInterval(interval);
         interval=setInterval("linking()",800); 
