@@ -54,7 +54,11 @@ function getTVidfunc()
             {
               //通过电视id通知请求
               getTVId = data;
-              var  urladdr ="/php/dealhttprequest.php?TVId="+data;
+              var pushid2 =document.getElementById('pushid').value;
+              var pushid3 = pushid2.replace(/\s+/g,"");;
+              // var pushid = pushid3.toLocaleUpperCase();
+              var activeId = pushid3;
+              var  urladdr ="/php/dealhttprequest.php?TVId="+data+"&activeId="+activeId;
               printlog("urladdr="+urladdr);
               urlDeal(urladdr,0); 
             }
