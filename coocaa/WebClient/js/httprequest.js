@@ -87,11 +87,15 @@ function  urlDeal(url,index)
             if (xmlhttp.readyState == 4)
             {// 4 = "loaded"
               printlog("appurl_download readyState="+xmlhttp.status);
-              clearInterval(interval); 
+              clearInterval(interval);
+		document.getElementById('linkTV').removeAttribute("disabled");
+                document.getElementById('linkTV').removeAttribute("class");
+                document.getElementById('linkTV').removeAttribute("style"); 
               if (xmlhttp.status == 200)
               {
-                document.getElementById('linkTV').removeAttribute("disabled");
-                document.getElementById('linkTV').removeAttribute("class");
+              //  document.getElementById('linkTV').removeAttribute("disabled");
+              //  document.getElementById('linkTV').removeAttribute("class");
+	      //  document.getElementById('linkTV').removeAttribute("style");
                 clearInterval(interval);
                 var   data =xmlhttp.responseText;
                 printlog("return  result="+data);

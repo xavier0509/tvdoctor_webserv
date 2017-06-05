@@ -950,6 +950,7 @@ function disp_prompt()
     {   
         document.getElementById('linkTV').setAttribute("disabled","");
         document.getElementById('linkTV').setAttribute("class","linkTV");
+	document.getElementById('linkTV').setAttribute("style","cursor:wait");
 
         // subinfo.innerHTML="正在连接中";
         clearInterval(interval);
@@ -992,7 +993,7 @@ function disp_promptOK(){
 }
 
 var push_flag=0;
-var push_value=["",".","..","..."];
+var push_value=["&nbsp&nbsp&nbsp",".&nbsp&nbsp","..&nbsp","..."];
 function linking()
 {
     document.getElementById('linkTV').innerHTML="正在连接中"+push_value[push_flag];
