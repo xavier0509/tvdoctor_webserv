@@ -249,7 +249,7 @@ function getPushIdByActiveId($appid, $activeId, $accessToken){
   #echo  "tvid_json= " . $tvid_json . "\n";
   $client_ret =json_decode($tvid_json); 
   if ($client_ret->code == "200") {
-    return $client_ret->pushId;
+    return $client_ret->data->pushId;
    }  else{
     return "";
    }
