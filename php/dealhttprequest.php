@@ -44,18 +44,26 @@ function getPara()
   $APISecret = "sjDG4kZA";
 
   $accessTokenSys = getToken($devid, $appidSys, $APISecret);
-  $SySpushid = getPushIdByActiveId($appidSys, $activeId, $accessTokenSys);
-  if ("" == $SySpushid) {
-    $SySpushid = getPushIdByCode($tvid, $appidSys, $apikey);
-  }
+  $SySpushid1 = getPushIdByActiveId($appidSys, $activeId, $accessTokenSys);
+  // if ("" == $SySpushid) {
+    $SySpushid2 = getPushIdByCode($tvid, $appidSys, $apikey);
+  // }
 
-  if ("" != $SySpushid) {
+  if ("" != $SySpushid1) {
     $isFindPushid  = 1;
-    $ret = pushv2($SySpushid,$appidSys);
+    $ret = pushv2($SySpushid1,$appidSys);
     if($ret == 200) {
       $isPushIdExsit = 1;
     }
   }
+  if ("" != $SySpushid2) {
+    $isFindPushid  = 1;
+    $ret = pushv2($SySpushid2,$appidSys);
+    if($ret == 200) {
+      $isPushIdExsit = 1;
+    }
+  }
+
   $accessTokenTv = getToken($devid, $appidTv, $APISecret);
   $TVCpushid = getPushIdByActiveId($appidTv, $activeId, $accessTokenTv);
   if ("" == $TVCpushid) {
