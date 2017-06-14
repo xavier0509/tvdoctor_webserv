@@ -97,9 +97,9 @@ function  urlDeal(url,index)
                 document.getElementById('linkTV').removeAttribute("style"); 
               if (xmlhttp.status == 200)
               {
-              //  document.getElementById('linkTV').removeAttribute("disabled");
-              //  document.getElementById('linkTV').removeAttribute("class");
-	      //  document.getElementById('linkTV').removeAttribute("style");
+                document.getElementById('linkTV').removeAttribute("disabled");
+                document.getElementById('linkTV').removeAttribute("class");
+                document.getElementById('linkTV').removeAttribute("style");
                 clearInterval(interval);
                 var   data =xmlhttp.responseText;
                 printlog("return  result="+data);

@@ -950,7 +950,11 @@ function disp_prompt()
     {   
         document.getElementById('linkTV').setAttribute("disabled","");
         document.getElementById('linkTV').setAttribute("class","linkTV");
+
 	document.getElementById('linkTV').setAttribute("style","cursor:wait");
+
+
+
 
         // subinfo.innerHTML="正在连接中";
         clearInterval(interval);
