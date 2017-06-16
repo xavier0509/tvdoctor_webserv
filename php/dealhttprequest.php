@@ -45,10 +45,6 @@ function getPara()
 
   $accessTokenSys = getToken($devid, $appidSys, $APISecret);
   $SySpushid1 = getPushIdByActiveId($appidSys, $activeId, $accessTokenSys);
-  // if ("" == $SySpushid) {
-    $SySpushid2 = getPushIdByCode($tvid, $appidSys, $apikey);
-  // }
-
   if ("" != $SySpushid1) {
     $isFindPushid  = 1;
     $ret = pushv2($SySpushid1,$appidSys);
@@ -56,6 +52,8 @@ function getPara()
       $isPushIdExsit = 1;
     }
   }
+
+  $SySpushid2 = getPushIdByCode($tvid, $appidSys, $apikey);
   if ("" != $SySpushid2) {
     $isFindPushid  = 1;
     $ret = pushv2($SySpushid2,$appidSys);
@@ -65,15 +63,20 @@ function getPara()
   }
 
   $accessTokenTv = getToken($devid, $appidTv, $APISecret);
-  $TVCpushid = getPushIdByActiveId($appidTv, $activeId, $accessTokenTv);
-  if ("" == $TVCpushid) {
-    $TVCpushid = getPushIdByCode($tvid, $appidTv, $apikey);
-  }
-  // $TVCpushid = getPushIdByCode($tvid, $appidTv, $apikey);
-
-  if ("" != $TVCpushid) {
+  $TVCpushid1 = getPushIdByActiveId($appidTv, $activeId, $accessTokenTv);
+  if ("" != $TVCpushid1) {
     $isFindPushid  = 1;
-    $ret = pushv2($TVCpushid,$appidTv);
+    $ret = pushv2($TVCpushid1,$appidTv);
+    if($ret == 200) {
+      $isPushIdExsit = 1;
+      $isFindAgentPushid = 1;
+    }
+  }
+
+  $TVCpushid2 = getPushIdByCode($tvid, $appidTv, $apikey);
+  if ("" != $TVCpushid2) {
+    $isFindPushid  = 1;
+    $ret = pushv2($TVCpushid2,$appidTv);
     if($ret == 200) {
       $isPushIdExsit = 1;
       $isFindAgentPushid = 1;
@@ -83,11 +86,12 @@ function getPara()
   if ($isFindPushid == 1) {
     if (1 == $isPushIdExsit) {
       echo notifierSocket($tvid)  ;//pushid 把tvid告诉服务器
+      return;
     } 
   }
-  else {
+  // else {
     echo "pushid is null";
-  }
+  // }
   return;
 }
 
