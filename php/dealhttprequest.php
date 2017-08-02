@@ -1,6 +1,6 @@
 <?php
 header("Content-type: text/html; charset=utf-8");
-
+include('apirecent.php');
 $activeId = $_GET['activeId'];
 $TVId = $_GET['TVId'];
 $length = strlen($TVId);
@@ -43,40 +43,40 @@ function getPara()
   $devid = "RDIxRq8r";
   $APISecret = "sjDG4kZA";
 
-  $accessTokenSys = getToken($devid, $appidSys, $APISecret);
+  $accessTokenSys = getToken($devid, $appidSys, $APISecret,$activeId);
   $SySpushid1 = getPushIdByActiveId($appidSys, $activeId, $accessTokenSys);
   if ("" != $SySpushid1) {
     $isFindPushid  = 1;
-    $ret = pushv2($SySpushid1,$appidSys);
+    $ret = pushv2($SySpushid1,$appidSys,$activeId);
     if($ret == 200) {
       $isPushIdExsit = 1;
     }
   }
 
-  $SySpushid2 = getPushIdByCode($tvid, $appidSys, $apikey);
+  $SySpushid2 = getPushIdByCode($tvid, $appidSys, $apikey,$activeId);
   if ("" != $SySpushid2) {
     $isFindPushid  = 1;
-    $ret = pushv2($SySpushid2,$appidSys);
+    $ret = pushv2($SySpushid2,$appidSys,$activeId);
     if($ret == 200) {
       $isPushIdExsit = 1;
     }
   }
 
-  $accessTokenTv = getToken($devid, $appidTv, $APISecret);
+  $accessTokenTv = getToken($devid, $appidTv, $APISecret,$activeId);
   $TVCpushid1 = getPushIdByActiveId($appidTv, $activeId, $accessTokenTv);
   if ("" != $TVCpushid1) {
     $isFindPushid  = 1;
-    $ret = pushv2($TVCpushid1,$appidTv);
+    $ret = pushv2($TVCpushid1,$appidTv,$activeId);
     if($ret == 200) {
       $isPushIdExsit = 1;
       $isFindAgentPushid = 1;
     }
   }
 
-  $TVCpushid2 = getPushIdByCode($tvid, $appidTv, $apikey);
+  $TVCpushid2 = getPushIdByCode($tvid, $appidTv, $apikey,$activeId);
   if ("" != $TVCpushid2) {
     $isFindPushid  = 1;
-    $ret = pushv2($TVCpushid2,$appidTv);
+    $ret = pushv2($TVCpushid2,$appidTv,$activeId);
     if($ret == 200) {
       $isPushIdExsit = 1;
       $isFindAgentPushid = 1;
@@ -235,7 +235,7 @@ function notifierSocket($data)
     return  $notifierSocket->write($data);
 }
 
-function getPushIdByCode($tvid, $appid, $apikey) 
+function getPushIdByCode($tvid, $appid, $apikey,$activeId) 
 {
   $getTVIDUrl = "http://msg.push.skysrt.com:8080/api/getClientIdAndPushId";
   #$appid ='nAPkh8JA';
@@ -251,6 +251,7 @@ function getPushIdByCode($tvid, $appid, $apikey)
   //echo $tvid_token . "\n";
   //echo $timestamp . "\n";
   $tvid_json = httpRequest($tvidurl);
+  getMsgApi($activeId,$tvid_json);
   #echo  "tvid_json= " . $tvid_json . "\n";
   $client_ret =json_decode($tvid_json);  
   return $client_ret->pushId;
@@ -261,6 +262,7 @@ function getPushIdByActiveId($appid, $activeId, $accessToken){
   $timestamp = microtime_float();
   $tvidurl = $getPushIDUrl . "?appId=" . $appid . "&activeId=" . $activeId. "&timeStamp=" . $timestamp . "&token=" . $accessToken;
   $tvid_json = httpRequest($tvidurl);
+  getMsgApi($activeId,$tvid_json);
   #echo  "tvid_json= " . $tvid_json . "\n";
   $client_ret =json_decode($tvid_json); 
   if ($client_ret->code == "200") {
@@ -280,6 +282,7 @@ function pushv2($id,$appid){
   $tvid_token = md5($md5_src);
   $url = "http://msg.push.skysrt.com:8080/v2/message/sendMsg?pushId=".$id ."&msg=connect&ttl=120&token=".$tvid_token."&timeStamp=".$timestamp."&appId=".$appid;
   $result =  httpRequest($url);
+  getMsgApi($activeId,$result);
   $datajson =json_decode($result);
   return $datajson->code;
 
@@ -294,6 +297,7 @@ function getToken($devid, $appid, $APISecret){
   $token = md5($md5String);
   $url = "http://msg.push.skysrt.com:8080/api/v3/getToken?devId=".$devid."&appId=".$appid."&timeStamp=".$timeStamp."&token=".$token;
   $result =  httpRequest($url);
+  getMsgApi($activeId,$result);
   $datajson =json_decode($result);
   return $datajson->data->access_token;
 }
