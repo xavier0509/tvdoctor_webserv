@@ -87,7 +87,10 @@ function getPara()
     if (1 == $isPushIdExsit) {
       echo notifierSocket($tvid)  ;//pushid 把tvid告诉服务器
       return;
-    } 
+    }
+    else{
+	echo "getPushid but not find";
+	} 
   }
   // else {
     echo "pushid is null";
