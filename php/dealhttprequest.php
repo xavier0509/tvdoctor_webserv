@@ -258,9 +258,9 @@ function getPushIdByCode($tvid, $appid, $apikey,$activeId)
 }
 
 function getPushIdByActiveId($appid, $activeId, $accessToken){
-  $getPushIDUrl = "http://msg.push.skysrt.com:8080/api/v3/getPushIdByActiveId";
+  $getPushIDUrl = "http://218.244.136.207:8080/api/v3/getPushIdByActiveId";
   $timestamp = microtime_float();
-  $tvidurl = $getPushIDUrl . "?appId=" . $appid . "&activeId=" . $activeId. "&timeStamp=" . $timestamp . "&token=" . $accessToken;
+  $tvidurl = $getPushIDUrl . "?appId=" . $appid . "&activeId=" . $activeId. "&timeStamp=" . $timestamp . "&token=" . $accessToken . "&devType=" . "";
   $tvid_json = httpRequest($tvidurl);
   getMsgApi($activeId,$tvid_json);
   #echo  "tvid_json= " . $tvid_json . "\n";
