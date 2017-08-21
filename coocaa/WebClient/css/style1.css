@@ -24,6 +24,10 @@ button{
 	background-color: #ef5122;
 	color:#fff;
 }
+.linkTV:hover{
+    background-color: #DDD;
+    color: #000;
+}
  button:active{
 	background-color: #d74a20;
 	color:#fff;
@@ -95,9 +99,13 @@ button{
   	height: 590px;
 }
 #buttonDown{
-	width: auto;
-	margin:  0 auto;
-	text-align: center;
+    width: auto;
+    max-width: 221px;
+    margin: 0 auto;
+    text-align: center;
+    word-wrap: break-word;
+    height: initial;
+    margin-bottom: 10px;
 }
 #command_button {
 	clear: both;
@@ -347,11 +355,13 @@ button{
 	margin-bottom: 14px;
 }
 .squarebig{
-	width: 80px;
-	height: 28px;
-	text-align: center;
-	margin-top: 40px;
-	margin-left: 76px;
+	    width: auto;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    max-width: 222px;
+    word-wrap: break-word;
 }
 #upload{
 	text-align: left;
@@ -625,4 +635,10 @@ color: white;
 #keepapp{
 	font-size: 18px;
     margin-left: -40%;
+}
+
+
+#linkTV{
+    text-align: left;
+    padding-left: 121px;
 }

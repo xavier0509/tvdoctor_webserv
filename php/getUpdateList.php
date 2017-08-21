@@ -24,6 +24,10 @@ function getUpdateList($TVmodel, $TVchip)
  			echo '{"ret": "OK", "version": "'.$tc_version.'", "url":"'.$tc_url.'"}';
  			break;
  		}
+    else{
+      echo '{"ret": "OK", "version": "'.$tc_version.'", "url":"'.$tc_url.'"}';
+      break;
+    }
 	}
 }
 

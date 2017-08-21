@@ -42,7 +42,9 @@ function getTVidfunc()
             var data = this.responseText;
             printlog(data);
             if (data == "TVId is null") // login success
-            {
+            { 
+               document.getElementById('linkTV').removeAttribute("disabled");
+               document.getElementById('linkTV').removeAttribute("class");
                clearInterval(interval);
                document.getElementById('span1').innerHTML="<font color='red'>TVId为空</font>";
                setTimeout("document.getElementById('span1').innerHTML=''",3000);
@@ -52,7 +54,11 @@ function getTVidfunc()
             {
               //通过电视id通知请求
               getTVId = data;
-              var  urladdr ="/php/dealhttprequest.php?TVId="+data;
+              var pushid2 =document.getElementById('pushid').value;
+              var pushid3 = pushid2.replace(/\s+/g,"");;
+              // var pushid = pushid3.toLocaleUpperCase();
+              var activeId = pushid3;
+              var  urladdr ="/php/dealhttprequest.php?TVId="+data+"&activeId="+activeId;
               printlog("urladdr="+urladdr);
               urlDeal(urladdr,0); 
             }
@@ -85,9 +91,15 @@ function  urlDeal(url,index)
             if (xmlhttp.readyState == 4)
             {// 4 = "loaded"
               printlog("appurl_download readyState="+xmlhttp.status);
-              clearInterval(interval); 
+              clearInterval(interval);
+		document.getElementById('linkTV').removeAttribute("disabled");
+                document.getElementById('linkTV').removeAttribute("class");
+                document.getElementById('linkTV').removeAttribute("style"); 
               if (xmlhttp.status == 200)
               {
+                document.getElementById('linkTV').removeAttribute("disabled");
+                document.getElementById('linkTV').removeAttribute("class");
+                document.getElementById('linkTV').removeAttribute("style");
                 clearInterval(interval);
                 var   data =xmlhttp.responseText;
                 printlog("return  result="+data);
@@ -97,7 +109,7 @@ function  urlDeal(url,index)
                   connect();
                  }
                 else if (data == "refuse")
-         	{ 
+         	      { 
                   subinfo.innerHTML ="<font color='red'>远程TV拒绝控制请求!</font>";
                   setTimeout("subinfo.innerHTML =''",5000);
                   document.getElementById('linkTV').innerHTML="连接电视";
@@ -108,7 +120,7 @@ function  urlDeal(url,index)
                    document.getElementById('linkTV').innerHTML="连接电视";
                    setTimeout("subinfo.innerHTML =''",5000);
                 }
-		else if (data == "replace")
+		            else if (data == "replace")
                 {
                   subinfo.innerHTML = "<font color='red'>新PC发起连接请求，您的请求被搁置</font>";
                   document.getElementById('linkTV').innerHTML="连接电视";
@@ -128,7 +140,7 @@ function  urlDeal(url,index)
             }              
             else
             {	
-		var code = xmlhttp.status;
+		            var code = xmlhttp.status;
                 document.getElementById('span1').innerHTML = "<font color='red'>请求远程TV授权出错!错误码为：</font>"+"<font color='red'>"+code+"</font>";
                 document.getElementById('linkTV').innerHTML="连接电视";
                 setTimeout("subinfo.innerHTML =''",5000);

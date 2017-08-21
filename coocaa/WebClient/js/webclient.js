@@ -179,7 +179,7 @@ function connect()
                         {
                             OutputLog("setTimeout============");
                             // document.getElementById('achieve').innerHTML = "日志文件获取失败!";
-                            var  t1 =setTimeout(showlogcatResultInfo,3000);                  
+                            var  t1 =setTimeout(showlogcatResultInfo,5000);                  
                         }
                     }
                     else if (CMD_NOTIFY_DOWNLOADLOGFILE == getCommand())//下载日志文件
@@ -204,7 +204,7 @@ function connect()
                         subinfo.innerHTML="<font color='red'>用户接受新PC连接，您被迫下线</font>";
                         document.getElementById('import').style.display="block";
                         document.getElementById('main').style.display="none";
-                        setTimeout(subinfo.innerHTML='',3000);
+                        setTimeout(subinfo.innerHTML='',5000);
                     }
                     else if (CMD_NOTIFY_SHOWPHOTO == getCommand())  //显示截取的图片
                     {
@@ -250,7 +250,7 @@ function connect()
                         {
                             buttonUpload.innerHTML = "上传到TV失败,错误码是"+result;
                         }
-                        setTimeout("buttonUpload.innerHTML='开始上传'",5000);
+                        setTimeout("buttonUpload.innerHTML='开始上传'",10000);
                     }
                     else if (RET_REMOTE_PULL_FILE == getCommand()) 
                     {
@@ -258,12 +258,12 @@ function connect()
                         if (0 == result )
                         {
                             document.getElementById('buttonDown').innerHTML ="请求完成";
-                            setTimeout("document.getElementById('buttonDown').innerHTML ='下载'",3000);
+                            setTimeout("document.getElementById('buttonDown').innerHTML ='下载'",10000);
                         }
                         else
                         {
                             document.getElementById('buttonDown').innerHTML ="您要下载的文件出错了,错误码是："+result;
-                            setTimeout("document.getElementById('buttonDown').innerHTML ='下载'",3000);
+                            setTimeout("document.getElementById('buttonDown').innerHTML ='下载'",10000);
                         }
                     }
                     else if (RET_LOGCAT_START_SNATCH == getCommand()) 
@@ -948,6 +948,14 @@ function disp_prompt()
     var pushid = pushid3;
     if(pushid!=""&&pushid!=null)
     {   
+        document.getElementById('linkTV').setAttribute("disabled","");
+        document.getElementById('linkTV').setAttribute("class","linkTV");
+
+	document.getElementById('linkTV').setAttribute("style","cursor:wait");
+
+
+
+
         // subinfo.innerHTML="正在连接中";
         clearInterval(interval);
         interval=setInterval("linking()",800); 
@@ -966,7 +974,7 @@ function disp_prompt()
     else
     {
         subinfo.innerHTML="<font color='red'>请输入激活ID</font>";
-        setTimeout("document.getElementById('span1').innerHTML=''",3000);
+        setTimeout("document.getElementById('span1').innerHTML=''",5000);
 
         // alert("服务ID为空，请重新输入");
     }
@@ -989,7 +997,7 @@ function disp_promptOK(){
 }
 
 var push_flag=0;
-var push_value=["",".","..","..."];
+var push_value=["&nbsp&nbsp&nbsp",".&nbsp&nbsp","..&nbsp","..."];
 function linking()
 {
     document.getElementById('linkTV').innerHTML="正在连接中"+push_value[push_flag];
@@ -1090,12 +1098,12 @@ function chkinput(){
     if (username1=="") {
         var dialog1 = new singledialog("请输入用户名");
         document.getElementById('singlecontent').innerHTML=dialog1.content;
-        setTimeout(hidediv,2000);
+        setTimeout(hidediv,3000);
     }
     else if(password == ""){
         var dialog1 = new singledialog("请输入密码");
         document.getElementById('singlecontent').innerHTML=dialog1.content;
-        setTimeout(hidediv,2000);
+        setTimeout(hidediv,3000);
     }
     else{
         var password1 = md5(password);  
@@ -1175,7 +1183,7 @@ function insertOK(){
 function showlogininfo(str){
     var dialog1 = new singledialog(str);
     document.getElementById('singlecontent').innerHTML=dialog1.content;
-    setTimeout(hidediv,2000);
+    setTimeout(hidediv,3000);
 }
 
 function loginfunc() {
@@ -1225,6 +1233,111 @@ function FileUpload()
      
 }
 
+function ConvUtf(obj) {
+    r = obj.replace(/[^\u0000-\u00FF]/g, function ($0) { return escape($0).replace(/(%u)(\w{4})/gi, "&#x$2;") });
+    return r;
+}
+
+
+function EncodeUtf8(s1)
+{
+      var s = escape(s1);
+      var sa = s.split("%");
+      var retV ="";
+      if(sa[0] != "")
+      {
+         retV = sa[0];
+      }
+      for(var i = 1; i < sa.length; i ++)
+      {
+           if(sa[i].substring(0,1) == "u")
+           {
+               retV += Hex2Utf8(Str2Hex(sa[i].substring(1,5)));
+               if (sa[i].length > 5) { 
+                retV += sa[i].substring(5, sa[i].length);
+               }
+              
+           }
+           else retV += "%" + sa[i];
+      }
+     
+      return retV;
+}
+function Str2Hex(s)
+{
+      var c = "";
+      var n;
+      var ss = "0123456789ABCDEF";
+      var digS = "";
+      for(var i = 0; i < s.length; i ++)
+      {
+         c = s.charAt(i);
+         n = ss.indexOf(c);
+         digS += Dec2Dig(eval(n));
+          
+      }
+      //return value;
+      return digS;
+}
+function Dec2Dig(n1)
+{
+      var s = "";
+      var n2 = 0;
+      for(var i = 0; i < 4; i++)
+      {
+         n2 = Math.pow(2,3 - i);
+         if(n1 >= n2)
+         {
+            s += '1';
+            n1 = n1 - n2;
+          }
+         else
+          s += '0';
+         
+      }
+      return s;
+     
+}
+function Dig2Dec(s)
+{
+      var retV = 0;
+      if(s.length == 4)
+      {
+          for(var i = 0; i < 4; i ++)
+          {
+              retV += eval(s.charAt(i)) * Math.pow(2, 3 - i);
+          }
+          return retV;
+      }
+      return -1;
+}
+function Hex2Utf8(s)
+{
+     var retS = "";
+     var tempS = "";
+     var ss = "";
+     if(s.length == 16)
+     {
+         tempS = "1110" + s.substring(0, 4);
+         tempS += "10" + s.substring(4, 10);
+         tempS += "10" + s.substring(10,16);
+         var sss = "0123456789ABCDEF";
+         for(var i = 0; i < 3; i ++)
+         {
+            retS += "%";
+            ss = tempS.substring(i * 8, (eval(i)+1)*8);
+           
+           
+           
+            retS += sss.charAt(Dig2Dec(ss.substring(0,4)));
+            retS += sss.charAt(Dig2Dec(ss.substring(4,8)));
+         }
+         return retS;
+     }
+     return "";
+} 
+
+
 function fileupload_ok(){
     var name =document.getElementById('file').value;
     var tvpath =document.getElementById('pushfiletvpath').value;
@@ -1252,11 +1365,24 @@ function fileupload_ok(){
             }
            // var  vvname =data.file_path.substring((data.file_path.indexOf('_')+1),data.file_path.length);
              tvpath +=name;
-            var  array ={"server-url":data.file_path,"tv-path":tvpath,"file-size":data.file_size};
-            var  jsstring =JSON.stringify(array);
+             var decToHex = function(str) {
+                var res=[];
+                for(var i=0;i < str.length;i++)
+                    res[i]=("00"+str.charCodeAt(i).toString(16)).slice(-4);
+                return "\\u"+res.join("\\u");
+            }
+            console.log("tvpath编码前："+tvpath);
+            var tvpathAfter = decToHex(tvpath);
+            console.log("tvpath编码后："+tvpathAfter);
+            var filestring = EncodeUtf8(data.file_path);
+            OutputLog("编码后： ="+filestring); 
+            // var  array ={"server-url":filestring,"tv-path":tvpathAfter,"file-size":data.file_size};
+            // var  jsstring =JSON.stringify(array);
+            var  jsstring ='{"server-url":"'+filestring+'","tv-path":"'+tvpathAfter+'","file-size":'+data.file_size+'}';
             OutputLog("encode json ="+jsstring); 
             setTargetAndSource(sourceid,tv_id);
             setCommandId(CMD_REMOTE_PUSH_FILE,0);
+            
             setKeyValueParam(jsstring);
             buttonUpload.innerHTML = "上传到服务器成功";
             socket.send(assemblingProtocol());
@@ -1557,14 +1683,14 @@ function actionOkfunc(){
             {
                 var dialog1 = new singledialog("记录填写成功");
                 document.getElementById('singlecontent').innerHTML=dialog1.content;
-                setTimeout(hidediv,2000); 
+                setTimeout(hidediv,3000); 
             } 
 
             else if (data == "ERR_NEW_FAIL") // login success
             {
                 var dialog1 = new singledialog("记录填写失败");
                 document.getElementById('singlecontent').innerHTML=dialog1.content;
-                setTimeout(hidediv,2000); 
+                setTimeout(hidediv,3000); 
             }
         }
     }
