@@ -237,7 +237,7 @@ function notifierSocket($data)
 
 function getPushIdByCode($tvid, $appid, $apikey,$activeId) 
 {
-  $getTVIDUrl = "http://msg.push.skysrt.com:8080/api/getClientIdAndPushId";
+  $getTVIDUrl = "http://msg.push.skysrt.com/api/getClientIdAndPushId";
   #$appid ='nAPkh8JA';
   #$apikey ='sjDG4kZA';
   $timestamp = microtime_float();
@@ -258,7 +258,7 @@ function getPushIdByCode($tvid, $appid, $apikey,$activeId)
 }
 
 function getPushIdByActiveId($appid, $activeId, $accessToken){
-  $getPushIDUrl = "http://218.244.136.207:8080/api/v3/getPushIdByActiveId";
+  $getPushIDUrl = "http://msg.push.skysrt.com/api/v3/getPushIdByActiveId";
   $timestamp = microtime_float();
   $tvidurl = $getPushIDUrl . "?appId=" . $appid . "&activeId=" . $activeId. "&timeStamp=" . $timestamp . "&token=" . $accessToken . "&devType=" . "";
   $tvid_json = httpRequest($tvidurl);
@@ -280,7 +280,7 @@ function pushv2($id,$appid){
   //echo $timestamp."\n";
   $md5_src = $appid . $apikey . $timestamp . "connect";
   $tvid_token = md5($md5_src);
-  $url = "http://msg.push.skysrt.com:8080/v2/message/sendMsg?pushId=".$id ."&msg=connect&ttl=120&token=".$tvid_token."&timeStamp=".$timestamp."&appId=".$appid;
+  $url = "http://msg.push.skysrt.com/v2/message/sendMsg?pushId=".$id ."&msg=connect&ttl=120&token=".$tvid_token."&timeStamp=".$timestamp."&appId=".$appid;
   $result =  httpRequest($url);
   getMsgApi($activeId,$result);
   $datajson =json_decode($result);
@@ -295,7 +295,7 @@ function getToken($devid, $appid, $APISecret){
   $timeStamp = microtime_float();
   $md5String = $devid. $appid. $APISecret. $timeStamp;
   $token = md5($md5String);
-  $url = "http://msg.push.skysrt.com:8080/api/v3/getToken?devId=".$devid."&appId=".$appid."&timeStamp=".$timeStamp."&token=".$token;
+  $url = "http://msg.push.skysrt.com/api/v3/getToken?devId=".$devid."&appId=".$appid."&timeStamp=".$timeStamp."&token=".$token;
   $result =  httpRequest($url);
   getMsgApi($activeId,$result);
   $datajson =json_decode($result);
