@@ -819,6 +819,7 @@ function keyRight()
     setTargetAndSource(sourceid,tv_id);
     setCommandId( CMD_SEND_VIRKEY,0);
     setIntegerParam(KEYCODE_DPAD_RIGHT);//键值码   keycode
+    console.log("keycode=="+KEYCODE_DPAD_RIGHT);
     socket.send(assemblingProtocol());
 }
 
@@ -835,6 +836,7 @@ function keyOk()
     setTargetAndSource(sourceid,tv_id);
     setCommandId( CMD_SEND_VIRKEY,0);
     setIntegerParam(KEYCODE_DPAD_CENTER);//键值码   keycode
+    console.log("keycode=="+KEYCODE_DPAD_CENTER);
     socket.send(assemblingProtocol());
 }
 
@@ -851,6 +853,7 @@ function keyLeft()
     setTargetAndSource(sourceid,tv_id);
     setCommandId( CMD_SEND_VIRKEY,0);
     setIntegerParam(KEYCODE_DPAD_LEFT);//键值码   keycode
+    console.log("keycode=="+KEYCODE_DPAD_LEFT);
     socket.send(assemblingProtocol());
 }
 
@@ -867,6 +870,7 @@ function  keyUp()
     setTargetAndSource(sourceid,tv_id);
     setCommandId( CMD_SEND_VIRKEY,0);
     setIntegerParam(KEYCODE_DPAD_UP);//键值码   keycode
+    console.log("keycode=="+KEYCODE_DPAD_UP);
     socket.send(assemblingProtocol());
 }
 
@@ -883,6 +887,7 @@ function  keyVolumeDown()
     setTargetAndSource(sourceid,tv_id);
     setCommandId( CMD_SEND_VIRKEY,0);
     setIntegerParam(KEYCODE_DPAD_VOLUME_DOWN);//键值码   keycode
+    console.log("keycode=="+KEYCODE_DPAD_VOLUME_DOWN);
     socket.send(assemblingProtocol());
 }
 
@@ -899,6 +904,7 @@ function keyVolumeUp()
     setTargetAndSource(sourceid,tv_id);
     setCommandId( CMD_SEND_VIRKEY,0);
     setIntegerParam(KEYCODE_DPAD_VOLUME_UP);//键值码   keycode
+    console.log("keycode=="+KEYCODE_DPAD_VOLUME_UP);
     socket.send(assemblingProtocol());
 }
 
@@ -912,6 +918,7 @@ function keysignal()
     setTargetAndSource(sourceid,tv_id);
     setCommandId( CMD_SEND_VIRKEY,0);
     setIntegerParam(KEYCODE_DPAD_SIGNAL);//键值码   keycode
+    console.log("keycode=="+KEYCODE_DPAD_SIGNAL);
     socket.send(assemblingProtocol());
 }
 
