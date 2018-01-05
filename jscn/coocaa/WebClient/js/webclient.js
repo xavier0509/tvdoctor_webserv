@@ -5,7 +5,7 @@ document.write("<script language=javascript src='js/jquery-1.7.1.min.js' charset
 document.write("<script language=javascript src='js/ajaxfileupload.js' charset=\"utf-8\"></script>");
 document.write("<script language=javascript src='js/md5.js' charset=\"utf-8\"></script>");
 
-var  httpurl = "";//"http://120.27.147.96";
+var  httpurl = "/jscn";//"http://120.27.147.96";
 var  host = "ws://223.202.11.125:9008";
 var  logcatHost ="ws://223.202.11.125:9005";
 var mobileMainUrl="mobileMain.html",  
