@@ -1,0 +1,318 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<title>TVDoctor</title>
+
+<script language="javascript" src="js/usermanager.js"> </script>
+<script type="text/javascript" src="js/newjs.js"></script>
+<script type="text/javascript" src="js/jquery-1.7.1.min.js" ></script>
+<script language=javascript src='js/logcat.js' charset=\"utf-8\"></script>
+<script language="javascript" src="js/webclient.js"> </script>
+<script type="text/javascript">
+var mobileUrl="mobileMain.html",  
+    mobile = (/mmp|symbian|smartphone|midp|wap|phone|xoom|iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()));  
+if (mobile) {  
+    window.location = mobileUrl;  
+}  
+</script>
+<link rel="stylesheet" type="text/css" href="css/style1.css">
+<link rel="stylesheet" type="text/css" href="css/usermanager.css">
+
+</head>
+<body onload="forsession()" >
+	<div id="topbox">
+		<div id="top">
+			<div  id="logo"><img src="images/logo2.png"></div>
+			<div class="menu" id="service" onclick="information_hide()">远程服务</div>
+	    	<div class="menu" id="usermanage" onclick="usermanage()">用户管理</div>
+	    	<div class="menu" id="records"><a href="select.html" target="new">统计查询</a></div>
+	    	<div id="session" onclick="change_infomation()"></div>
+	    	<div id="loadout" onclick="logout()">| 退出</div>
+	    	<div id="helpdiv"><a href="help.html" title="使用帮助" target="new"><img src="images/help.png" id="helpimg"></a></div>
+	    	<div id="span1"></div>
+		</div>
+	</div>
+	<div id = "finishaction" style="display:none">
+	 	<p>用户名</p><input disabled="true" id="actionUserName">
+	 	<p>激活ID</p><input disabled="true" id="actionId">
+	 	<p>电视机芯</p><input disabled="true" id="actionChip">
+	 	<p>电视机型</p><input disabled="true" id="actionModel">
+	 	<p>系统版本</p><input disabled="true" id="actionVersion">
+	 	<p>处理问题</p><input id="actionProblem">
+	 	<button onclick="actionOk()">确定</button>
+	 </div>
+	<div id="server_table" style="display:block">
+		<div id="first" >
+			
+			<div class="box" id="normal">
+			<!-- 输入tvid -->
+				<div id="import" >
+					<div id="import-info">
+						<h3>请输入需要远程服务的激活ID</h3><br/>
+						<input id="pushid"  autocomplete="off"  placeholder="请输入激活ID" /><br/><br/>
+						<button class="button" onClick="disp_prompt()" id="linkTV" class="">连接电视</button>
+					</div>
+				</div>
+				<div id="main" style="display:none">
+					<div id="menu">
+						<span id="window1" onclick="window1()">可视窗口</span>
+						<span id="window2" onclick="window2()">命令窗口</span>
+					</div>
+					<div id="command_button">
+						<button class="control_button1" id="scrn1" value="1" onclick="scrn('scrn1')">一键截屏</button>
+						<button class="control_button1" id="logcatButton"  onclick="logcat()">抓取日志</button>
+						<button class="control_button1" id="stopButton" onclick="stoplogcat()">停止抓取</button>
+						<br />
+						<div id="button2">
+						<button class="control_button2" onclick="downshow()">文件下载<img src="images/list-left.png" id="listimg1"><img src="images/list-down.png" id="listimg12"></button>
+						<div id="download">
+		            		<p>TV路径</p><!--<input style="width:60%"  id ="pullfiletvpath" />-->
+		          			<form name="logTime" id="logTime">
+			          			<span style="position:absolute;border:1px solid #c1c1c1;overflow:hidden;width:188px;height:19px;clip:rect(-1px 190px 190px 170px);"> 
+			          			<select name="pullab" id="pullab" style="width:191px;height:22px;margin:-2px;" 
+			          			onChange="javascript:document.getElementById('pullfiletvpath').value=document.getElementById('pullab').options[document.getElementById('pullab').selectedIndex].value;"> 
+			          			<!--下面的option的样式是为了使字体为灰色，只是视觉问题，看起来像是注释一样--> 
+				          			<option value="" style="color:#c2c2c2;">---请选择---</option>
+				          			<option value="/data/">/data/</option> 
+				          			<option value="/system/vendor/app/">/system/vendor/app/</option> 
+				          			<option value="/system/vendor/lib/">/system/vendor/lib/</option>
+					  	  			<option value="/data/screen.png">屏幕图片</option> 
+			          			</select> 
+			          			</span> 
+			          			<span style="position:absolute;border-top:1pt solid #c1c1c1;border-left:1pt solid #c1c1c1;border-bottom:1pt solid #c1c1c1;width:170px;height:19px;"> 
+			          			<input type="text"  name="pullfiletvpath" id="pullfiletvpath" value="/data/" style="width:170px;height:18px;border:0pt;">
+			          			</span>
+		          			</form><br><br>
+		            		<button type="button" class="squarebig" id ="buttonDown" onclick="downloadfile()">下载</button>
+		          		</div>
+						<button class="control_button2" onclick="upshow()">文件上传<img src="images/list-left.png" id="listimg2"><img src="images/list-down.png" id="listimg22"></button>
+						<div id="upload" >                              
+		          			<p>上传文件：</p><input style="width:60%" type="file" name="upfile" id ="file" /> <br/>
+		          			<p>TV路径</p>  <!-- <input style="width:60%" id ="pushfiletvpath" /> -->
+		          			<form name="logTime" id="logTime">
+			          			<span style="position:absolute;border:1px solid #c1c1c1;overflow:hidden;width:188px;height:19px;clip:rect(-1px 190px 190px 170px);"> 
+			          			<select name="pushab" id="pushab" style="width:191px;height:22px;margin:-2px;" 
+			          			onChange="javascript:document.getElementById('pushfiletvpath').value=document.getElementById('pushab').options[document.getElementById('pushab').selectedIndex].value;"> 
+			          			<!--下面的option的样式是为了使字体为灰色，只是视觉问题，看起来像是注释一样--> 
+					          		<option value="" style="color:#c2c2c2;">---请选择---</option> 
+					          		<option value="/data/">/data/</option> 
+					          		<option value="/system/vendor/app/">/system/vendor/app/</option>
+					          		<option value="/system/vendor/lib/">/system/vendor/lib/</option>
+			          			</select> 
+			          			</span> 
+			          			<span style="position:absolute;border-top:1pt solid #c1c1c1;border-left:1pt solid #c1c1c1;border-bottom:1pt solid #c1c1c1;width:170px;height:19px;"> 
+			          				<input type="text"  name="pushfiletvpath" id="pushfiletvpath" value="/data/" style="width:170px;height:18px;border:0pt;">
+			          			</span>
+		          			</form>
+		          			<button type="button" class="button squarebig" id="buttonUpload"  onclick="FileUpload()">上传</button> 
+		      			</div>
+						<button class="control_button2" onclick="sendUpdate()">升级推送<img src="images/list-left.png" id="listimg3"><img src="images/list-down.png" id="listimg32"></button>
+						<!-- <button class="control_button2" onclick="reset()">恢复出厂设置<img src="images/list-left.png"></button> -->
+						<!-- <button class="control_button2" onclick="updateList()">升级列表<img src="images/list-left.png" id="listimg4"><img src="images/list-down.png" id="listimg42"></button> -->
+						<!-- <p id="version"></p> -->
+						</div>
+					</div>
+					<div><img src="images/screenbg.jpg" id="tvscrn"></div>
+					<div id="tvinfo">
+						
+					</div>
+					<div id="control">
+						<button class="button" id="info_button" onclick="keysignal()">信号源</button>
+						<button id="break_button" onclick="cancle1()">断开</button>
+						<div id="circle_button">
+							<img id="left" src="images/left.png" onmousedown="click_img(this)" onmouseup="release_img(this)" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)" onclick ="keyLeft()"/>
+							<img id="right" src="images/right.png" onmousedown="click_img(this)" onmouseup="release_img(this)" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)" onclick ="keyRight()"/>
+							<img id="up" src="images/up.png" onmousedown="click_img(this)" onmouseup="release_img(this)" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)" onclick ="keyUp()"/>
+							<img id="down" src ="images/down.png" onmousedown="click_img(this)" onmouseup="release_img(this)" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)" onclick ="keyDown()"/>
+							<img id="ok" src ="images/ok.png" onmousedown="click_img(this)" onmouseup="release_img(this)" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)" onclick ="keyOk()"/>
+						</div>
+						<button id="return_button" onclick ="keyBack()">返回</button>
+						<button id="menu_button" onclick ="keyMeun()">菜单</button>
+						<div id="index_button" onclick ="keyHome()"><p>主页</p></div>
+						<button id="minus_button" onclick ="keyVolumeDown()">－</button>
+						<button id="add_button" onclick ="keyVolumeUp()">＋</button>
+						<img src="images/logo3.png" id="control_logo">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="third" style="display:none">
+			<div class="box">
+				<div id="menu">
+					<span onclick="window1()">可视窗口</span>
+					<span id="window1" onclick="window2()">命令窗口</span>
+				</div>
+				<div id="leftdiv">
+					<div id="total">
+						<!-- <div class="cmd" onclick="window2()">调试窗口</div> -->
+						<div class="cmd" id="selected">使用指南</div>
+						<div class="cmdinfo">*在底部输入框中输入所需命令<br><br>
+							 *Ctrl+c能够暂停日志的抓取<br>
+
+						</div>
+					</div>
+				</div>
+				<div id="container2">
+					<div id="divContent2"></div>
+					<div id="divInput2" onfocus="logcatconsolefocus()" contenteditable="true">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id = "user_tab" style = "display:none">
+		<div id = "user_list" style = "display:none">
+			<input type= "button" id = "new_user_id" value = "＋  添加新用户" onclick= "add_new_user()">
+			<table id = "user_info_table">
+				<tr>
+					<th>ID</th>
+					<th>用户名</th>
+					<th>账户权限</th>
+					<th>操作</th>
+				</tr>
+			</table>
+			<div id = "user_list_bottom" style = "display:block">
+				<a id = "font_bottom_left">共 <font id = "list_total_id">0</font> 条记录       当前第 <font id = "tab_index_id">0/0</font> 页</a>
+				<a id = "font_bottom_right"> 
+					<input type = "button" value = "首页  " onclick = "home_page()"> 
+					<input type = "button" value = "上一页  " onclick = "prev_page()">
+					跳转<input type = "text" value = "1" onchange="current_tab_index_change(this.value)">页
+					<input type = "button" value = "  下一页  " onclick = "next_page()">
+					<input type = "button" value = "尾页" onclick = "end_page()">
+				</a>
+			</div>
+			<div id = "user_list_nodata_label" style = "display:none">
+				<font id = "user_list_nodata_font">还没有添加新用户</font>
+				 
+			</div>
+
+		</div>
+
+	</div>
+
+
+	<div id = "add_user_tab" style = "display:none">
+		<font id = "add_tab_title">编辑新用户</font>
+		<hr id = "add_tab_line"/>
+		<div id = "add_user_tab_content">
+			<div id = "add_user_title_id">
+				<p class="add_user_font">真实姓名</p>
+				<p class="add_user_font">所属部门</p>
+		 		<p class="add_user_font">用户名</p>
+		 		<p class="add_user_font">密   码</p>
+		 		<p class="add_user_font">权   限</p>
+			</div>
+			<div id = "add_user_input_id">
+				<input type="text" id = "add_user_input_truename" autocomplete="off"> <br/>
+				<select id = "add_user_input_department" autocomplete="off">
+					<option value="software">软件院</option>
+					<option value="coocaa">酷开公司</option>
+					<option value="service">用户服务部</option>
+				</select> <p></p><br/>
+				<input type="text" id = "add_user_input_username" autocomplete="off"> <br/>
+				<input type="password" id = "add_user_input_passwd" autocomplete="off"> <br/>
+				<select id = "add_user_input_select_id" autocomplete="off">
+					<option value="Engineer">Engineer</option>
+					<option value="Admin">Admin</option>
+					<option value="After-sale">After-sale</option>
+				</select>
+			</div>
+		</div>
+		<div id = "add_user_bt_id">
+			<input type="button" value = "取消" id = "add_user_bt_cancle" onclick = "add_user_bt_cancle()"> 
+			<input type="button" value = "确定" id = "add_user_bt_confirm" onclick = "add_user_bt_confirm()">
+		</div>
+	</div>
+	<div id = "modify_user_tab" style = "display:none">
+		<font id = "modify_tab_title">编辑用户</font>
+		<hr id = "modify_tab_line"/>
+		<div id = "modify_user_tab_content">
+			<div id = "modify_user_title_id">
+		 		<p class="modify_user_font">用户名</p>
+		 		<p class="modify_user_font">密   码</p>
+		 		<p class="modify_user_font">权   限</p>
+			</div>
+			<div id = "modify_user_input_id">
+				<input type="text" id = "modify_user_input_username"> <br/>
+				<input type="password" id = "modify_user_input_passwd"> <br/>
+				<select id = "modify_user_input_select_id">
+					<option value="Engineer">Engineer</option>
+					<option value="Admin">Admin</option>
+					<option value="After-sale">After-sale</option>
+				</select>
+			</div>
+		</div>
+		<div id = "modify_user_bt_id">
+			<input type="button" value = "取消" id = "modify_user_bt_cancle" onclick = "modify_user_bt_cancle()"> 
+			<input type="button" value = "确定" id = "modify_user_bt_confirm" onclick = "modify_user_bt_confirm()">
+		</div>
+	</div>
+
+	<div id = "delete_user_element" style = "display:none">
+		<font id = "delete_user_title">确定删除用户 <font id = "delete_user_name_label">* * *</font> 吗 ？</font> <br />
+		<div id = "delete_user_bt_id">
+			<input type="button" value = "取消" id = "delete_user_bt_cancle" onclick = "delete_user_bt_cancle()"> 
+			<input type="button" value = "确定" id = "delete_user_bt_confirm" onclick = "delete_user_bt_confirm()"> 
+		</div>
+	</div>
+	<div id = "change_user_info_tab" style = "display:none">
+		<div id = "change_passwd_id">
+			<font id = "change_passwd_title">个人资料》 修改密码</font>
+			<hr id = "change_passwd_line"/>
+			<div id = "change_passwd_detail" style = "display:block">
+				<div id = "change_passwd_detail_title">
+					<p >当前用户 ：</p>
+					<p >账户密码 ：</p>
+					<p >账户权限 ：</p>
+				</div>
+				<div id = "change_passwd_detail_content">
+					<font id = "current_user_name"></font> <br/>
+					<font id = "current_user_password">  ******</font> 
+					<input type = "button" value = "修改" onclick="change_passwd()"> <br/>
+					<font id = "current_user_option">当前权限</font> 
+				</div>
+			</div>
+			<div id = "change_passwd_action" style = "display:none">
+				<div id = "change_passwd_action_title">
+					<p >原密码 ：</p>
+					<p >输入新密码 ：</p>
+					<p >再次输入新密码 ：</p>
+				</div>
+				<div id = "change_passwd_action_content">
+					<input type = "text" value = "" onclick="" id="oldpw"> <br/>
+					<input type = "password" value = "" onclick="" id="newpw"> <br/>
+					<input type = "password" value = "" onclick="" id="ackpw"> <br/>
+					<input type = "button" value = "确定修改" id="ackchange" onclick="confirm_change_passwd()"> <br/>
+				</div>
+		 	</div>
+
+		 	<div id = "change_passwd_success" style = "display:none">
+				 <div id = "change_passwd_success_content">
+					 <font id = "change_passwd_success_title">密码修改成功 ！</font>  <br>
+					 <input type = "button" value = "回到个人资料" onclick="change_passwd_success()"> <br/>
+					 <font id = "change_passwd_success_bottom">3s后页面自动跳转</font> <br>
+				 </div>
+		 	</div>
+		 </div>
+		 
+	</div>
+	<div id = "user_manager_bg" style = "display:none"> </div>
+	<!-- 遮罩层 -->
+	<div id="bg"></div>
+	<div id="show">
+		<div id="content"></div>
+		<button id="btnclose" type="button" />取消</button>
+		<button id="btnok" type="button" />确定</button>
+	</div>
+	<div id="singlebutton">
+		<div id="singlecontent"></div>
+		<button id="singlebtnok" type="button" />知道了</button>
+	</div>
+	<div id="issue">
+		<textarea id="issuetext" rows='10'; cols='30'; placeholder="请简要描述当前电视的故障"></textarea><br />
+		<button id="issueok" onclick="issue()">确定</button>
+	</div>
+</body>
+</html>
