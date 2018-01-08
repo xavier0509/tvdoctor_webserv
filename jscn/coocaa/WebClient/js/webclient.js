@@ -219,7 +219,7 @@ function connect()
                         }
                         var   url = getBuferParam();
                         OutputLog("photo path="+url);
-                        url =url.replace("/usr/share/nginx/html",httpurl);///var/www/
+                        url =url.replace("/usr/share/nginx/html","");///var/www/
                         OutputLog("photo path= ="+url);
                         document.getElementById('tvscrn').src =url;
                     }
@@ -1352,7 +1352,7 @@ function fileupload_ok(){
     OutputLog("uploadfile ===========file name="+name);    
     $.ajaxFileUpload (
    {
-     url:'/jscn/php/doajaxfileupload.php', //你处理上传文件的服务端
+     url:'/php/doajaxfileupload.php', //你处理上传文件的服务端
      type:'post',
      secureuri:false, 
      fileElementId:'file',//与页面处理代码中file相对应的ID值
