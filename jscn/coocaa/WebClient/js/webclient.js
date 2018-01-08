@@ -1352,7 +1352,7 @@ function fileupload_ok(){
     OutputLog("uploadfile ===========file name="+name);    
     $.ajaxFileUpload (
    {
-     url:'/php/doajaxfileupload.php', //你处理上传文件的服务端
+     url:'/jscn/php/doajaxfileupload.php', //你处理上传文件的服务端
      type:'post',
      secureuri:false, 
      fileElementId:'file',//与页面处理代码中file相对应的ID值
@@ -1548,7 +1548,7 @@ function sessionfunc() {
 }
 
 function getPermissonsByUseName(username) {
-    var url = "/php/getInfo.php?action=permissions&username=" + username;
+    var url = "/jscn/php/getInfo.php?action=permissions&username=" + username;
     sendHTTPRequest(url, getPermissonsFunc);
 }
 

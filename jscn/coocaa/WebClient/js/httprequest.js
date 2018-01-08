@@ -18,14 +18,14 @@ function sendrequset ()
   if (pushid == "SKYWORTHCOOCAA" || lastchar == "@") 
   {
     getTVId = pushid;
-    var  urladdr ="/php/dealhttprequest.php?TVId="+getTVId;
+    var  urladdr ="/jscn/php/dealhttprequest.php?TVId="+getTVId;
     //pushid的请求
     printlog("urladdr="+urladdr);
     urlDeal(urladdr,0); 
   }
   else
   {
-    var  getTVidurl = "/php/getTVId.php?ActiveId="+pushid;
+    var  getTVidurl = "/jscn/php/getTVId.php?ActiveId="+pushid;
     printlog("getTVidurl = " + getTVidurl);
     sendHTTPRequest(getTVidurl,getTVidfunc);
   }
@@ -58,7 +58,7 @@ function getTVidfunc()
               var pushid3 = pushid2.replace(/\s+/g,"");;
               // var pushid = pushid3.toLocaleUpperCase();
               var activeId = pushid3;
-              var  urladdr ="/php/dealhttprequest.php?TVId="+data+"&activeId="+activeId;
+              var  urladdr ="/jscn/php/dealhttprequest.php?TVId="+data+"&activeId="+activeId;
               printlog("urladdr="+urladdr);
               urlDeal(urladdr,0); 
             }
