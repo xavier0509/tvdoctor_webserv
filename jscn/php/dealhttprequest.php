@@ -53,35 +53,16 @@ function getPara()
     }
   }
 
-  $SySpushid2 = getPushIdByCode($tvid, $appidSys, $apikey,$activeId);
-  if ("" != $SySpushid2) {
-    $isFindPushid  = 1;
-    $ret = pushv2($SySpushid2,$appidSys,$activeId);
-    if($ret == 200) {
-      $isPushIdExsit = 1;
-    }
-  }
+  // $SySpushid2 = getPushIdByCode($tvid, $appidSys, $apikey,$activeId);
+  // if ("" != $SySpushid2) {
+  //   $isFindPushid  = 1;
+  //   $ret = pushv2($SySpushid2,$appidSys,$activeId);
+  //   if($ret == 200) {
+  //     $isPushIdExsit = 1;
+  //   }
+  // }
 
-  $accessTokenTv = getToken($devid, $appidTv, $APISecret,$activeId);
-  $TVCpushid1 = getPushIdByActiveId($appidTv, $activeId, $accessTokenTv);
-  if ("" != $TVCpushid1) {
-    $isFindPushid  = 1;
-    $ret = pushv2($TVCpushid1,$appidTv,$activeId);
-    if($ret == 200) {
-      $isPushIdExsit = 1;
-      $isFindAgentPushid = 1;
-    }
-  }
-
-  $TVCpushid2 = getPushIdByCode($tvid, $appidTv, $apikey,$activeId);
-  if ("" != $TVCpushid2) {
-    $isFindPushid  = 1;
-    $ret = pushv2($TVCpushid2,$appidTv,$activeId);
-    if($ret == 200) {
-      $isPushIdExsit = 1;
-      $isFindAgentPushid = 1;
-    }
-  }
+  
   
   if ($isFindPushid == 1) {
     if (1 == $isPushIdExsit) {
