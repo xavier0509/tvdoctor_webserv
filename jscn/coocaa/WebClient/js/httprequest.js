@@ -15,7 +15,7 @@ function sendrequset ()
   printlog(pushid);
   var lastchar = pushid.charAt(pushid.length - 1);
 
-  if (pushid == "SKYWORTHCOOCAA" || lastchar == "@") 
+  if (pushid == "SKYWORTHCOOCAA" || lastchar == "@") //sxzys
   {
     getTVId = pushid;
     var  urladdr ="/jscn/php/dealhttprequest.php?TVId="+getTVId;
