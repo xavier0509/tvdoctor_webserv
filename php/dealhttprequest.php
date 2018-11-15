@@ -46,51 +46,73 @@ function getPara()
   $msgUrl = "http://msg.push.skysrt.com/api/v3/getToken";
   $touchUrl = "http://api.touch.push.skysrt.com/message/getAccessToken";
 
-  $accessTokenSys = getToken($msgUrl,$devid, $appidSys, $APISecret);
+  // $accessTokenSys = getToken($msgUrl,$devid, $appidSys, $APISecret);
   $pushTokenSys = getToken($touchUrl,$devid, $appidSys8, $APISecret);
-  $SySpushid1 = getPushIdByActiveId($appidSys, $activeId, $accessTokenSys);
-  if ("" != $SySpushid1) {
+
+  if("" != $pushTokenSys){
     $isFindPushid  = 1;
     // $ret = pushv2($SySpushid1,$appidSys,$activeId);
-    $ret = touchPush($SySpushid1,$appidSys8,$pushTokenSys);
+    $ret = touchPush($activeId,$appidSys8,$pushTokenSys);
     if($ret == 200) {
       $isPushIdExsit = 1;
     }
   }
 
-  $SySpushid2 = getPushIdByCode($tvid, $appidSys, $apikey,$activeId);
-  if ("" != $SySpushid2) {
-    $isFindPushid  = 1;
-    // $ret = pushv2($SySpushid2,$appidSys,$activeId);
-    $ret = touchPush($SySpushid2,$appidSys8,$pushTokenSys);
-    if($ret == 200) {
-      $isPushIdExsit = 1;
-    }
-  }
 
-  $accessTokenTv = getToken($msgUrl,$devid, $appidTv, $APISecret);
-  $pushTokenTv = getToken($touchUrl,$devid, $appidTv, $APISecret);
-  $TVCpushid1 = getPushIdByActiveId($appidTv, $activeId, $accessTokenTv);
-  if ("" != $TVCpushid1) {
-    $isFindPushid  = 1;
-    // $ret = pushv2($TVCpushid1,$appidTv,$activeId);
-    $ret = touchPush($TVCpushid1,$appidTv,$pushTokenTv);
-    if($ret == 200) {
-      $isPushIdExsit = 1;
-      $isFindAgentPushid = 1;
-    }
-  }
+  // $SySpushid1 = getPushIdByActiveId($appidSys, $activeId, $accessTokenSys);
+  // if ("" != $SySpushid1) {
+  //   $isFindPushid  = 1;
+  //   // $ret = pushv2($SySpushid1,$appidSys,$activeId);
+  //   $ret = touchPush($SySpushid1,$appidSys8,$pushTokenSys);
+  //   if($ret == 200) {
+  //     $isPushIdExsit = 1;
+  //   }
+  // }
 
-  $TVCpushid2 = getPushIdByCode($tvid, $appidTv, $apikey,$activeId);
-  if ("" != $TVCpushid2) {
-    $isFindPushid  = 1;
-    // $ret = pushv2($TVCpushid2,$appidTv,$activeId);
-    $ret = touchPush($TVCpushid2,$appidTv,$pushTokenTv);
-    if($ret == 200) {
-      $isPushIdExsit = 1;
-      $isFindAgentPushid = 1;
+  // $SySpushid2 = getPushIdByCode($tvid, $appidSys, $apikey,$activeId);
+  // if ("" != $SySpushid2) {
+  //   $isFindPushid  = 1;
+  //   // $ret = pushv2($SySpushid2,$appidSys,$activeId);
+  //   $ret = touchPush($SySpushid2,$appidSys8,$pushTokenSys);
+  //   if($ret == 200) {
+  //     $isPushIdExsit = 1;
+  //   }
+  // }
+
+  // $accessTokenTv = getToken($msgUrl,$devid, $appidTv, $APISecret);
+   $pushTokenTv = getToken($touchUrl,$devid, $appidTv, $APISecret);
+    if("" != $pushTokenTv){
+      $isFindPushid  = 1;
+      // $ret = pushv2($SySpushid1,$appidSys,$activeId);
+      $ret = touchPush($activeId,$appidTv,$pushTokenSys);
+      if($ret == 200) {
+        $isPushIdExsit = 1;
+      }
     }
-  }
+
+
+
+  // $TVCpushid1 = getPushIdByActiveId($appidTv, $activeId, $accessTokenTv);
+  // if ("" != $TVCpushid1) {
+  //   $isFindPushid  = 1;
+  //   // $ret = pushv2($TVCpushid1,$appidTv,$activeId);
+  //   $ret = touchPush($TVCpushid1,$appidTv,$pushTokenTv);
+  //   if($ret == 200) {
+  //     $isPushIdExsit = 1;
+  //     $isFindAgentPushid = 1;
+  //   }
+  // }
+
+  // $TVCpushid2 = getPushIdByCode($tvid, $appidTv, $apikey,$activeId);
+  // if ("" != $TVCpushid2) {
+  //   $isFindPushid  = 1;
+  //   // $ret = pushv2($TVCpushid2,$appidTv,$activeId);
+  //   $ret = touchPush($TVCpushid2,$appidTv,$pushTokenTv);
+  //   if($ret == 200) {
+  //     $isPushIdExsit = 1;
+  //     $isFindAgentPushid = 1;
+  //   }
+  // }
   
   if ($isFindPushid == 1) {
     if (1 == $isPushIdExsit) {
@@ -299,7 +321,7 @@ function pushv2($id,$appid){
 
 function touchPush($id,$appid,$token){
   $appid = $appid;
-  $url = "http://api.touch.push.skysrt.com/message/pushMsg?channelType=tv&targetId=".$id ."&msg=connect&ttl=120&appId=".$appid."&token=".$token."&targetType=1";
+  $url = "http://api.touch.push.skysrt.com/message/pushMsg?channelType=tv&targetId=".$id ."&msg=connect&ttl=120&appId=".$appid."&token=".$token."&targetType=7";
   $result =  httpRequest($url);
   getMsgApi($activeId,$result);
   $datajson =json_decode($result);
