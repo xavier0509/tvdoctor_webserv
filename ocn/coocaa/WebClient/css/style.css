@@ -1,0 +1,392 @@
+body{
+  width: 101%;
+  height: 100%;
+  margin-left: -1%;
+}
+img, object { max-width: 100%;}
+a:link {
+text-decoration: none;
+color: white;
+}
+a:visited {
+text-decoration: none;
+color: white;
+}
+a:hover {
+text-decoration: none;
+color: white;
+}
+#indexall{
+  margin: 0 auto;
+  text-align: center;
+  height: 100%;
+  margin-top: 5%;
+}
+#index_bg{
+  background: url('../images/index.png');
+  height: 400px;
+  width: 100%;
+  margin-top: 5%;
+  overflow: hidden;
+}
+#index_bg input,#index_bg button{
+  clear: both;
+  width:70%;
+  height: 57px;
+  font-size: 1.5em;
+  font-family: 微软雅黑;
+  border-radius: 2px;
+  margin-top: 20px;
+  color: #d13000; 
+  background-color: #fff;
+  border: 0;
+}
+#index_bg button{
+  width: 73%;
+}
+#form_login p{
+  font-family: 微软雅黑;
+  font-size: 1.5em;
+  color: #fff;
+}
+#form_login{
+  margin: 0 auto;
+  text-align: center;
+  border: 0;
+}
+#form_login input{
+  color: #000;
+  padding-left: 13px;
+}
+#index_bg button:hover{
+  background-color: #fff;
+  color: #000;
+}
+#indexInfo{
+  margin: 0 auto;
+  text-align: center;
+  color: #7b7b7b;
+}
+#topbox{
+  background-color: #404a55;
+}
+#issue{
+  position: absolute;
+  top: 20%;
+  left: 41.5%;
+  display: none;
+  z-index:1002;
+  font-size: 23px;
+}
+#issueok{
+  width: 80px;
+  height: 30px;
+  font-size: 18px;
+  border-radius: 5px;
+  margin-left: 30%;
+  margin-top: 2%;
+}
+#singlebutton {
+  display: none;
+  position: absolute;
+  top: 23%;
+  left: 33%;
+  width: 430px;
+  height: 200px;
+  padding: 8px;
+  border: 8px solid #E8E9F7;
+  background-color: white;
+  z-index:1002;
+  overflow: auto;
+  border-radius: 10px;
+}
+#bg {
+  display: none;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index:1001;
+  -moz-opacity: 0.7;
+  opacity:.70;
+  filter: alpha(opacity=70);
+  min-width: 1366px;
+  width:expression(document.body.clientWidth > 100%? "auto": "1366px" );
+  min-height:650px;
+}
+#show {
+  display: none;
+  position: absolute;
+  top: 25%;
+  left: 37%;
+  width: 430px;
+  height: 200px;
+  padding: 8px;
+  border: 8px solid #E8E9F7;
+  background-color: white;
+  z-index:1002;
+  overflow: auto;
+}
+.menu {
+  height: 50%;
+  width: 30%;
+  margin-top: 5%;
+  margin-left: 3%;
+  text-align: center;
+  background-color: #ef5122;
+  float: left;
+  color: #fff;
+  cursor:pointer;
+  font-family: 微软雅黑;
+  font-size: 1.3em;
+}
+#usermanage{
+  background-color: #404a55;
+}
+#records{
+  background-color: #404a55;
+
+}
+#logo{
+  margin: 0 auto;
+  text-align: center;
+  cursor:pointer;
+  padding-top: 20px;
+}
+#loadout{
+  
+  font-size: 1.3em;
+  font-family: 微软雅黑;
+  color: #fff;
+  cursor: pointer;
+}
+#session {
+  clear: both;
+  float: left;
+  margin-left: 40%;
+  font-size: 1em;
+  font-family: 微软雅黑;
+  color: #fff;
+  padding-top: 3px;
+}
+#span1{
+  position: absolute;
+  top: 30%;
+  left: 35%;
+}
+#import{
+  background-color: #fff;
+  width: 90%;
+  height: 280px;
+  border: 1px solid #dce8f6;
+  font-family: 微软雅黑;
+  font-size: 1.3em;
+  margin: 0 auto;
+  text-align: center;
+  /*text-align: left;*/
+  margin-top: 15%;
+}
+#import input,#import button{
+  width: 60%;
+  height: 40px;
+  border: 1px solid #dce8f6;
+  font-size: 0.8em;
+  font-family: 微软雅黑;
+}
+#control {
+  /*border:1px solid;*/
+  width: 60%;
+  /*height: 55%;*/
+  float: left;
+  margin-left: 20%;
+  background-color: #e3e6ea;
+}
+#left {
+  margin-left: 47px;
+  margin-top: 62px;
+  float: left;
+  
+}
+#right {
+  margin-left: 42px;
+  margin-top: 63px;
+  
+}
+#up {
+  margin-left: 65px;
+  margin-top: -102px;
+  
+}
+
+#down {
+  margin-top: -21px;
+  margin-left: 65px;
+}
+#ok{
+  margin-top:-88px;
+  margin-left: 79px;
+}
+#control button{
+  width: 30%;
+  height: 25px;
+  background-color: #fff;
+  font-size: 0.8em;
+  font-family: 微软雅黑;
+}
+#info_button{
+  margin-top: 6px;
+  margin-left: 28px;
+}
+#break_button{
+  margin-left: 26px;
+}
+#circle_button{
+  margin-top: -30px;
+  margin-left: 2px;
+  cursor: pointer;
+}
+#return_button{
+  margin-top: 13px;
+  margin-left: 28px;
+}
+#menu_button{
+  margin-left: 26px;
+}
+#index_button{
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  margin-top: 10px;
+  margin-left: 88px;
+  background-color: #fff;
+}
+#index_button p{
+  padding-top: 10px;
+  padding-left: 8px;
+  font-family: 微软雅黑;
+  font-size: 12px;
+}
+#minus_button{
+  margin-top: 10px;
+  margin-left: 41px;  
+}
+#control_logo{
+  width: 60%;
+  margin-top: 10px;
+  margin-left: 43px;
+  margin-bottom: 30px;
+}
+#menu{
+  height: 43px;
+  line-height: 43px;
+  background-color: #fff;
+  color:#7c8188;  
+  /*margin-left: 30%;*/
+  margin: 0 auto;
+  text-align: center;
+}
+#window1{
+  border-bottom: 3px solid #ef5122;
+  text-align: center;
+  color:#000;
+}
+
+#divContent2 {
+  color: #fff;
+  width: 100%;
+  height: 23em;
+  overflow: auto;
+  outline: none;
+  word-break:break-all;
+  text-align: left;
+  font-family:Courier New;
+  font-size: 1em;
+  background-color: #000;
+  padding-left: 0.5em;
+}
+#divInput2 {
+  width: 98%;
+  height: 2em;
+  color: #000;
+  border:1px solid #000;
+  outline: none;
+  overflow: hidden;
+  text-align: left;
+  z-index: 11;
+  font-family:Courier New;
+  margin-left: 1%;  
+}
+#total{padding-left: 40px;}
+#bg {
+  display: none;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index:1001;
+  -moz-opacity: 0.7;
+  opacity:.70;
+  filter: alpha(opacity=70);
+  min-width: 1366px;
+  width:expression(document.body.clientWidth > 100%? "auto": "1366px" );
+  min-height:650px;
+}
+#show {
+  display: none;
+  position: absolute;
+  top: 25%;
+  left: 19%;
+  width: 54%;
+  height: 30%;
+  padding: 8px;
+  border: 8px solid #E8E9F7;
+  background-color: white;
+  z-index:1002;
+  overflow: auto;
+}
+#content {
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 10%;
+  font-size: 1.4em;
+}
+#show button {
+  text-align: center;
+  margin-left: 43px;
+  margin-top: 12%;
+  width: 140px;
+  height: 40px;
+  border-radius: 5px;
+}
+#singlebutton{
+  display: none;
+  position: absolute;
+  top: 25%;
+  left: 19%;
+  width: 54%;
+  height: 30%;
+  padding: 8px;
+  border: 8px solid #E8E9F7;
+  background-color: white;
+  z-index:1002;
+  overflow: auto;
+}
+#singlecontent{
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 10%;
+  font-size: 1.4em;
+}
+#singlebutton button {
+  text-align: center;
+  margin-left: 43px;
+  margin-top: 12%;
+  width: 140px;
+  height: 40px;
+  border-radius: 5px;
+}

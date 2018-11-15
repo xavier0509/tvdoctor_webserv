@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<title>用户登录</title>
+<script language="javascript" src="js/login.js"> </script>
+<script type="text/javascript">
+var mobileUrl="mobile.html",  
+    mobile = (/mmp|symbian|smartphone|midp|wap|phone|xoom|iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()));  
+if (mobile) {  
+    window.location = mobileUrl;  
+}  
+</script>
+<link rel="stylesheet" type="text/css" href="css/style1.css">
+</head>
+<body onkeydown='onEnterDown()'>
+	<div id="indexall">
+		<div id="index_logo">
+			<img src="images/logo1.png">
+		</div>
+		<div id="index_bg">
+			<div class="form" id="form_login" name="form_login"><p>酷开售后远程控制系统</P>
+				<input type="text" placeholder="用户名" autocomplete="off"  id="username1" name="username1"><br/>
+				<input type="password" placeholder="密码" id="password1" name="password1"><br/>
+				<button  id="login-button" onclick="chkinput()">登　录</button>
+			</div>
+		</div>
+		<div id="indexInfo">本系统暂只支持使用谷歌chrome浏览器</div>
+	</div>
+	<div id="bg"></div>
+	<div id="show"></div>
+	<div id="singlebutton">
+		<div id="singlecontent"></div>
+	</div>
+</body>
+</html>
