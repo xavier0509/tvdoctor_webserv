@@ -25,12 +25,9 @@ function sendrequset ()
   }
   else
   {
-    // var  getTVidurl = "/php/getTVId.php?ActiveId="+pushid;
-    // printlog("getTVidurl = " + getTVidurl);
-    // sendHTTPRequest(getTVidurl,getTVidfunc);
-    var  urladdr ="/php/dealhttprequest.php?TVId="+pushid+"&activeId="+pushid;
-    printlog("urladdr="+urladdr);
-    urlDeal(urladdr,0); 
+    var  getTVidurl = "/php/getTVId.php?ActiveId="+pushid;
+    printlog("getTVidurl = " + getTVidurl);
+    sendHTTPRequest(getTVidurl,getTVidfunc);
   }
 }
 
@@ -95,7 +92,7 @@ function  urlDeal(url,index)
             {// 4 = "loaded"
               printlog("appurl_download readyState="+xmlhttp.status);
               clearInterval(interval);
-		document.getElementById('linkTV').removeAttribute("disabled");
+    document.getElementById('linkTV').removeAttribute("disabled");
                 document.getElementById('linkTV').removeAttribute("class");
                 document.getElementById('linkTV').removeAttribute("style"); 
               if (xmlhttp.status == 200)
@@ -112,7 +109,7 @@ function  urlDeal(url,index)
                   connect();
                  }
                 else if (data == "refuse")
-         	      { 
+                { 
                   subinfo.innerHTML ="<font color='red'>远程TV拒绝控制请求!</font>";
                   setTimeout("subinfo.innerHTML =''",5000);
                   document.getElementById('linkTV').innerHTML="连接电视";
@@ -123,7 +120,7 @@ function  urlDeal(url,index)
                    document.getElementById('linkTV').innerHTML="连接电视";
                    setTimeout("subinfo.innerHTML =''",5000);
                 }
-		            else if (data == "replace")
+                else if (data == "replace")
                 {
                   subinfo.innerHTML = "<font color='red'>新PC发起连接请求，您的请求被搁置</font>";
                   document.getElementById('linkTV').innerHTML="连接电视";
@@ -142,8 +139,8 @@ function  urlDeal(url,index)
                 }
             }              
             else
-            {	
-		            var code = xmlhttp.status;
+            { 
+                var code = xmlhttp.status;
                 document.getElementById('span1').innerHTML = "<font color='red'>请求远程TV授权出错!错误码为：</font>"+"<font color='red'>"+code+"</font>";
                 document.getElementById('linkTV').innerHTML="连接电视";
                 setTimeout("subinfo.innerHTML =''",5000);
