@@ -25,12 +25,12 @@ function sendrequset ()
   }
   else
   {
-    // var  getTVidurl = "/php/getTVId.php?ActiveId="+pushid;
-    // printlog("getTVidurl = " + getTVidurl);
-    // sendHTTPRequest(getTVidurl,getTVidfunc);
-    var  urladdr ="/php/dealhttprequest.php?TVId="+pushid+"&activeId="+pushid;
-    printlog("urladdr="+urladdr);
-    urlDeal(urladdr,0); 
+    var  getTVidurl = "/php/getTVId.php?ActiveId="+pushid;
+    printlog("getTVidurl = " + getTVidurl);
+    sendHTTPRequest(getTVidurl,getTVidfunc);
+    // var  urladdr ="/php/dealhttprequest.php?TVId="+pushid+"&activeId="+pushid;
+    // printlog("urladdr="+urladdr);
+    // urlDeal(urladdr,0); 
   }
 }
 
