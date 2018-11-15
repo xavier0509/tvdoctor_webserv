@@ -323,7 +323,7 @@ function touchPush($id,$appid,$token){
   $appid = $appid;
   $url = "http://api.touch.push.skysrt.com/message/pushMsg?channelType=tv&targetId=".$id ."&msg=connect&ttl=120&appId=".$appid."&token=".$token."&targetType=7";
   $result =  httpRequest($url);
-  getMsgApi($activeId,$result);
+  getMsgApi($id,$result);
   $datajson =json_decode($result);
   return $datajson->code;
 }
@@ -337,7 +337,7 @@ function getToken($passurl,$devid, $appid, $APISecret){
   $token = md5($md5String);
   $url = $passurl."?devId=".$devid."&appId=".$appid."&timeStamp=".$timeStamp."&token=".$token;
   $result =  httpRequest($url);
-  getMsgApi($activeId,$result);
+  // getMsgApi($activeId,$result);
   $datajson =json_decode($result);
   return $datajson->data->access_token;
 }
