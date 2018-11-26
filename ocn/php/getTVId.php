@@ -2,7 +2,7 @@
 header("Content-type: text/html; charset=utf-8");
 
   //get TVID by active ID
-  $getTVIDUrl = "http://api.device.jscnnet.com/sid/v2";
+  $getTVIDUrl = "http://api.device.96877.net/sid/v2";
   $tvid = $_GET['ActiveId'];
   $appid ='IYM9D51J';
   $apikey ='2QDTUQSY';
