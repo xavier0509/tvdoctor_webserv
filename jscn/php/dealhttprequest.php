@@ -39,30 +39,77 @@ function getPara()
 
   $apikey = "sjDG4kZA";
   $appidSys = "547e1e25-26a0-4576-8cd1-1c19b0729c25";
+  $appidSys8 = "S34O1b8J";
   $appidTv = "2L1gbXK0";
   $devid = "RDIxRq8r";
   $APISecret = "sjDG4kZA";
+  $msgUrl = "http://msg.push.jscnnet.com/api/v3/getToken";
+  $touchUrl = "http://api.touch.push.jscnnet.com/message/getAccessToken";
 
-  $accessTokenSys = getToken($devid, $appidSys, $APISecret,$activeId);
-  $SySpushid1 = getPushIdByActiveId($appidSys, $activeId, $accessTokenSys);
-  if ("" != $SySpushid1) {
+  // $accessTokenSys = getToken($msgUrl,$devid, $appidSys, $APISecret);
+  $pushTokenSys = getToken($touchUrl,$devid, $appidSys8, $APISecret);
+
+   if("" != $pushTokenSys){
     $isFindPushid  = 1;
-    $ret = pushv2($SySpushid1,$appidSys,$activeId);
+    // $ret = pushv2($SySpushid1,$appidSys,$activeId);
+    $ret = touchPush($activeId,$appidSys8,$pushTokenSys);
     if($ret == 200) {
       $isPushIdExsit = 1;
     }
   }
 
-  // $SySpushid2 = getPushIdByCode($tvid, $appidSys, $apikey,$activeId);
-  // if ("" != $SySpushid2) {
+  // $SySpushid1 = getPushIdByActiveId($appidSys, $activeId, $accessTokenSys);
+  // if ("" != $SySpushid1) {
   //   $isFindPushid  = 1;
-  //   $ret = pushv2($SySpushid2,$appidSys,$activeId);
+  //   // $ret = pushv2($SySpushid1,$appidSys,$activeId);
+  //   $ret = touchPush($SySpushid1,$appidSys8,$pushTokenSys);
   //   if($ret == 200) {
   //     $isPushIdExsit = 1;
   //   }
   // }
 
-  
+  // $SySpushid2 = getPushIdByCode($tvid, $appidSys, $apikey,$activeId);
+  // if ("" != $SySpushid2) {
+  //   $isFindPushid  = 1;
+  //   // $ret = pushv2($SySpushid2,$appidSys,$activeId);
+  //   $ret = touchPush($SySpushid2,$appidSys8,$pushTokenSys);
+  //   if($ret == 200) {
+  //     $isPushIdExsit = 1;
+  //   }
+  // }
+
+  // $accessTokenTv = getToken($msgUrl,$devid, $appidTv, $APISecret);
+  $pushTokenTv = getToken($touchUrl,$devid, $appidTv, $APISecret);
+  if("" != $pushTokenTv){
+    $isFindPushid  = 1;
+    // $ret = pushv2($SySpushid1,$appidSys,$activeId);
+    $ret = touchPush($activeId,$appidTv,$pushTokenSys);
+    if($ret == 200) {
+      $isPushIdExsit = 1;
+    }
+  }
+
+  // $TVCpushid1 = getPushIdByActiveId($appidTv, $activeId, $accessTokenTv);
+  // if ("" != $TVCpushid1) {
+  //   $isFindPushid  = 1;
+  //   // $ret = pushv2($TVCpushid1,$appidTv,$activeId);
+  //   $ret = touchPush($TVCpushid1,$appidTv,$pushTokenTv);
+  //   if($ret == 200) {
+  //     $isPushIdExsit = 1;
+  //     $isFindAgentPushid = 1;
+  //   }
+  // }
+
+  // $TVCpushid2 = getPushIdByCode($tvid, $appidTv, $apikey,$activeId);
+  // if ("" != $TVCpushid2) {
+  //   $isFindPushid  = 1;
+  //   // $ret = pushv2($TVCpushid2,$appidTv,$activeId);
+  //   $ret = touchPush($TVCpushid2,$appidTv,$pushTokenTv);
+  //   if($ret == 200) {
+  //     $isPushIdExsit = 1;
+  //     $isFindAgentPushid = 1;
+  //   }
+  // }
   
   if ($isFindPushid == 1) {
     if (1 == $isPushIdExsit) {
@@ -70,8 +117,8 @@ function getPara()
       return;
     }
     else{
-	echo "getPushid but not find";
-	} 
+  echo "getPushid but not find";
+  } 
   }
   // else {
     echo "pushid is null";
@@ -269,14 +316,23 @@ function pushv2($id,$appid){
 
 }
 
-function getToken($devid, $appid, $APISecret){
+function touchPush($id,$appid,$token){
+  $appid = $appid;
+  $url = "http://api.touch.push.jscnnet.com/message/pushMsg?channelType=tv&targetId=".$id ."&msg=connect&ttl=120&appId=".$appid."&token=".$token."&targetType=7";
+  $result =  httpRequest($url);
+  getMsgApi($activeId,$result);
+  $datajson =json_decode($result);
+  return $datajson->code;
+}
+
+function getToken($passurl,$devid, $appid, $APISecret){
   $devid = $devid;
   $appid = $appid;
   $APISecret = $APISecret;
   $timeStamp = microtime_float();
   $md5String = $devid. $appid. $APISecret. $timeStamp;
   $token = md5($md5String);
-  $url = "http://msg.push.jscnnet.com/api/v3/getToken?devId=".$devid."&appId=".$appid."&timeStamp=".$timeStamp."&token=".$token;
+  $url = $passurl."?devId=".$devid."&appId=".$appid."&timeStamp=".$timeStamp."&token=".$token;
   $result =  httpRequest($url);
   getMsgApi($activeId,$result);
   $datajson =json_decode($result);
