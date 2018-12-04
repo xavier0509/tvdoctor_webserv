@@ -320,7 +320,7 @@ function touchPush($id,$appid,$token){
   $appid = $appid;
   $url = "http://api.touch.push.jscnnet.com:8281/message/pushMsg?channelType=tv&targetId=".$id ."&msg=connect&ttl=120&appId=".$appid."&token=".$token."&targetType=7";
   $result =  httpRequest($url);
-  getMsgApi($activeId,$result);
+  getMsgApi($id,$result);
   $datajson =json_decode($result);
   return $datajson->code;
 }
