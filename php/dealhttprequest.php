@@ -84,7 +84,7 @@ function getPara()
     if("" != $pushTokenTv){
       $isFindPushid  = 1;
       // $ret = pushv2($SySpushid1,$appidSys,$activeId);
-      $ret = touchPush($activeId,$appidTv,$pushTokenSys);
+      $ret = touchPush($activeId,$appidTv,$pushTokenTv);
       if($ret == 200) {
         $isPushIdExsit = 1;
       }

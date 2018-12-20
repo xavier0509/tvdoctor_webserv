@@ -83,7 +83,7 @@ function getPara()
   if("" != $pushTokenTv){
     $isFindPushid  = 1;
     // $ret = pushv2($SySpushid1,$appidSys,$activeId);
-    $ret = touchPush($activeId,$appidTv,$pushTokenSys);
+    $ret = touchPush($activeId,$appidTv,$pushTokenTv);
     if($ret == 200) {
       $isPushIdExsit = 1;
     }
@@ -320,7 +320,7 @@ function touchPush($id,$appid,$token){
   $appid = $appid;
   $url = "http://api.touch.push.96877.net:8281/message/pushMsg?channelType=tv&targetId=".$id ."&msg=connect&ttl=120&appId=".$appid."&token=".$token."&targetType=7";
   $result =  httpRequest($url);
-  getMsgApi($activeId,$result);
+  getMsgApi($id,$result);
   $datajson =json_decode($result);
   return $datajson->code;
 }
