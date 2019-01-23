@@ -44,7 +44,7 @@ function getPara()
   $devid = "RDIxRq8r";
   $APISecret = "sjDG4kZA";
   $msgUrl = "http://msg.push.jscnnet.com/api/v3/getToken";
-  $touchUrl = "http://api.touch.push.jscnnet.com:8281/message/getAccessToken";
+  $touchUrl = "http://api.touch.push.jscnnet.com/message/getAccessToken";
 
   // $accessTokenSys = getToken($msgUrl,$devid, $appidSys, $APISecret);
   $pushTokenSys = getToken($touchUrl,$devid, $appidSys8, $APISecret);
@@ -318,7 +318,7 @@ function pushv2($id,$appid){
 
 function touchPush($id,$appid,$token){
   $appid = $appid;
-  $url = "http://api.touch.push.jscnnet.com:8281/message/pushMsg?channelType=tv&targetId=".$id ."&msg=connect&ttl=120&appId=".$appid."&token=".$token."&targetType=7";
+  $url = "http://api.touch.push.jscnnet.com/message/pushMsg?channelType=tv&targetId=".$id ."&msg=connect&ttl=120&appId=".$appid."&token=".$token."&targetType=7";
   $result =  httpRequest($url);
   getMsgApi($id,$result);
   $datajson =json_decode($result);
