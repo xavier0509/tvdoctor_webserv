@@ -48,7 +48,7 @@ function getPara()
 
   // $accessTokenSys = getToken($msgUrl,$devid, $appidSys, $APISecret);
   $pushTokenSys = getToken($touchUrl,$devid, $appidSys8, $APISecret);
-
+  echo("pushTokenSys===".$pushTokenSys."\n"."" != $pushTokenSys);
   if("" != $pushTokenSys){
     $isFindPushid  = 1;
     // $ret = pushv2($SySpushid1,$appidSys,$activeId);
@@ -123,9 +123,9 @@ function getPara()
   echo "getPushid but not find";
   } 
   }
-  // else {
+  else {
     echo "pushid is null";
-  // }
+  }
   return;
 }
 
