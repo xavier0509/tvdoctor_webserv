@@ -95,7 +95,7 @@ function  urlDeal(url,index)
             {// 4 = "loaded"
               printlog("appurl_download readyState="+xmlhttp.status);
               clearInterval(interval);
-    document.getElementById('linkTV').removeAttribute("disabled");
+                document.getElementById('linkTV').removeAttribute("disabled");
                 document.getElementById('linkTV').removeAttribute("class");
                 document.getElementById('linkTV').removeAttribute("style"); 
               if (xmlhttp.status == 200)
