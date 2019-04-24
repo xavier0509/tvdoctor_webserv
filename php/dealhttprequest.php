@@ -1,6 +1,6 @@
 <?php
 header("Content-type: text/html; charset=utf-8");
-include('apirecent.php');
+//include('apirecent.php');
 $activeId = $_GET['activeId'];
 $TVId = $_GET['TVId'];
 $length = strlen($TVId);
@@ -282,7 +282,7 @@ function getPushIdByCode($tvid, $appid, $apikey,$activeId)
   //echo $tvid_token . "\n";
   //echo $timestamp . "\n";
   $tvid_json = httpRequest($tvidurl);
-  getMsgApi($activeId,$tvid_json);
+//  getMsgApi($activeId,$tvid_json);
   #echo  "tvid_json= " . $tvid_json . "\n";
   $client_ret =json_decode($tvid_json);  
   return $client_ret->pushId;
@@ -293,7 +293,7 @@ function getPushIdByActiveId($appid, $activeId, $accessToken){
   $timestamp = microtime_float();
   $tvidurl = $getPushIDUrl . "?appId=" . $appid . "&activeId=" . $activeId. "&timeStamp=" . $timestamp . "&token=" . $accessToken . "&devType=" . "";
   $tvid_json = httpRequest($tvidurl);
-  getMsgApi($activeId,$tvid_json);
+//  getMsgApi($activeId,$tvid_json);
   #echo  "tvid_json= " . $tvid_json . "\n";
   $client_ret =json_decode($tvid_json); 
   if ($client_ret->code == "200") {
@@ -313,7 +313,7 @@ function pushv2($id,$appid){
   $tvid_token = md5($md5_src);
   $url = "http://msg.push.skysrt.com/v2/message/sendMsg?pushId=".$id ."&msg=connect&ttl=120&token=".$tvid_token."&timeStamp=".$timestamp."&appId=".$appid;
   $result =  httpRequest($url);
-  getMsgApi($id,$result);
+//  getMsgApi($id,$result);
   $datajson =json_decode($result);
   return $datajson->code;
 
@@ -323,7 +323,7 @@ function touchPush($id,$appid,$token){
   $appid = $appid;
   $url = "http://api.touch.push.skysrt.com/message/pushMsg?channelType=tv&targetId=".$id ."&msg=connect&ttl=120&appId=".$appid."&token=".$token."&targetType=7";
   $result =  httpRequest($url);
-  getMsgApi($id,$result);
+//  getMsgApi($id,$result);
   $datajson =json_decode($result);
   return $datajson->code;
 }
