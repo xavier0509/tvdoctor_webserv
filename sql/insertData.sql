@@ -1,1 +1,0 @@
-INSERT INTO `ipTable` VALUES ('1', '120.27.147.96','9002');

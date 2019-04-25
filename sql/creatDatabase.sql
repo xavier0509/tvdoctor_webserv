@@ -144,6 +144,21 @@ CREATE TABLE `login_records` (
 
 
 -- ----------------------------
+-- Table structure for `apiRecent`
+-- ----------------------------
+DROP TABLE IF EXISTS `apiRecent`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `apiRecent` (
+  `apiRecentId` int(11) NOT NULL AUTO_INCREMENT,
+  `activityId` char(10) NOT NULL,
+  `msg` char(255) NOT NULL,
+  `time` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`apiRecentId`)
+) ENGINE=InnoDB AUTO_INCREMENT=776863 DEFAULT CHARSET=utf8;
+
+
+-- ----------------------------
 -- Table structure for `ipTable`
 -- ----------------------------
 DROP TABLE IF EXISTS `ipTable`;
@@ -157,5 +172,5 @@ CREATE TABLE `ipTable` (
 -- ----------------------------
 -- Records of ipTable
 -- ----------------------------
-INSERT INTO `ipTable` VALUES ('1', '120.27.147.96','9002');
+INSERT INTO `ipTable` VALUES ('1', '172.20.154.225','9002');
 
