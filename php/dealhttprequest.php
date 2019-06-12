@@ -208,7 +208,7 @@ class NotifierSocket
     private $socket;  
     private $port=9002;  
     private $host='127.0.0.1';  
-    public function __construct($host='172.20.154.225',$port=9002){
+    public function __construct($host='172.30.224.224',$port=9002){
         $this->host=$host;  
         $this->port=$port;  
         $this->socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);  
