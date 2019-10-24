@@ -172,5 +172,5 @@ CREATE TABLE `ipTable` (
 -- ----------------------------
 -- Records of ipTable
 -- ----------------------------
-INSERT INTO `ipTable` VALUES ('1', '172.30.224.224','9002');
+INSERT INTO `ipTable` VALUES ('1', '134.175.191.97','9002');
 
