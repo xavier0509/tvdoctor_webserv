@@ -88,15 +88,26 @@ function connect()
         OutputLog('Socket Status: '+socket.readyState);
         socket.onopen = function()
         {
-            sourceid = Math.random()*1000+"1"; 
-            sourceid =crc32_hash(sourceid);       
-            OutputLog("sourceid ="+sourceid);
+        	var rand1 = Math.ceil(1000 * Math.random());
+    		var rand2 = Math.ceil(1000 * Math.random());
+    		var rand3 = Math.ceil(1000 * Math.random());
+    		var rand4 = Math.ceil(1000 * Math.random());
+    		var rand5 = Math.ceil(1000 * Math.random());
+    		var longrand;
+            longrand = "" + rand1 + "-" + rand2 + "-" + rand3 + "-" + rand4 + "-" + rand5;
+            sourceid = crc32_hash(longrand);
+            OutputLog("sourceid = " + sourceid + ", longrand = " + longrand);
             setTargetAndSource(sourceid,0x00000000);
             setCommandId(CMD_REG_PC,0);//向服务器注册 
-            var msg1 = getTVId;
+            var msg1;
+            if (g_activeId == null || g_activeId == "")
+            	msg1 = getTVId;
+            else
+            	msg1 = getTVId + "," + g_activeId;				// 如果激活ID不为空，则增加激活ID的提交
             // var msg = msg1.toLocaleUpperCase();
+            OutputLog("call tv = " + msg1);
             var msg = msg1;
-            setStringParam(msg);/*"c539a58d1c092d0cb90317fd8cc64a97"*/
+            setStringParam(msg);
             socket.send(assemblingProtocol());
         }
         socket.onmessage = function(msg)
@@ -133,7 +144,7 @@ function connect()
                         document.getElementById('main').style.display="block";
                         document.getElementById('import').style.display="none";
                         tv_id = getBuferParam();
-                        OutputLog("TV  id ="+tv_id);
+                        OutputLog("TV id crc32 = " + tv_id + ", 0x" + tv_id.toString(16));
                         getTvinfo();
                     }
                     else if (CMD_USER_REFUSED ==  getCommand())

@@ -1,4 +1,5 @@
 ﻿var getTVId;
+var g_activeId = "";
 var xmlhttp = null;
 
 //http request  pushid
@@ -18,6 +19,7 @@ function sendrequset ()
   if (pushid == "SKYWORTHCOOCAA" || lastchar == "@") 
   {
     getTVId = pushid;
+    g_activeId = "";
     var  urladdr ="/php/dealhttprequest.php?TVId="+getTVId;
     //pushid的请求
     printlog("urladdr="+urladdr);
@@ -61,6 +63,7 @@ function getTVidfunc()
               var pushid3 = pushid2.replace(/\s+/g,"");;
               // var pushid = pushid3.toLocaleUpperCase();
               var activeId = pushid3;
+              g_activeId = activeId;
               var  urladdr ="/php/dealhttprequest.php?TVId="+data+"&activeId="+activeId;
               printlog("urladdr="+urladdr);
               urlDeal(urladdr,0); 
