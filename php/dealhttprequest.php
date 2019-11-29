@@ -6,8 +6,8 @@ $TVId = $_GET['TVId'];
 $length = strlen($TVId);
 $lastChar = substr($TVId, $length-1);
 if($TVId == "SKYWORTHCOOCAA" || $lastChar == "@"){
-  echo notifierSocket($TVId);
-  //echo notifierSocket($TVId . "," . $activeId);
+  //echo notifierSocket($TVId);
+  echo notifierSocket($TVId . "," . $activeId);
 }
 else{
   getPara();
@@ -117,8 +117,8 @@ function getPara()
   
   if ($isFindPushid == 1) {
     if (1 == $isPushIdExsit) {
-      echo notifierSocket($tvid)  ;//pushid 把tvid告诉服务器		
-      // echo notifierSocket($tvid . "," . $activeId)  ;//pushid 把tvid告诉服务器
+      //echo notifierSocket($tvid)  ;//pushid 把tvid告诉服务器		
+      echo notifierSocket($tvid . "," . $activeId)  ;//pushid 把tvid告诉服务器
       return;
     }
     else{
