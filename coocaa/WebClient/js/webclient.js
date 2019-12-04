@@ -88,12 +88,12 @@ function connect()
         OutputLog('Socket Status: '+socket.readyState);
         socket.onopen = function()
         {
-        	var rand1 = Math.ceil(1000 * Math.random());
-    		var rand2 = Math.ceil(1000 * Math.random());
-    		var rand3 = Math.ceil(1000 * Math.random());
-    		var rand4 = Math.ceil(1000 * Math.random());
-    		var rand5 = Math.ceil(1000 * Math.random());
-    		var longrand;
+            var rand1 = Math.ceil(1000 * Math.random());
+            var rand2 = Math.ceil(1000 * Math.random());
+            var rand3 = Math.ceil(1000 * Math.random());
+            var rand4 = Math.ceil(1000 * Math.random());
+            var rand5 = Math.ceil(1000 * Math.random());
+            var longrand;
             longrand = "" + rand1 + "-" + rand2 + "-" + rand3 + "-" + rand4 + "-" + rand5;
             sourceid = crc32_hash(longrand);
             OutputLog("sourceid = " + sourceid + ", longrand = " + longrand);
@@ -101,9 +101,9 @@ function connect()
             setCommandId(CMD_REG_PC,0);//向服务器注册 
             var msg1;
             if (g_activeId == null || g_activeId == "")
-            	msg1 = getTVId;
+                msg1 = getTVId;
             else
-            	msg1 = getTVId + "," + g_activeId;				// 如果激活ID不为空，则增加激活ID的提交
+                msg1 = getTVId + "," + g_activeId;              // 如果激活ID不为空，则增加激活ID的提交
             // var msg = msg1.toLocaleUpperCase();
             OutputLog("call tv = " + msg1);
             var msg = msg1;
@@ -122,7 +122,7 @@ function connect()
             {
                 var   text =reader.result;
                 var  packpagelen =(text.charCodeAt(0) << 24 ) | (text.charCodeAt(1) <<16  ) | (text.charCodeAt(2) << 8) |text.charCodeAt(3);
-                OutputLog("len ="+len+", packpagelen ="+packpagelen);	
+                OutputLog("len ="+len+", packpagelen ="+packpagelen);   
                 if (packpagelen >= len )
                 {
                     var  buffer = text.substr(4,(packpagelen-4));
@@ -144,7 +144,7 @@ function connect()
                         document.getElementById('main').style.display="block";
                         document.getElementById('import').style.display="none";
                         tv_id = getBuferParam();
-                        OutputLog("TV id crc32 = " + tv_id + ", 0x" + tv_id.toString(16));
+                        OutputLog("TV id crc32 = " + tv_id);
                         getTvinfo();
                     }
                     else if (CMD_USER_REFUSED ==  getCommand())
@@ -235,9 +235,9 @@ function connect()
                         document.getElementById('tvscrn').src =url;
                     }
                     else if (CMD_NOTIFY_TV_OFFLINE == getCommand())  //tv已和服务器断开
-                    {	
+                    {   
                         g_isConnectd =false;
-                    	
+                        
                         clearInterval(controlInterval);
                         tvbreakself();
                         tvinfo.innerHTML="";
@@ -309,7 +309,7 @@ function connect()
 
                 }
 
-            }    							
+            }                               
         }
 
         socket.onclose = function()
@@ -323,7 +323,7 @@ function connect()
             // subinfo.innerHTML = "<font color='red'>WebSocket与服务器断开！</font>"
             document.getElementById('tvscrn').src="images/screenbg.jpg";
             document.getElementById('linkTV').innerHTML="连接电视";
-        	// document.getElementById('link').style.display="none";
+            // document.getElementById('link').style.display="none";
             tvinfo.innerHTML="";
             document.getElementById('first').style.display="block";
             document.getElementById('third').style.display="none";
@@ -331,7 +331,7 @@ function connect()
             document.getElementById('main').style.display="none";
             
             OutputLog('Socket Status111111: '+socket.readyState+' (Closed)');
-        }	
+        }   
         socket.onerror =function(event)
         {
             g_isConnectd =false;
@@ -341,7 +341,7 @@ function connect()
             OutputLog('WebSocket Status:: Error was reported');
             document.getElementById('import').style.display="block";
             document.getElementById('main').style.display="none";
-        }		
+        }       
 
     } 
     catch(exception)
@@ -349,7 +349,7 @@ function connect()
         g_isConnectd =false;
         isStartLogcatSocket =false;
         OutputLog('Error'+exception);
-    }			
+    }           
 }
 
 function connnect_ok(){
@@ -511,7 +511,7 @@ function cmdfunc()
         setTargetAndSource(sourceid,tv_id);//发送telnet命令
         setCommandId(CMD_TELNET_DATA,0);
         setStringParam(data);
-        socket.send(assemblingProtocol());	
+        socket.send(assemblingProtocol());  
 
         // //-------------------------------------------------------
         // logcatarrCmd.push(data);
@@ -969,7 +969,7 @@ function disp_prompt()
         document.getElementById('linkTV').setAttribute("disabled","");
         document.getElementById('linkTV').setAttribute("class","linkTV");
 
-	document.getElementById('linkTV').setAttribute("style","cursor:wait");
+    document.getElementById('linkTV').setAttribute("style","cursor:wait");
 
 
 
@@ -1548,7 +1548,7 @@ function sessionfunc() {
             } else { // passwd error
                 //alert("fff");
                document.getElementById('session').innerHTML=data;
-	           adminname = data;
+               adminname = data;
                showOrHide();
                inputServiceOnload();
                
