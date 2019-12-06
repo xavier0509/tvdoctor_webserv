@@ -5,9 +5,11 @@ document.write("<script language=javascript src='js/jquery-1.7.1.min.js' charset
 document.write("<script language=javascript src='js/ajaxfileupload.js' charset=\"utf-8\"></script>");
 document.write("<script language=javascript src='js/md5.js' charset=\"utf-8\"></script>");
 
-var  httpurl = "";//"http://120.27.147.96";
-var  host = "ws://134.175.191.97:9008";
-var  logcatHost ="ws://134.175.191.97:9005";
+var  serverIp1 = "172.20.154.225";	// 134.175.191.97 / 172.20.154.225
+
+var  httpurl = "";
+var  host = "ws://" + serverIp1 + ":9008";
+var  logcatHost ="ws://" + serverIp1 + ":9005";
 var mobileMainUrl="mobileMain.html",  
     mobile = (/mmp|symbian|smartphone|midp|wap|phone|xoom|iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()));  
     // if (mobile) {  
