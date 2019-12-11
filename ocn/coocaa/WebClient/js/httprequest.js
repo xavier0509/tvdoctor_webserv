@@ -1,4 +1,5 @@
 ﻿var getTVId;
+var g_activeId = "";
 var xmlhttp = null;
 
 //http request  pushid
@@ -15,9 +16,10 @@ function sendrequset ()
   printlog(pushid);
   var lastchar = pushid.charAt(pushid.length - 1);
 
-  if (pushid == "SKYWORTHCOOCAA" || lastchar == "@") //sxzys
+  if (pushid == "SKYWORTHCOOCAA" || lastchar == "@") 
   {
     getTVId = pushid;
+    g_activeId = "";
     var  urladdr ="/ocn/php/dealhttprequest.php?TVId="+getTVId;
     //pushid的请求
     printlog("urladdr="+urladdr);
@@ -28,8 +30,7 @@ function sendrequset ()
     var  getTVidurl = "/ocn/php/getTVId.php?ActiveId="+pushid;
     printlog("getTVidurl = " + getTVidurl);
     sendHTTPRequest(getTVidurl,getTVidfunc);
-    
-    // var  urladdr ="/ocn/php/dealhttprequest.php?TVId="+pushid+"&activeId="+pushid;
+    // var  urladdr ="/ocn//php/dealhttprequest.php?TVId="+pushid+"&activeId="+pushid;
     // printlog("urladdr="+urladdr);
     // urlDeal(urladdr,0); 
   }
@@ -62,6 +63,7 @@ function getTVidfunc()
               var pushid3 = pushid2.replace(/\s+/g,"");;
               // var pushid = pushid3.toLocaleUpperCase();
               var activeId = pushid3;
+              g_activeId = activeId;
               var  urladdr ="/ocn/php/dealhttprequest.php?TVId="+data+"&activeId="+activeId;
               printlog("urladdr="+urladdr);
               urlDeal(urladdr,0); 

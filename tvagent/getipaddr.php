@@ -18,7 +18,7 @@
 //    echo "null";
 //}
 
-	//echo '{"ret": "OK", "data": {"ipAddr":"134.175.191.97","port":"9002"}}';
-	echo '{"ret": "OK", "data": {"ipAddr":"172.20.154.225","port":"9002"}}';
+	echo '{"ret": "OK", "data": {"ipAddr":"134.175.191.97","port":"9002"}}';
+	//echo '{"ret": "OK", "data": {"ipAddr":"172.20.154.225","port":"9002"}}';
 
 ?>

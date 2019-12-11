@@ -5,9 +5,11 @@ document.write("<script language=javascript src='js/jquery-1.7.1.min.js' charset
 document.write("<script language=javascript src='js/ajaxfileupload.js' charset=\"utf-8\"></script>");
 document.write("<script language=javascript src='js/md5.js' charset=\"utf-8\"></script>");
 
-var  httpurl = "/ocn";//"http://120.27.147.96";
-var  host = "ws://134.175.191.97:9008";
-var  logcatHost ="ws://134.175.191.97:9005";
+var  serverIp1 = "134.175.191.97";	// 134.175.191.97 / 172.20.154.225
+
+var  httpurl = "/ocn";
+var  host = "ws://" + serverIp1 + ":9008";
+var  logcatHost ="ws://" + serverIp1 + ":9005";
 var mobileMainUrl="mobileMain.html",  
     mobile = (/mmp|symbian|smartphone|midp|wap|phone|xoom|iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()));  
     // if (mobile) {  
@@ -88,15 +90,26 @@ function connect()
         OutputLog('Socket Status: '+socket.readyState);
         socket.onopen = function()
         {
-            sourceid = Math.random()*1000+"1"; 
-            sourceid =crc32_hash(sourceid);       
-            OutputLog("sourceid ="+sourceid);
+            var rand1 = Math.ceil(1000 * Math.random());
+            var rand2 = Math.ceil(1000 * Math.random());
+            var rand3 = Math.ceil(1000 * Math.random());
+            var rand4 = Math.ceil(1000 * Math.random());
+            var rand5 = Math.ceil(1000 * Math.random());
+            var longrand;
+            longrand = "" + rand1 + "-" + rand2 + "-" + rand3 + "-" + rand4 + "-" + rand5;
+            sourceid = crc32_hash(longrand);
+            OutputLog("sourceid = " + sourceid + ", longrand = " + longrand);
             setTargetAndSource(sourceid,0x00000000);
             setCommandId(CMD_REG_PC,0);//向服务器注册 
-            var msg1 = getTVId;
+            var msg1;
+            if (g_activeId == null || g_activeId == "")
+                msg1 = getTVId;
+            else
+                msg1 = getTVId + "," + g_activeId;              // 如果激活ID不为空，则增加激活ID的提交
             // var msg = msg1.toLocaleUpperCase();
+            OutputLog("call tv = " + msg1);
             var msg = msg1;
-            setStringParam(msg);/*"c539a58d1c092d0cb90317fd8cc64a97"*/
+            setStringParam(msg);
             socket.send(assemblingProtocol());
         }
         socket.onmessage = function(msg)
@@ -133,7 +146,7 @@ function connect()
                         document.getElementById('main').style.display="block";
                         document.getElementById('import').style.display="none";
                         tv_id = getBuferParam();
-                        OutputLog("TV  id ="+tv_id);
+                        OutputLog("TV id crc32 = " + tv_id);
                         getTvinfo();
                     }
                     else if (CMD_USER_REFUSED ==  getCommand())

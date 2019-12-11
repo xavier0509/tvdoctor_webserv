@@ -6,7 +6,8 @@ $TVId = $_GET['TVId'];
 $length = strlen($TVId);
 $lastChar = substr($TVId, $length-1);
 if($TVId == "SKYWORTHCOOCAA" || $lastChar == "@"){
-  echo notifierSocket($TVId);
+  //echo notifierSocket($TVId);
+  echo notifierSocket($TVId . "," . $activeId);
 }
 else{
   getPara();
@@ -48,7 +49,7 @@ function getPara()
 
   // $accessTokenSys = getToken($msgUrl,$devid, $appidSys, $APISecret);
   $pushTokenSys = getToken($touchUrl,$devid, $appidSys8, $APISecret);
-
+  // echo("pushTokenSys===".$pushTokenSys."\n"."" != $pushTokenSys);
    if("" != $pushTokenSys){
     $isFindPushid  = 1;
     // $ret = pushv2($SySpushid1,$appidSys,$activeId);
@@ -57,6 +58,7 @@ function getPara()
       $isPushIdExsit = 1;
     }
   }
+
 
   // $SySpushid1 = getPushIdByActiveId($appidSys, $activeId, $accessTokenSys);
   // if ("" != $SySpushid1) {
@@ -89,6 +91,8 @@ function getPara()
     }
   }
 
+
+
   // $TVCpushid1 = getPushIdByActiveId($appidTv, $activeId, $accessTokenTv);
   // if ("" != $TVCpushid1) {
   //   $isFindPushid  = 1;
@@ -113,16 +117,17 @@ function getPara()
   
   if ($isFindPushid == 1) {
     if (1 == $isPushIdExsit) {
-      echo notifierSocket($tvid)  ;//pushid 把tvid告诉服务器
+      //echo notifierSocket($tvid)  ;//pushid 把tvid告诉服务器		
+      echo notifierSocket($tvid . "," . $activeId)  ;//pushid 把tvid告诉服务器
       return;
     }
     else{
   echo "getPushid but not find";
   } 
   }
-  // else {
+  else {
     echo "pushid is null";
-  // }
+  }
   return;
 }
 
@@ -205,7 +210,9 @@ class NotifierSocket
     private $socket;  
     private $port=9002;  
     private $host='127.0.0.1';  
-    public function __construct($host='134.175.191.97',$port=9002){  
+    public function __construct($host='134.175.191.97',$port=9002)
+    //public function __construct($host='172.20.154.225',$port=9002)
+    {
         $this->host=$host;  
         $this->port=$port;  
         $this->socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);  
@@ -310,7 +317,7 @@ function pushv2($id,$appid){
   $tvid_token = md5($md5_src);
   $url = "http://msg.push.jscnnet.com/v2/message/sendMsg?pushId=".$id ."&msg=connect&ttl=120&token=".$tvid_token."&timeStamp=".$timestamp."&appId=".$appid;
   $result =  httpRequest($url);
-  getMsgApi($activeId,$result);
+  getMsgApi($id,$result);
   $datajson =json_decode($result);
   return $datajson->code;
 
@@ -334,7 +341,7 @@ function getToken($passurl,$devid, $appid, $APISecret){
   $token = md5($md5String);
   $url = $passurl."?devId=".$devid."&appId=".$appid."&timeStamp=".$timeStamp."&token=".$token;
   $result =  httpRequest($url);
-  getMsgApi($activeId,$result);
+  // getMsgApi($activeId,$result);
   $datajson =json_decode($result);
   return $datajson->data->access_token;
 }
