@@ -46,18 +46,28 @@ function getTVidfunc()
         {
             var data = this.responseText;
             printlog(data);
-            if (data == "TVId is null") // login success
-            { 
-               document.getElementById('linkTV').removeAttribute("disabled");
-               document.getElementById('linkTV').removeAttribute("class");
-               clearInterval(interval);
-               document.getElementById('span1').innerHTML="<font color='red'>TVId为空</font>";
-               setTimeout("document.getElementById('span1').innerHTML=''",3000);
-               document.getElementById('linkTV').innerHTML="连接电视";
-            } 
-            else
+            //if (data == "TVId is null") // login success
+            //{ 
+            //   document.getElementById('linkTV').removeAttribute("disabled");
+            //   document.getElementById('linkTV').removeAttribute("class");
+            //   clearInterval(interval);
+            //   document.getElementById('span1').innerHTML="<font color='red'>TVId为空</font>";
+            //   setTimeout("document.getElementById('span1').innerHTML=''",3000);
+            //   document.getElementById('linkTV').innerHTML="连接电视";
+            //} 
+            //else
             {
               //通过电视id通知请求
+              if (data == "TVId is null")	// 如果TVID为空则随机生成一个
+              {
+              	var rand1 = Math.ceil(1000 * Math.random());
+	            var rand2 = Math.ceil(1000 * Math.random());
+	            var rand3 = Math.ceil(1000 * Math.random());
+	            var rand4 = Math.ceil(1000 * Math.random());
+	            var rand5 = Math.ceil(1000 * Math.random());
+	            getTVId = "" + rand1 + "-" + rand2 + "-" + rand3 + "-" + rand4 + "-" + rand5;
+              }
+              else
               getTVId = data;
               var pushid2 =document.getElementById('pushid').value;
               var pushid3 = pushid2.replace(/\s+/g,"");;
