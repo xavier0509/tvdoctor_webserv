@@ -1416,7 +1416,9 @@ function fileupload_ok(){
   },
    error: function(data, status, e)
    { 
-     OutputLog("uploadfile upload error ===========e:"+e);
+   	 OutputLog("uploadfile upload error");
+   	 OutputLog("ret data = " + data);
+   	 OutputLog("status = " + status + ", error = " + e);
      //上传失败
      buttonUpload.innerHTML = "上传到服务器失败,错误码是:"+e;
      OutputLog("uploadfile upload error 2 ===========data.file_error="+data.file_error+"data.file_path="+data.file_path);
