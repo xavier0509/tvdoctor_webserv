@@ -1417,7 +1417,7 @@ function fileupload_ok(){
    error: function(data, status, e)
    { 
    	 OutputLog("uploadfile upload error");
-   	 OutputLog("ret data = " + data);
+   	 OutputLog("ret data = " + JSON.stringify(data));
    	 OutputLog("status = " + status + ", error = " + e);
      //上传失败
      buttonUpload.innerHTML = "上传到服务器失败,错误码是:"+e;
