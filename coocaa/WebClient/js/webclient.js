@@ -178,7 +178,7 @@ function connect()
                         else   
                         {
                             strCmd = data;
-                            strCmd = strCmd.replace(/ /g, "&nbsp;");
+                            //strCmd = strCmd.replace(/ /g, "&nbsp;");
                             //arrCmd.push(data);
                             exeCmd();
                             setInnerText(logcatInput, "");
