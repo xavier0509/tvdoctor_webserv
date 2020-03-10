@@ -210,7 +210,7 @@ class NotifierSocket
     private $socket;  
     private $port=9002;  
     private $host='127.0.0.1';  
-    public function __construct($host='134.175.191.97',$port=9002)
+    public function __construct($host='172.30.224.224',$port=9002)
     //public function __construct($host='172.20.154.225',$port=9002)
     {
         $this->host=$host;  

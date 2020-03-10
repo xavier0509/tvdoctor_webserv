@@ -5,7 +5,7 @@ document.write("<script language=javascript src='js/jquery-1.7.1.min.js' charset
 document.write("<script language=javascript src='js/ajaxfileupload.js' charset=\"utf-8\"></script>");
 document.write("<script language=javascript src='js/md5.js' charset=\"utf-8\"></script>");
 
-var  serverIp1 = "134.175.191.97";	// 134.175.191.97 / 172.20.154.225
+var  serverIp1 = "172.30.224.224";	// 172.30.224.224 / 172.20.154.225
 
 var  httpurl = "/jscn";
 var  host = "ws://" + serverIp1 + ":9008";
